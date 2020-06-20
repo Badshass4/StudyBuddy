@@ -5,4 +5,4 @@ An essential web-app which have huge amount of study materials for all the subje
 
 1. Go to frontend and backend
 2. Run npm install
-3. Run npm start from both folders
+3. Run npm start from both frontend and backend folders
