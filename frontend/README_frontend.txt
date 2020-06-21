@@ -1,3 +1,3 @@
-Developer : Sayantan Kundu (Admin)
+Developer : Sayantan Kundu.
 
-This is the the frontend folder where code is written in React JS.
+This is the frontend code, Powered by React JS.
