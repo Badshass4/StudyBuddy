@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Redirect,Switch } from 'react-router-dom'
 import Test from './dashboard/pages/Test.js'
-import NewTest from './dashboard/pages/NewTest.js'
+import NewTest from './dashboard/components/NewTest.js'
 
 
 //  <------Note------>
