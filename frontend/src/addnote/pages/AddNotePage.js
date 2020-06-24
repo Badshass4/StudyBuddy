@@ -8,7 +8,7 @@ const AddNotePage = () => {
 
     let [allSubjects, setAllSubjects] = useState([]);
 
-    useEffect((prevState) => {
+    useEffect(() => {
         axios
             .get(
                 "http://localhost:5000/admin/add-note"
