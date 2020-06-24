@@ -7,7 +7,20 @@ const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
+app.use(bodyparser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+//Handle CORS error for SPA connection when accessing from browser
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers',
+        'Origin, X-Requested-With, Content-Type, Accecpt, Authorization');
+    if(req,method === 'OPTIONS'){
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
+    next();
+})
 
 //accessing routes
 app.use('/admin', adminRoutes);
