@@ -3,7 +3,7 @@ const httpError = require('../models/error');
 const Subject = require('../models/subject');
 
 // Function to go to add note page and fetching all subjects from subjects collection
-exports.getAddNote = (req, res, next) => {
+exports.getSubjects = (req, res, next) => {
     Subject.find()
         .then(result => {
             let allSubject = [];

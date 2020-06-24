@@ -22,10 +22,10 @@ import AddNotePage from './addnote/pages/AddNotePage'
 function App() {
   return <Router>
     <Switch>
-      <Route path="/" exact>
+      <Route path="/admin/addnote" exact>
         <AddNotePage className="bgcolor"></AddNotePage>
       </Route>
-      <Redirect to="/"></Redirect>
+      <Redirect to="/admin/addnote"></Redirect>
     </Switch>
   </Router>;
 }

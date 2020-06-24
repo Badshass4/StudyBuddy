@@ -11,7 +11,7 @@ const AddNotePage = () => {
     useEffect(() => {
         axios
             .get(
-                "http://localhost:5000/admin/add-note"
+                "http://localhost:5000/admin/subjects"
             )
             .then(response => {
                 allSubjects = response.data;

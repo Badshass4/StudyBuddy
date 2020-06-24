@@ -4,8 +4,8 @@ const adminController = require('../controllers/adminController');
 
 const adminRoutes = express.Router();
 
-//admin/add-note => GET
-adminRoutes.get('/add-note', adminController.getAddNote);
+//admin/subjects => GET
+adminRoutes.get('/subjects', adminController.getSubjects);
 
 //admin/add-note => POST
 // adminRoutes.post('/add-note', adminController.postAddNote);
