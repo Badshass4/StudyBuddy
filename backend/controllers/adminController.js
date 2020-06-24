@@ -9,8 +9,8 @@ exports.getAddNote = (req, res, next) => {
             let allSubject = [];
             newResult = [...result];
             newResult.map(r => {
-                if( allSubject.includes(r.subjectName) === false){
-                    allSubject.push(r.subjectName);
+                if (!allSubject.includes({ id: r.subjectId, label: r.subjectName })) {
+                    allSubject.push({ id: r.subjectId, label: r.subjectName });
                 }
             });
             allSubject.sort();
