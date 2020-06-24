@@ -1,0 +1,12 @@
+.card-style{
+    min-width: 500px;
+    min-height: 500px;
+    background-color: gainsboro !important;
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-button-style{
+    cursor: pointer;
+}

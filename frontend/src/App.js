@@ -1,8 +1,8 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Redirect,Switch } from 'react-router-dom'
-import Test from './dashboard/pages/Test.js'
-import NewTest from './dashboard/components/NewTest.js'
+import AddNotePage from './addnote/pages/AddNotePage'
+// import NewTest from './dashboard/components/NewTest.js'
 
 
 //  <------Note------>
@@ -23,10 +23,7 @@ function App() {
   return <Router>
     <Switch>
       <Route path="/" exact>
-        <Test></Test>
-      </Route>
-      <Route path="/new" exact>
-        <NewTest></NewTest>
+        <AddNotePage className="bgcolor"></AddNotePage>
       </Route>
       <Redirect to="/"></Redirect>
     </Switch>
