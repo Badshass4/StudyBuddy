@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Redirect,Switch } from 'react-router-dom'
 import AddNotePage from './addnote/pages/AddNotePage'
+import Header from './shared/navigation/Header'
 // import NewTest from './dashboard/components/NewTest.js'
 
 
@@ -21,9 +22,13 @@ import AddNotePage from './addnote/pages/AddNotePage'
 
 function App() {
   return <Router>
+    <Header></Header>
     <Switch>
       <Route path="/admin/addnote" exact>
         <AddNotePage className="bgcolor"></AddNotePage>
+      </Route>
+      <Route path="/admin/addnote/new" exact>
+        <span>CCCCCCCCCCCCCCCCCCC</span>
       </Route>
       <Redirect to="/admin/addnote"></Redirect>
     </Switch>

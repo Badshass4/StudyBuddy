@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../styles/formelements.css'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,11 +10,19 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputAdornment from '@material-ui/core/InputAdornment';
 
+
 const FormElements = (props) => {
+
+    let [fileName, setFileName] = useState("");
+
     const textElement = <TextField label="Title" required variant="outlined" style={{ width: '100%' }} />
 
-
     const optionsParams = props.parameters[1]
+
+    const fileSelectionHandler = (event) => {
+        fileName = event.target.files[0].name;
+        setFileName(fileName);
+    }
 
     const dropdownElement = (el) => {
         return <Autocomplete
@@ -27,10 +35,6 @@ const FormElements = (props) => {
         />
     }
 
-    const clickUpload = () => {
-        alert('HII')
-    }
-
     const uploadElement =
         <React.Fragment>
             <input
@@ -39,14 +43,15 @@ const FormElements = (props) => {
                 id="contained-button-file"
                 multiple
                 type="file"
+                onChange={fileSelectionHandler}
             />
             <label htmlFor="contained-button-file">
                 <OutlinedInput
                     id="outlined-adornment-weight"
                     placeholder="Upload file"
-                    disabled
+                    value={fileName}
                     style={{ width: '100%' }}
-                    endAdornment={<InputAdornment className="upload-button-style"  position="end"><CloudUploadIcon /></InputAdornment>}
+                    endAdornment={<InputAdornment className="upload-button-style" position="end"><CloudUploadIcon /></InputAdornment>}
                     inputprops={{
                         readOnly: true
                     }}
