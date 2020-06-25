@@ -5,15 +5,18 @@ import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
+// import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
+// import MailIcon from '@material-ui/icons/Mail';
+// import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -104,8 +107,8 @@ export default function Header() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
-    const handleSearchClick=(event) => {
-        if(event.keyCode == 13){
+    const handleSearchClick = (event) => {
+        if (event.keyCode === 13) {
             alert(event.target.value);
         }
     };
@@ -138,7 +141,20 @@ export default function Header() {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
+
             <MenuItem>
+                <IconButton color="inherit">
+                    <MenuBookIcon />
+                </IconButton>
+                <p>Study Materials</p>
+            </MenuItem>
+            <MenuItem>
+                <IconButton color="inherit">
+                    <NoteAddIcon />
+                </IconButton>
+                <p>Add Notes</p>
+            </MenuItem>
+            {/* <MenuItem>
                 <IconButton aria-label="show 4 new mails" color="inherit">
                     <Badge badgeContent={4} color="secondary">
                         <MailIcon />
@@ -153,7 +169,7 @@ export default function Header() {
                     </Badge>
                 </IconButton>
                 <p>Notifications</p>
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     aria-label="account of current user"
@@ -194,12 +210,22 @@ export default function Header() {
                                 input: classes.inputInput,
                             }}
                             inputProps={{ 'aria-label': 'search' }}
-                            onKeyUp = {handleSearchClick}
+                            onKeyUp={handleSearchClick}
                         />
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
+                        <Tooltip title="Study Materials">
+                            <IconButton color="inherit">
+                                <MenuBookIcon />
+                            </IconButton>
+                        </Tooltip>
+                        <Tooltip title="Add Notes">
+                            <IconButton color="inherit">
+                                <NoteAddIcon />
+                            </IconButton>
+                        </Tooltip>
+                        {/* <IconButton aria-label="show 4 new mails" color="inherit">
                             <Badge badgeContent={4} color="secondary">
                                 <MailIcon />
                             </Badge>
@@ -208,7 +234,7 @@ export default function Header() {
                             <Badge badgeContent={17} color="secondary">
                                 <NotificationsIcon />
                             </Badge>
-                        </IconButton>
+                        </IconButton> */}
                         <IconButton
                             edge="end"
                             aria-label="account of current user"

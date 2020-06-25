@@ -14,6 +14,7 @@ const AddNotePage = () => {
                 "http://localhost:5000/admin/subjects"
             )
             .then(response => {
+                document.title = "StudyBuddy | Add Notes";
                 allSubjects = response.data;
                 setAllSubjects(allSubjects.allSubject);
             }).catch(err => {
@@ -37,7 +38,7 @@ const AddNotePage = () => {
         }];
 
     return (
-        <form className="center">
+        <form className="form-control" method="POST">
             <FormElements parameters={formElementParams}></FormElements>
         </form>
     )

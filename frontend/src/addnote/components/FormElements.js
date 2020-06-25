@@ -26,30 +26,34 @@ const FormElements = (props) => {
 
     const dropdownElement = (el) => {
         return <Autocomplete
-            id="combo-box-demo"
+            id="subjectDropdown"
+            key={(option) => option.id}
             options={optionsParams.options}
             getOptionLabel={(option) => option.label}
             style={{ width: '100%' }}
             renderInput={(params) =>
-                <TextField {...params} label="Subjects" variant="outlined" />}
+                <TextField {...params} label="Subjects" variant="outlined" required/>}
         />
     }
 
     const uploadElement =
         <React.Fragment>
             <input
-                accept="image/*"
+                accept="image/*"  // only accepts image files now
                 style={{ display: 'none' }}
                 id="contained-button-file"
                 multiple
                 type="file"
                 onChange={fileSelectionHandler}
+                required
             />
             <label htmlFor="contained-button-file">
                 <OutlinedInput
                     id="outlined-adornment-weight"
-                    placeholder="Upload file"
+                    placeholder="Upload file *"
                     value={fileName}
+                    required
+                    autoComplete="off"
                     style={{ width: '100%' }}
                     endAdornment={<InputAdornment className="upload-button-style" position="end"><CloudUploadIcon /></InputAdornment>}
                     inputprops={{
@@ -70,14 +74,18 @@ const FormElements = (props) => {
         }
     })
 
+    const handleFormSubmit = () =>{
+        alert('Form Submitted');
+    };
+
     return (
-        <div>
+        <div style={{paddingTop: '20px'}}>
             <Card className="card-style">
                 <CardContent>
                     {finalElement}
                 </CardContent>
-                <CardActions>
-                    <Button variant="contained" color="primary">
+                <CardActions style={{ paddingLeft: '200px' }}>
+                    <Button onClick={handleFormSubmit} variant="contained" color="primary">
                         Submit
                     </Button>
                 </CardActions>

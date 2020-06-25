@@ -1,9 +1,9 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Redirect,Switch } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter as Router, Route, Redirect,Switch } from 'react-router-dom'
-import AddNotePage from './addnote/pages/AddNotePage'
-import Header from './shared/navigation/Header'
-// import NewTest from './dashboard/components/NewTest.js'
+import AddNotePage from './addnote/pages/AddNotePage';
+import Header from './shared/navigation/Header';
+// import NewTest from './dashboard/components/NewTest.js';
 
 
 //  <------Note------>
