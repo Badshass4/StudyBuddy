@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 
 const HttpError = require('./models/error');
 const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use((req, res, next) => {
 
 //accessing routes
 app.use('/admin', adminRoutes);
+app.use('/user', userRoutes);
 
 
 //unsupported routes
