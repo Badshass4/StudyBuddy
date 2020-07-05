@@ -1,6 +1,7 @@
 const express = require('express');
 
 const adminController = require('../controllers/adminController');
+const fileUpload = require('../middleware/file-upload');
 
 const adminRoutes = express.Router();
 
@@ -8,6 +9,6 @@ const adminRoutes = express.Router();
 adminRoutes.get('/subjects', adminController.getSubjects);
 
 //admin/add-note => POST
-// adminRoutes.post('/add-note', adminController.postAddNote);
+adminRoutes.post('/add-note', fileUpload.single('file'), adminController.postAddNote);
 
 module.exports = adminRoutes;

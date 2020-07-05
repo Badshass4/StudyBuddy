@@ -2,8 +2,9 @@ const express = require('express');
 const bodyParser = require('body-parser');// for parsing data from one page to another page
 const mongoose = require('mongoose');
 
-const httpError = require('./models/error');
+const HttpError = require('./models/error');
 const adminRoutes = require('./routes/adminRoutes');
+const userRoutes = require('./routes/userRoutes');
 
 const app = express();
 
@@ -24,12 +25,12 @@ app.use((req, res, next) => {
 
 //accessing routes
 app.use('/admin', adminRoutes);
+app.use('/user', userRoutes);
 
 
 //unsupported routes
 app.use((req, res, next) => {
-    const error = new Error('Could not found this page', 404);
-    return next(error);
+    throw new HttpError('Oops! Could not found this page.', 404);
 });
 
 //error handling middleware
@@ -38,7 +39,7 @@ app.use((error, req, res, next) => {
         return next(error);
     }
     res.status(error.code || 500);
-    res.json({ message: error.message || 'An unknown error occured !' });
+    res.json({ message: error.message || 'An unknown error occurred !' });
 });
 
 mongoose.connect('mongodb+srv://badsha:Goku1234@cluster0-czr76.mongodb.net/studybuddy?retryWrites=true&w=majority')

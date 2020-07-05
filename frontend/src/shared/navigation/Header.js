@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -109,7 +110,15 @@ export default function Header() {
 
     const handleSearchClick = (event) => {
         if (event.keyCode === 13) {
-            alert(event.target.value);
+            axios
+                .get(
+                    "http://localhost:5000/user/notes/" + event.target.value
+                )
+                .then(response => {
+                    alert(response);
+                }).catch(err => {
+                    console.log(err);
+                });
         }
     };
 
@@ -204,7 +213,7 @@ export default function Header() {
                             <SearchIcon />
                         </div>
                         <InputBase
-                            placeholder="Search…"
+                            placeholder="Search Subject…"
                             classes={{
                                 root: classes.inputRoot,
                                 input: classes.inputInput,

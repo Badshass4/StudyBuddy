@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Redirect,Switch } from 'react-router-do
 import './App.css';
 import AddNotePage from './addnote/pages/AddNotePage';
 import Header from './shared/navigation/Header';
-// import NewTest from './dashboard/components/NewTest.js';
+import Snackbar from './shared/snackBar/snackBar';
 
 
 //  <------Note------>
@@ -23,6 +23,7 @@ import Header from './shared/navigation/Header';
 function App() {
   return <Router>
     <Header></Header>
+    <Snackbar />
     <Switch>
       <Route path="/admin/addnote" exact>
         <AddNotePage className="bgcolor"></AddNotePage>

@@ -1,8 +1,8 @@
-const httpError = require('../models/error');
-
+const HttpError = require('../models/error');
 const Subject = require('../models/subject');
+const StudyMaterial = require('../models/studyMaterial');
 
-// Function to go to add note page and fetching all subjects from subjects collection
+// Function to fetch all subjects from subjects collection and return it to admin/addnote page
 exports.getSubjects = (req, res, next) => {
     Subject.find()
         .then(result => {
@@ -17,11 +17,24 @@ exports.getSubjects = (req, res, next) => {
             res.json({ allSubject });
         })
         .catch(err => {
-            console.log(err);
+            return next (new HttpError('An unknown error occurred ! Please check after sometime...', 404));
         });
 };
 
 // Function to add notes after clicking add button
-// exports.postAddNote = (req, res, next) => {
-
-// };
+exports.postAddNote = (req, res, next) => {
+    const { title, subject } = req.body;
+    const file = req.file;
+    const studyMaterial = new StudyMaterial({
+        title: title,
+        subject: subject,
+        file: file
+    });
+    studyMaterial.save()
+        .then(result => {
+            res.json({ message: "File has been uploaded successfully." })
+        })
+        .catch(err => {
+            return next (new HttpError('An unknown error occurred ! Please check after sometime...', 404));
+        });
+};
