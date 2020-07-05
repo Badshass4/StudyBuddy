@@ -8,12 +8,12 @@ exports.searchSubject = (req, res, next) => {
     )
         .then(result => {
             if (result.length === 0) {
-                throw new HttpError('Please enter correct subject name.', 404);
+                return next (new HttpError('Please enter correct subject name.', 404));
             } else {
                 res.json({ result });
             }
         })
         .catch(err => {
-            throw new HttpError('Server timed out.', 404);
+            return next (new HttpError('Server timed out.', 404));
         });
 };

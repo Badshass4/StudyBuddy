@@ -17,7 +17,7 @@ exports.getSubjects = (req, res, next) => {
             res.json({ allSubject });
         })
         .catch(err => {
-            throw new HttpError('An unknown error occurred ! Please check after sometime...', 404);
+            return next (new HttpError('An unknown error occurred ! Please check after sometime...', 404));
         });
 };
 
@@ -32,9 +32,9 @@ exports.postAddNote = (req, res, next) => {
     });
     studyMaterial.save()
         .then(result => {
-            res.json({ message: "File has been saved successfully." })
+            res.json({ message: "File has been uploaded successfully." })
         })
         .catch(err => {
-            throw new HttpError('An unknown error occurred ! Please check after sometime...', 404);
+            return next (new HttpError('An unknown error occurred ! Please check after sometime...', 404));
         });
 };

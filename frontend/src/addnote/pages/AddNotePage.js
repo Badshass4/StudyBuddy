@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import FormElements from '../components/FormElements'
 import '../styles/addnote.css'
-// import AlertMessage from '../../utils/AlertMessage'
+import { useDispatch } from "react-redux";
+import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 
 
 const AddNotePage = () => {
@@ -24,6 +25,7 @@ const AddNotePage = () => {
             });
     }, []);
 
+    const dispatch = useDispatch();
     const postFormHandler = (title, subject, file) => {
         const formData = new FormData();
         formData.append('title', title);
@@ -36,9 +38,21 @@ const AddNotePage = () => {
                 formData
             )
             .then(response => {
-                alert('Form submitted successfully')
+                dispatch(
+                    setSnackbar(
+                      true,
+                      "success",
+                      response.data.message
+                    )
+                  );
             }).catch(err => {
-                alert(err)
+                dispatch(
+                    setSnackbar(
+                      true,
+                      "error",
+                      err.response.data.message
+                    )
+                  );
             });
     }
     const formElementParams = [
