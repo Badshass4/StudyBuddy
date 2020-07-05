@@ -13,6 +13,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import { isValidText, isValidFile } from '../../utils/validate'
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch } from "react-redux";
+import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 
 
 const FormElements = (props) => {
@@ -24,6 +26,8 @@ const FormElements = (props) => {
     let [validSubject, setValidSubject] = useState(true);
     let [validFile, setValidFile] = useState(true);
     let [fileErrorMsg, setFileErrorMsg] = useState("");
+
+    const dispatch = useDispatch();
 
     const handlePostForm = props.submitForm;
 
@@ -60,11 +64,18 @@ const FormElements = (props) => {
     }
 
     const handleFormSubmit = () => {
-        setValidTitle(isValidText(title));
-        setValidSubject(isValidText(subject.label));
-        setValidFile(isValidFile(file).isValid);
-        setFileErrorMsg(isValidFile(file).errorMessage);
-        handlePostForm(title,subject,file);
+        if (title === "" || title === null || subject === null || file === null) {
+            dispatch(setSnackbar(
+                true,
+                "error",
+                "Please fill all the fields"))
+        } else {
+            setValidTitle(isValidText(title));
+            setValidSubject(isValidText(subject.label));
+            setValidFile(isValidFile(file).isValid);
+            setFileErrorMsg(isValidFile(file).errorMessage);
+            handlePostForm(title, subject, file);
+        }
     };
 
     const textElement = <React.Fragment>
