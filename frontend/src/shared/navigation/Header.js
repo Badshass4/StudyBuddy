@@ -83,8 +83,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Header() {
+const Header = (props) => {
     const classes = useStyles();
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -110,15 +111,7 @@ export default function Header() {
 
     const handleSearchClick = (event) => {
         if (event.keyCode === 13) {
-            axios
-                .get(
-                    "http://localhost:5000/user/notes/" + event.target.value
-                )
-                .then(response => {
-                    alert(response);
-                }).catch(err => {
-                    console.log(err);
-                });
+            props.history.push("/user/studymaterials/" + event.target.value);
         }
     };
 
@@ -273,4 +266,6 @@ export default function Header() {
         </div>
     )
 }
+
+export default Header
 

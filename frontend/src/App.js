@@ -1,16 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Redirect,Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 import AddNotePage from './addnote/pages/AddNotePage';
 import Header from './shared/navigation/Header';
 import Snackbar from './shared/snackBar/snackBar';
+import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
 
 
 //  <------Note------>
 
 // <Router> - If we want to acheive SPA(Single Page Applications),
 //          then we need to enclose App within <Router>  
- 
+
 // <Route> - We need the enclose the desired component within this tag
 //           to redirect the pages to the desired component on entering the URL
 
@@ -21,19 +22,18 @@ import Snackbar from './shared/snackBar/snackBar';
 //            This tag tells the dom to redirect all the other URLs to default except the mentioned routes.
 
 function App() {
-  return <Router>
-    <Header></Header>
+  return <BrowserRouter>
+    <Route component={Header}>
+    </Route>
     <Snackbar />
     <Switch>
-      <Route path="/admin/addnote" exact>
-        <AddNotePage className="bgcolor"></AddNotePage>
+      <Route path="/admin/addnote" exact component={AddNotePage}>
       </Route>
-      <Route path="/admin/addnote/new" exact>
-        <span>CCCCCCCCCCCCCCCCCCC</span>
+      <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage}>
       </Route>
       <Redirect to="/admin/addnote"></Redirect>
     </Switch>
-  </Router>;
+  </BrowserRouter>;
 }
 
 export default App;
