@@ -76,7 +76,7 @@ const StudyMaterialPage = (props) => {
                             {
                                 studyMaterials[key].map(note => {
                                     return (<React.Fragment>
-                                        <Grid key={note._id} item xs={2} sm={2}>
+                                        <Grid key={note._id} item xs={12} sm={2}>
                                             <StudyMaterialCard className={classes.card} info={note} />
                                         </Grid>
                                     </React.Fragment>);

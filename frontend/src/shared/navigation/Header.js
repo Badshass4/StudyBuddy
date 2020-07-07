@@ -146,15 +146,8 @@ const Header = (props) => {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-
             <MenuItem>
-                <IconButton color="inherit">
-                    <MenuBookIcon />
-                </IconButton>
-                <p>Study Materials</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton color="inherit">
+                <IconButton color="inherit" onClick={handleAddNoteClick}>
                     <NoteAddIcon />
                 </IconButton>
                 <p>Add Notes</p>
