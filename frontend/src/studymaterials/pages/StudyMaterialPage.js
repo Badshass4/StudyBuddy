@@ -6,6 +6,7 @@ import StudyMaterialCard from '../components/StudyMaterialCard'
 import '../styles/studymaterialpage.css'
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -71,7 +72,7 @@ const StudyMaterialPage = (props) => {
                 subjectKeys.map(key => {
                     return (<React.Fragment>
                         <h2>{key}</h2>
-                        <Grid container spacing={3}>
+                        <Grid container spacing={3} style={{paddingBottom: '40px'}}>
                             {
                                 studyMaterials[key].map(note => {
                                     return (<React.Fragment>
@@ -82,6 +83,7 @@ const StudyMaterialPage = (props) => {
                                 })
                             }
                         </Grid>
+                        <Divider />
                     </React.Fragment>)
                 })
             }

@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -44,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(3),
-            width: 'auto',
+            width: '300px',
         },
     },
     searchIcon: {
@@ -113,6 +112,10 @@ const Header = (props) => {
         if (event.keyCode === 13) {
             props.history.push("/user/studymaterials/" + event.target.value);
         }
+    };
+
+    const handleAddNoteClick = () => {
+        props.history.push("/admin/addnote");
     };
 
     const menuId = 'primary-search-account-menu';
@@ -198,9 +201,12 @@ const Header = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
+                    <IconButton color="inherit" >
+                    <MenuBookIcon style={{paddingRight: '8px'}}/>
                     <Typography className={classes.title} variant="h6" noWrap>
                         Study Buddy
                     </Typography>
+                    </IconButton>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -217,13 +223,8 @@ const Header = (props) => {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <Tooltip title="Study Materials">
-                            <IconButton color="inherit">
-                                <MenuBookIcon />
-                            </IconButton>
-                        </Tooltip>
                         <Tooltip title="Add Notes">
-                            <IconButton color="inherit">
+                            <IconButton color="inherit" onClick={handleAddNoteClick}>
                                 <NoteAddIcon />
                             </IconButton>
                         </Tooltip>
