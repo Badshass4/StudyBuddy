@@ -16,6 +16,13 @@ export function isValidFile(inputFile) {
     return { errorMessage: errMsg, isValid: isValid };
 }
 
+export function isValidSubject(inputField) {
+    if (inputField === null || Object.keys(inputField).length === 0) {
+        return false
+    } else
+        return true
+}
+
 export function isValidText(inputField) {
     if (!inputField || inputField.length === 0) {
         return false

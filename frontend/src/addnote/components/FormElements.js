@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import '../styles/formelements.css'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -11,7 +11,7 @@ import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import { isValidText, isValidFile } from '../../utils/validate'
+import { isValidText, isValidFile, isValidSubject } from '../../utils/validate'
 import { makeStyles } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
@@ -64,17 +64,18 @@ const FormElements = (props) => {
     }
 
     const handleFormSubmit = () => {
-        if (title === "" || title === null || subject === null || file === null) {
+        setValidTitle(isValidText(title));
+        setValidSubject(isValidSubject(subject));
+        setValidFile(isValidFile(file).isValid);
+        setFileErrorMsg(isValidFile(file).errorMessage);
+        if (isValidText(title) && isValidSubject(subject) && isValidFile(file).isValid) {
+            handlePostForm(title, subject, file);
+        }
+        else {
             dispatch(setSnackbar(
                 true,
                 "error",
                 "Please fill all the fields"))
-        } else {
-            setValidTitle(isValidText(title));
-            setValidSubject(isValidText(subject.label));
-            setValidFile(isValidFile(file).isValid);
-            setFileErrorMsg(isValidFile(file).errorMessage);
-            handlePostForm(title, subject, file);
         }
     };
 
