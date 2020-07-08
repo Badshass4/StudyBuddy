@@ -12,10 +12,9 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import { isValidText, isValidFile, isValidSubject } from '../../utils/validate'
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
-
 
 const FormElements = (props) => {
 
@@ -44,6 +43,12 @@ const FormElements = (props) => {
             // }
         }
     }));
+
+    const theme = createMuiTheme({
+        palette: {
+            primary: { main: '#663d00' },
+        },
+    });
 
     const dropdownErrorClass = useStyles();
 
@@ -162,9 +167,11 @@ const FormElements = (props) => {
                     {finalElement}
                 </CardContent>
                 <CardActions style={{ paddingLeft: '200px' }}>
-                    <Button onClick={handleFormSubmit} variant="contained" color="primary">
-                        Submit
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={handleFormSubmit} variant="contained" color="primary">
+                            Submit
                     </Button>
+                    </ThemeProvider>
                 </CardActions>
             </Card>
         </div>

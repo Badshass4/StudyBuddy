@@ -1,7 +1,7 @@
 .card-style{
     min-width: 500px;
     min-height: 380px;
-    background-color: gainsboro !important;
+    background-color: #ffffb3 !important;
     /* display: flex; */
     justify-content: center;
     align-items: center;

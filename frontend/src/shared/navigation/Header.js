@@ -17,19 +17,16 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 // import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Tooltip from '@material-ui/core/Tooltip';
+import Drawer from '@material-ui/core/Drawer';
+import '../../shared/styles/font.css'
 
 const useStyles = makeStyles((theme) => ({
     grow: {
         flexGrow: 1,
+        display: 'flex'
     },
     menuButton: {
         marginRight: theme.spacing(2),
-    },
-    title: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
-        },
     },
     search: {
         position: 'relative',
@@ -80,6 +77,20 @@ const useStyles = makeStyles((theme) => ({
             display: 'none',
         },
     },
+    drawer: {
+        // width: 240,
+        flexShrink: 0
+    },
+    drawerPaper: {
+        width: 240,
+        marginTop: theme.spacing(8),
+        background: '#663d00',
+        boxShadow: '2px -5px 8px #4d4d33'
+    },
+    appBar: {
+        zIndex: theme.zIndex.drawer + 1,
+        background: '#331f00'
+    }
 }));
 
 const Header = (props) => {
@@ -87,6 +98,7 @@ const Header = (props) => {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+    const [drawerOpen, setDrawerOpen] = React.useState(false);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -117,6 +129,10 @@ const Header = (props) => {
     const handleAddNoteClick = () => {
         props.history.push("/admin/addnote");
     };
+
+    const handlerOpenDrawer = () => {
+        setDrawerOpen(!drawerOpen);
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -184,20 +200,21 @@ const Header = (props) => {
 
     return (
         <div className={classes.grow}>
-            <AppBar position="static">
+            <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
                     <IconButton
                         edge="start"
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
+                        onClick={handlerOpenDrawer}
                     >
                         <MenuIcon />
                     </IconButton>
                     <IconButton color="inherit" >
-                    <MenuBookIcon style={{paddingRight: '8px'}}/>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        Study Buddy
+                        <MenuBookIcon style={{ paddingRight: '8px' }} />
+                        <Typography className="font" variant="h6" noWrap>
+                            Study Buddy
                     </Typography>
                     </IconButton>
                     <div className={classes.search}>
@@ -255,6 +272,15 @@ const Header = (props) => {
                     </div>
                 </Toolbar>
             </AppBar>
+            <Drawer
+                className={classes.drawer}
+                variant="persistent"
+                anchor="left"
+                open={drawerOpen}
+                classes={{
+                    paper: classes.drawerPaper,
+                }}
+            >HIHIHIIHHI</Drawer>
             {renderMobileMenu}
             {renderMenu}
         </div>

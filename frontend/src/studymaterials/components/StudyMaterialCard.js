@@ -11,16 +11,17 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import '../styles/studymaterialcard.css';
+import '../../shared/styles/font.css'
 
 const StudyMaterialCard = (props) => {
     const { info } = props;
     return (
         <div>
             <Card className="study-card">
-                <CardActionArea style={{backgroundColor:"#ccccff"}}>
+                <CardActionArea style={{backgroundColor:"#663d00"}}>
                     <CardContent>
                         <input type="hidden" name={info._id} value={info._id}></input>
-                        <Typography gutterBottom variant="h6" component="h6">
+                        <Typography gutterBottom variant="h6" component="h6" className="font">
                             {info.title}
                         </Typography>
                     </CardContent>

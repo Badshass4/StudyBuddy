@@ -68,6 +68,7 @@ const AddNotePage = (props) => {
         {
             type: "upload",
             label: "Upload File"
+            
         }];
 
     return (
