@@ -24,9 +24,10 @@ const StudyMaterialPage = (props) => {
     let [subjectKeys, setSubjectKeys] = useState([]);
     let [subjectValues, setSubjectValues] = useState([]);
     let [subjectList, setSubjectList] = useState([]);
+    let [subjectName, setSubjectName] = useState([]);
     const dispatch = useDispatch();
     let path = props.history.location.pathname;
-    let subjectName = path.split("/")[3];
+    subjectName = path.split("/")[3];
 
     useEffect(() => {
         //get studymaterials for a particular subject
@@ -62,7 +63,12 @@ const StudyMaterialPage = (props) => {
                 dispatch(setSnackbar(true, "error", err.response.data.message))
                 props.history.goBack();
             });
-    }, [])
+        return function cleanState() {
+            setStudyMaterials([]);
+            setSubjectKeys([]);
+            setSubjectValues([]);
+        }
+    }, [subjectName])
 
     const classes = useStyles();
 
@@ -72,7 +78,7 @@ const StudyMaterialPage = (props) => {
                 subjectKeys.map(key => {
                     return (<React.Fragment>
                         <h2>{key}</h2>
-                        <Grid container spacing={3} style={{paddingBottom: '40px'}}>
+                        <Grid container spacing={3} style={{ paddingBottom: '40px' }}>
                             {
                                 studyMaterials[key].map(note => {
                                     return (<React.Fragment>
