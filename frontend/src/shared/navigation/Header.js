@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -18,7 +18,14 @@ import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import Tooltip from '@material-ui/core/Tooltip';
 import Drawer from '@material-ui/core/Drawer';
-import '../../shared/styles/font.css'
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import '../../shared/styles/font.css';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -99,9 +106,20 @@ const Header = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
+    const [courses, setCourses] = React.useState([]);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    useEffect(() => {
+        axios.get('http://localhost:5000/user/courses')
+            .then(response => {
+                setCourses(response.data.result);
+            })
+            .catch(err => {
+                console.log(err.response.data.message);
+            });
+    }, [])
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -132,7 +150,11 @@ const Header = (props) => {
 
     const handlerOpenDrawer = () => {
         setDrawerOpen(!drawerOpen);
-    }
+    };
+
+    const handleCourseClick = (course) => {
+        console.log(course);
+    };
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -280,7 +302,26 @@ const Header = (props) => {
                 classes={{
                     paper: classes.drawerPaper,
                 }}
-            >HIHIHIIHHI</Drawer>
+            >
+                <Divider />
+                <List>
+                    {courses.map((course, index) => (
+                        <React.Fragment>
+                            <ListItem onClick={() => handleCourseClick(course)} button key={course._id}>
+                                <ListItemIcon>
+                                    <LocalLibraryIcon style={{ fill: "white" }} />
+                                </ListItemIcon>
+                                <ListItemText>
+                                    <Typography className="font">
+                                        {course.name}
+                                    </Typography>
+                                </ListItemText>
+                            </ListItem>
+                            <Divider />
+                        </React.Fragment>
+                    ))}
+                </List>
+            </Drawer>
             {renderMobileMenu}
             {renderMenu}
         </div>
