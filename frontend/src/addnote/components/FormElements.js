@@ -46,7 +46,7 @@ const FormElements = (props) => {
 
     const theme = createMuiTheme({
         palette: {
-            primary: { main: '#663d00' },
+            primary: { main: '#008080' },
         },
     });
 

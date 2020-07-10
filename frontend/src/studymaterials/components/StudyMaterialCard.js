@@ -18,7 +18,7 @@ const StudyMaterialCard = (props) => {
     return (
         <div>
             <Card className="study-card">
-                <CardActionArea style={{backgroundColor:"#663d00"}}>
+                <CardActionArea style={{backgroundColor:"#132020"}}>
                     <CardContent>
                         <input type="hidden" name={info._id} value={info._id}></input>
                         <Typography gutterBottom variant="h6" component="h6" className="font">

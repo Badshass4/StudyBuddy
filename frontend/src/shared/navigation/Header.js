@@ -90,12 +90,12 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: {
         width: 240,
         marginTop: theme.spacing(8),
-        background: '#663d00',
+        background: '#2f4f4f',
         boxShadow: '2px -5px 8px #4d4d33'
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        background: '#331f00'
+        background: 'teal'
     }
 }));
 
@@ -147,9 +147,13 @@ const Header = (props) => {
         props.history.push("/admin/addnote");
     };
 
-    const handlerOpenDrawer = () => {
+    const handleOpenDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
+
+    const handleLogoClick = () => {
+        props.history.push("/dashboard");
+    }
 
     const handleCourseClick = (course) => {
         console.log(course);
@@ -189,22 +193,18 @@ const Header = (props) => {
                 </IconButton>
                 <p>Add Notes</p>
             </MenuItem>
-            {/* <MenuItem>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
-                    </Badge>
+            <MenuItem>
+                <IconButton color="inherit">
+                        <ContactSupportIcon />
                 </IconButton>
-                <p>Messages</p>
+                <p>Need any Support ?</p>
             </MenuItem>
             <MenuItem>
                 <IconButton aria-label="show 11 new notifications" color="inherit">
-                    <Badge badgeContent={11} color="secondary">
-                        <NotificationsIcon />
-                    </Badge>
+                        <SupervisorAccountIcon />
                 </IconButton>
-                <p>Notifications</p>
-            </MenuItem> */}
+                <p>About Us !</p>
+            </MenuItem>
             <MenuItem onClick={handleProfileMenuOpen}>
                 <IconButton
                     aria-label="account of current user"
@@ -228,11 +228,11 @@ const Header = (props) => {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handlerOpenDrawer}
+                        onClick={handleOpenDrawer}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <IconButton color="inherit" >
+                    <IconButton color="inherit" onClick={handleLogoClick}>
                         <MenuBookIcon style={{ paddingRight: '8px' }} />
                         <Typography className="font" variant="h6" noWrap>
                             Study Buddy

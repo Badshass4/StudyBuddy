@@ -5,6 +5,7 @@ import AddNotePage from './addnote/pages/AddNotePage';
 import Header from './shared/navigation/Header';
 import Snackbar from './shared/snackBar/snackBar';
 import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
+import DashboardPage from './dashboard/pages/DashboardPage';
 
 
 //  <------Note------>
@@ -27,11 +28,13 @@ function App() {
     </Route>
     <Snackbar />
     <Switch>
+      <Route path="/dashboard" exact component={DashboardPage}>
+      </Route>
       <Route path="/admin/addnote" exact component={AddNotePage}>
       </Route>
       <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage}>
       </Route>
-      <Redirect to="/admin/addnote"></Redirect>
+      <Redirect to="/dashboard"></Redirect>
     </Switch>
   </BrowserRouter>;
 }

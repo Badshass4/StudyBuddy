@@ -1,3 +1,8 @@
+body{
+    background: linear-gradient(to top right, #004e4e -15%, #ff9970 110%);
+    height:900px;
+}
+
 .font{
     color: #ffffff;
     font-family: cursive !important;
