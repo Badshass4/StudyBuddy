@@ -103,7 +103,7 @@ const FormElements = (props) => {
         return <React.Fragment>
             <Autocomplete
                 id="subjectDropdown"
-                classes={!validSubject ? dropdownErrorClass : ''}
+                classes={!validSubject ? dropdownErrorClass :{}}
                 key={(option) => option.id}
                 options={optionsParams.options}
                 getOptionLabel={(option) => option.label}
@@ -152,11 +152,11 @@ const FormElements = (props) => {
 
     const finalElement = props.parameters.map(el => {
         if (el.type === 'text') {
-            return <CardContent>{textElement}</CardContent>
+            return <CardContent key={el.label}>{textElement}</CardContent>
         } else if (el.type === 'select') {
-            return <CardContent>{dropdownElement(el)}</CardContent>
+            return <CardContent key={el.label}>{dropdownElement(el)}</CardContent>
         } else if (el.type === 'upload') {
-            return <CardContent>{uploadElement}</CardContent>
+            return <CardContent key={el.label}>{uploadElement}</CardContent>
         }
     })
 
