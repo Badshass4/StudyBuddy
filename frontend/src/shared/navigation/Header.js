@@ -23,6 +23,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import '../../shared/styles/font.css';
 import axios from 'axios';
 
@@ -85,17 +86,16 @@ const useStyles = makeStyles((theme) => ({
     },
     drawer: {
         // width: 240,
-        flexShrink: 0
+        flexShrink: 0,
     },
     drawerPaper: {
         width: 240,
-        marginTop: theme.spacing(8),
         background: '#2f4f4f',
         boxShadow: '2px -5px 8px #4d4d33'
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
-        background: 'teal'
+        background: 'teal',
     }
 }));
 
@@ -164,11 +164,18 @@ const Header = (props) => {
         <Menu
             anchorEl={anchorEl}
             anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            style={{ overflowY: 'auto' }}
             id={menuId}
             keepMounted
             transformOrigin={{ vertical: 'top', horizontal: 'right' }}
             open={isMenuOpen}
             onClose={handleMenuClose}
+        // PaperProps={{
+        //     style: {
+        //         left: '50%',
+        //         transform: 'translateX(-77%) translateY(32%)',
+        //     }
+        // }}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
@@ -195,13 +202,13 @@ const Header = (props) => {
             </MenuItem>
             <MenuItem>
                 <IconButton color="inherit">
-                        <ContactSupportIcon />
+                    <ContactSupportIcon />
                 </IconButton>
                 <p>Need any Support ?</p>
             </MenuItem>
             <MenuItem>
                 <IconButton aria-label="show 11 new notifications" color="inherit">
-                        <SupervisorAccountIcon />
+                    <SupervisorAccountIcon />
                 </IconButton>
                 <p>About Us !</p>
             </MenuItem>
@@ -261,7 +268,7 @@ const Header = (props) => {
                         </Tooltip>
                         <Tooltip title="Need any Support ?">
                             <IconButton color="inherit">
-                                <ContactSupportIcon/>
+                                <ContactSupportIcon />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="About Us !">
@@ -304,6 +311,16 @@ const Header = (props) => {
             >
                 <Divider />
                 <List>
+                    <ListItem onClick={handleOpenDrawer} >
+                        <ListItemIcon style={{paddingBottom: '12px'}}>
+                            <ChevronLeftIcon style={{ fill: "white" }} />
+                        </ListItemIcon>
+                        <ListItemText >
+                            <Typography className="font">
+                            </Typography>
+                        </ListItemText>
+                    </ListItem>
+                    <Divider />
                     {courses.map((course, index) => (
                         <React.Fragment key={course._id}>
                             <ListItem onClick={() => handleCourseClick(course)} button >

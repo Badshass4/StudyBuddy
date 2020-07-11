@@ -1,11 +1,16 @@
-import React, { Component } from 'react'
-
+import React from 'react';
+import '../styles/dashboardPage.css';
 
 const DashboardPage = (props) => {
     return (
-        <div>
+        <React.Fragment>
+        <div class="dashboard-main">
             <h2>Hello In Dashboard</h2>
         </div>
+        <div>
+            <h2>Here goes the info</h2>
+        </div>
+        </React.Fragment>
     )
 }
 

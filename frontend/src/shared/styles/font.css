@@ -1,6 +1,8 @@
 body{
     background: linear-gradient(to top right, #004e4e -15%, #ff9970 110%);
-    height:900px;
+    min-height:100vh;
+    min-width:100vw;
+    overflow-x: hidden;
 }
 
 .font{
