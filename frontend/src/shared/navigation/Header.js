@@ -156,9 +156,7 @@ const Header = (props) => {
     }
 
     const handleCourseClick = (course) => {
-        let name = course.name;
-        let courseName = name.replace(/[^A-Z]+/ig, "").toLowerCase();
-        props.history.push('/user/' + courseName);
+        props.history.push('/user/' + course._id);
     };
 
     const menuId = 'primary-search-account-menu';

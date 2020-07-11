@@ -29,3 +29,15 @@ exports.getCourses = (req, res, next) => {
             return next(new HttpError('No courses available', 404));
         })
 };
+
+exports.getStreams = (req, res, next) => {
+    const courseId = req.params.courseId;
+    Course.findById(courseId)
+        .then(data => {
+            res.json({result: {stream: data.stream, duration: data.duration}});
+        })
+        .catch(err => {
+            console.log(err);
+            return next(new HttpError('Oops ! You have chosen wrong course', 404));
+        })
+}

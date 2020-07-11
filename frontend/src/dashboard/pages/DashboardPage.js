@@ -4,7 +4,7 @@ import '../styles/dashboardPage.css';
 const DashboardPage = (props) => {
     return (
         <React.Fragment>
-        <div class="dashboard-main">
+        <div className="dashboard-main">
             <h2>Hello In Dashboard</h2>
         </div>
         <div>

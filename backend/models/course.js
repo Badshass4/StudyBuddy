@@ -7,9 +7,12 @@ const courseSchema = new Schema({
         type: String,
         required: true
     },
-    stream: {
-        type: Array
-    },
+    stream: [{
+        title: {
+            type: String,
+            required: true
+        }
+    }],
     duration: {
         type: Number,
         required: true
