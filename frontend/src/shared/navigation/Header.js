@@ -156,7 +156,9 @@ const Header = (props) => {
     }
 
     const handleCourseClick = (course) => {
-        console.log(course);
+        let name = course.name;
+        let courseName = name.replace(/[^A-Z]+/ig, "").toLowerCase();
+        props.history.push('/user/' + courseName);
     };
 
     const menuId = 'primary-search-account-menu';
@@ -312,7 +314,7 @@ const Header = (props) => {
                 <Divider />
                 <List>
                     <ListItem onClick={handleOpenDrawer} >
-                        <ListItemIcon style={{paddingBottom: '12px'}}>
+                        <ListItemIcon style={{ paddingBottom: '12px' }}>
                             <ChevronLeftIcon style={{ fill: "white" }} />
                         </ListItemIcon>
                         <ListItemText >

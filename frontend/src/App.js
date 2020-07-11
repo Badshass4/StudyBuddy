@@ -6,6 +6,7 @@ import Header from './shared/navigation/Header';
 import Snackbar from './shared/snackBar/snackBar';
 import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
 import DashboardPage from './dashboard/pages/DashboardPage';
+import CourseDetailsPage from './course/pages/CourseDetailsPage'
 
 
 //  <------Note------>
@@ -33,6 +34,8 @@ function App() {
       <Route path="/admin/addnote" exact component={AddNotePage}>
       </Route>
       <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage}>
+      </Route>
+      <Route path="/user/:courseName" exact component={CourseDetailsPage}>
       </Route>
       <Redirect to="/dashboard"></Redirect>
     </Switch>
