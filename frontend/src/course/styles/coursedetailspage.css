@@ -1,7 +1,9 @@
 .main-container{
-    margin:50px;
-    max-width: 450px;
-    padding-left: 30vw;
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 35%;
+    padding-left: 20%;
 } 
 
 .stream-card{
