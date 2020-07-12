@@ -7,6 +7,7 @@ import Snackbar from './shared/snackBar/snackBar';
 import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
 import DashboardPage from './dashboard/pages/DashboardPage';
 import CourseDetailsPage from './course/pages/CourseDetailsPage'
+import StreamDetailsPage from './course/pages/StreamDetailsPage'
 
 
 //  <------Note------>
@@ -35,7 +36,9 @@ function App() {
       </Route>
       <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage}>
       </Route>
-      <Route path="/user/:courseName" exact component={CourseDetailsPage}>
+      <Route path="/user/:courseId" exact component={CourseDetailsPage}>
+      </Route>
+      <Route path="/user/:courseId/:streamId" exact component={StreamDetailsPage}>
       </Route>
       <Redirect to="/dashboard"></Redirect>
     </Switch>

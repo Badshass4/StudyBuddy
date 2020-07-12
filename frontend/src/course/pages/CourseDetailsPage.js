@@ -11,9 +11,6 @@ const CourseDetailsPage = (props) => {
     let path = props.history.location.pathname;
     courseId = path.split("/")[2];
 
-    const handleStreamClick = () => {
-        setStreams([]);
-    };
 
     useEffect(() => {
         axios.get('http://localhost:5000/user/stream/' + courseId)
@@ -39,7 +36,7 @@ const CourseDetailsPage = (props) => {
     return (
         <React.Fragment>
             <div className="main-container">
-                {streams.length > 0 ? <StreamGrid streamInfo={streams} streamCardClick={handleStreamClick} /> : <YearGrid yearInfo={year} courseId={courseId} />}
+                {streams.length > 0 ? <StreamGrid streamInfo={streams} /> : <YearGrid yearInfo={year} courseId={courseId} />}
             </div>
         </React.Fragment>
 
