@@ -59,7 +59,7 @@ exports.getSubjects = (req, res, next) => {
                         return s;
                     };
                 });
-                streamName = streamObj[0].title;
+                streamObj.length === 0 ? streamName = "" : streamName = streamObj[0].title;
             }
 
             Subject.find({
