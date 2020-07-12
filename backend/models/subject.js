@@ -3,10 +3,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const subjectSchema = new Schema({
-    subjectId: {
-        type: String,
-        required: true
-    },
     subjectName: {
         type: String,
         required: true
@@ -18,11 +14,10 @@ const subjectSchema = new Schema({
                 required: true
             },
             streamName: {
-                type: String,
-                required: true
+                type: String
             },
             year: {
-                type: Number,
+                type: String,
                 required: true
             }
         }

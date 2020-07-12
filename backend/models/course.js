@@ -9,8 +9,7 @@ const courseSchema = new Schema({
     },
     stream: [{
         title: {
-            type: String,
-            required: true
+            type: String
         }
     }],
     duration: {

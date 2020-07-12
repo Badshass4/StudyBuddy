@@ -6,7 +6,8 @@
     padding-left: 25%;
 } 
 
-.stream-card{
+.stream-card,
+.subject-card{
     width: 15vw;
 }
 

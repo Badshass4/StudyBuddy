@@ -6,9 +6,9 @@ import Header from './shared/navigation/Header';
 import Snackbar from './shared/snackBar/snackBar';
 import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
 import DashboardPage from './dashboard/pages/DashboardPage';
-import CourseDetailsPage from './course/pages/CourseDetailsPage'
-import StreamDetailsPage from './course/pages/StreamDetailsPage'
-
+import CourseDetailsPage from './course/pages/CourseDetailsPage';
+import StreamDetailsPage from './course/pages/StreamDetailsPage';
+import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
 
 //  <------Note------>
 
@@ -39,6 +39,10 @@ function App() {
       <Route path="/user/:courseId" exact component={CourseDetailsPage}>
       </Route>
       <Route path="/user/:courseId/:streamId" exact component={StreamDetailsPage}>
+      </Route>
+      <Route path="/user/:courseId/:year" exact component={SubjectDetailsPage}>
+      </Route>
+      <Route path="/user/:courseId/:streamId/:year" exact component={SubjectDetailsPage}>
       </Route>
       <Redirect to="/dashboard"></Redirect>
     </Switch>

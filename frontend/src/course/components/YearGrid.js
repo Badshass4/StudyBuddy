@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -12,6 +13,11 @@ const YearGrid = (props) => {
         yearList.push(i);
     }
 
+    const handleYearClick = (year) => {
+        let path = props.history.location.pathname;
+        props.history.push(path + '/year' + year);
+    }
+
     return (
         <Grid container spacing={3}>
             {yearList.map(year => {
@@ -19,7 +25,7 @@ const YearGrid = (props) => {
                     <Grid key={year} item xs={12} sm={6}>
                         <Card className="stream-card">
                             <CardActionArea style={{ height: '20vh', backgroundColor: "#132020" }}>
-                                <CardContent className="card-text">
+                                <CardContent className="card-text" onClick={() => handleYearClick(year)}>
                                     <input type="hidden" name={year} value={year}></input>
                                     <Typography gutterBottom variant="h5" component="h6" className="font">
                                         Year {year}
@@ -35,4 +41,4 @@ const YearGrid = (props) => {
     )
 }
 
-export default YearGrid
+export default withRouter(YearGrid)
