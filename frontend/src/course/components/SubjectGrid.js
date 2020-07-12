@@ -13,7 +13,6 @@ const SubjectGrid = (props) => {
 
     const subjectCardClick = (subject) => {
         console.log(subject);
-        props.history.push("/user/" + courseId + "/" + subject._id);
     };
 
     return (

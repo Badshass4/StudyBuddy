@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -26,6 +27,7 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import '../../shared/styles/font.css';
 import axios from 'axios';
+import { setCourseId } from '../../redux/reducers/routeParamsReducer';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -101,7 +103,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Header = (props) => {
     const classes = useStyles();
-
+    const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
@@ -156,6 +158,7 @@ const Header = (props) => {
     }
 
     const handleCourseClick = (course) => {
+        dispatch(setCourseId(course._id));
         props.history.push('/user/' + course._id);
     };
 
