@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
-// import {connect} from 'react-redux';
 import './App.css';
 import AddNotePage from './addnote/pages/AddNotePage';
 import Header from './shared/navigation/Header';
@@ -25,9 +24,7 @@ import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
 //            To avoid this we need to enclose the Routes within <Switch>.
 //            This tag tells the dom to redirect all the other URLs to default except the mentioned routes.
 
-const App=(props)=> {
-
-  console.log(props);
+const App=()=> {
 
   return <BrowserRouter>
     <Route component={Header}>
@@ -52,12 +49,4 @@ const App=(props)=> {
     </Switch>
   </BrowserRouter>;
 }
-
-// const mapStateToProps = (state) => {
-//   return {
-//     routeParams: state.routeParamsReducer
-//   };
-// };
-
-// export default connect(mapStateToProps)(App);
 export default App;

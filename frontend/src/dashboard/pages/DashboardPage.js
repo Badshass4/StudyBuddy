@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import '../styles/dashboardPage.css';
 
-const DashboardPage = (props) => {
+const DashboardPage = () => {
     let courseId = useSelector(state => {
         return state.routeParamsReducer.courseId;
     });
