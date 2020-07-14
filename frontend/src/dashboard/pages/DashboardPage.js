@@ -1,25 +1,18 @@
-import React, { Component } from 'react'
-import SubjectBoard from '../components/SubjectBoard'
+import React from 'react';
+import '../styles/dashboardPage.css';
 
-class DashboardPage extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            subjects: [
-                { id: 101, name: "Data Structures" },
-                { id: 102, name: "Alogorithms" },
-                { id: 103, name: "Operating Systems" }],
-        }
-    }
-
-    render() {
-        return (
-            <div>
-                <SubjectBoard subjects={this.state.subjects}></SubjectBoard>
+const DashboardPage = () => {
+    return (
+        <React.Fragment>
+            <div className="dashboard-main">
+                <h2>Hello In Dashboard</h2>
             </div>
-        )
-    }
+            <div>
+                <h2>Here goes the info</h2>
+            </div>
+        </React.Fragment>
+    )
 }
+
 
 export default DashboardPage

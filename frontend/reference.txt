@@ -1,0 +1,16 @@
+//<---- How to use redux using connect method ----->
+
+// import {connect} from 'react-redux';
+// const mapStateToProps = (state) => {
+//   return {
+//     routeParams: state.routeParamsReducer
+//   };
+// };
+
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     setCourseId: () => dispatch(setCourseId(value needs to be updated));
+//   };
+// };
+
+// export default connect(mapStateToProps)(App);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import '../styles/formelements.css'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -11,11 +11,10 @@ import OutlinedInput from '@material-ui/core/OutlinedInput'
 import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import { isValidText, isValidFile } from '../../utils/validate'
-import { makeStyles } from "@material-ui/core/styles";
+import { isValidText, isValidFile, isValidSubject } from '../../utils/validate'
+import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
-
 
 const FormElements = (props) => {
 
@@ -45,6 +44,12 @@ const FormElements = (props) => {
         }
     }));
 
+    const theme = createMuiTheme({
+        palette: {
+            primary: { main: '#008080' },
+        },
+    });
+
     const dropdownErrorClass = useStyles();
 
     const optionsParams = props.parameters[1]
@@ -64,17 +69,18 @@ const FormElements = (props) => {
     }
 
     const handleFormSubmit = () => {
-        if (title === "" || title === null || subject === null || file === null) {
+        setValidTitle(isValidText(title));
+        setValidSubject(isValidSubject(subject));
+        setValidFile(isValidFile(file).isValid);
+        setFileErrorMsg(isValidFile(file).errorMessage);
+        if (isValidText(title) && isValidSubject(subject) && isValidFile(file).isValid) {
+            handlePostForm(title, subject, file);
+        }
+        else {
             dispatch(setSnackbar(
                 true,
                 "error",
                 "Please fill all the fields"))
-        } else {
-            setValidTitle(isValidText(title));
-            setValidSubject(isValidText(subject.label));
-            setValidFile(isValidFile(file).isValid);
-            setFileErrorMsg(isValidFile(file).errorMessage);
-            handlePostForm(title, subject, file);
         }
     };
 
@@ -97,7 +103,7 @@ const FormElements = (props) => {
         return <React.Fragment>
             <Autocomplete
                 id="subjectDropdown"
-                classes={!validSubject ? dropdownErrorClass : ''}
+                classes={!validSubject ? dropdownErrorClass :{}}
                 key={(option) => option.id}
                 options={optionsParams.options}
                 getOptionLabel={(option) => option.label}
@@ -146,11 +152,11 @@ const FormElements = (props) => {
 
     const finalElement = props.parameters.map(el => {
         if (el.type === 'text') {
-            return <CardContent>{textElement}</CardContent>
+            return <CardContent key={el.label}>{textElement}</CardContent>
         } else if (el.type === 'select') {
-            return <CardContent>{dropdownElement(el)}</CardContent>
+            return <CardContent key={el.label}>{dropdownElement(el)}</CardContent>
         } else if (el.type === 'upload') {
-            return <CardContent>{uploadElement}</CardContent>
+            return <CardContent key={el.label}>{uploadElement}</CardContent>
         }
     })
 
@@ -161,9 +167,11 @@ const FormElements = (props) => {
                     {finalElement}
                 </CardContent>
                 <CardActions style={{ paddingLeft: '200px' }}>
-                    <Button onClick={handleFormSubmit} variant="contained" color="primary">
-                        Submit
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={handleFormSubmit} variant="contained" color="primary">
+                            Submit
                     </Button>
+                    </ThemeProvider>
                 </CardActions>
             </Card>
         </div>

@@ -1,0 +1,16 @@
+.main-container{
+    margin-top: 5%;
+    margin-left: 5%;
+    margin-right: 5%;
+    max-width: 32%;
+    padding-left: 25%;
+} 
+
+.stream-card,
+.subject-card{
+    width: 15vw;
+}
+
+.card-text{
+    text-align: center; 
+}
