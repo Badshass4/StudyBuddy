@@ -8,8 +8,6 @@ import Grid from '@material-ui/core/Grid';
 
 const SubjectGrid = (props) => {
     let subjects = props.subjectInfo;
-    let path = props.history.location.pathname;
-    let courseId = path.split("/")[2];
 
     const subjectCardClick = (subject) => {
         console.log(subject);

@@ -1,12 +1,7 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import '../styles/dashboardPage.css';
 
 const DashboardPage = () => {
-    let courseId = useSelector(state => {
-        return state.routeParamsReducer.courseId;
-    });
-    console.log(courseId);
     return (
         <React.Fragment>
             <div className="dashboard-main">

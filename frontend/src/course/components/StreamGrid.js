@@ -1,19 +1,20 @@
-import React from 'react'
-import { withRouter } from 'react-router-dom'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { setStreamId } from '../../redux/reducers/routeParamsReducer';
 
 const StreamGrid = (props) => {
+    const dispatch = useDispatch();
     let streams = props.streamInfo;
-    let path = props.history.location.pathname;
-    let courseId = path.split("/")[2];
 
     const streamCardClick = (stream) => {
-        console.log(stream);
-        props.history.push("/user/" + courseId + "/" + stream._id);
+        dispatch(setStreamId(stream._id));
+        props.history.push("/user/course/stream/years");
     };
 
     return (

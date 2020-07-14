@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
+import { setYear } from '../../redux/reducers/routeParamsReducer';
 
 const YearGrid = (props) => {
+    const dispatch = useDispatch();
     let year = props.yearInfo;
     let yearList = [];
     for (let i = 1; i <= year; i++) {
@@ -14,8 +17,8 @@ const YearGrid = (props) => {
     }
 
     const handleYearClick = (year) => {
-        let path = props.history.location.pathname;
-        props.history.push(path + '/year' + year);
+        dispatch(setYear(year));
+        props.history.push('/user/course/stream/year/subjects');
     }
 
     return (

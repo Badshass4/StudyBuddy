@@ -1,14 +1,20 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import SubjectGrid from '../components/SubjectGrid';
 import '../styles/coursedetailspage.css';
 
 const SubjectDetailsPage = (props) => {
     const [subjects, setSubjects] = useState([]);
-    let path = props.history.location.pathname;
-    let year = path.split("/")[4].replace('year', '');
-    let streamId = path.split("/")[3];
-    let courseId = path.split("/")[2];
+    let year = useSelector(state => {
+        return state.routeParamsReducer.year;
+    });
+    let streamId = useSelector(state => {
+        return state.routeParamsReducer.streamId;
+    });
+    let courseId = useSelector(state => {
+        return state.routeParamsReducer.courseId;
+    });
 
     useEffect(() => {
         axios.get('http://localhost:5000/user/subject',

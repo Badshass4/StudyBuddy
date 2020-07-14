@@ -1,7 +1,7 @@
 const initState = {
     courseId: "",
     streamId: "",
-    year: ""
+    year: 0
 }
 
 export default (state = initState, action) => {

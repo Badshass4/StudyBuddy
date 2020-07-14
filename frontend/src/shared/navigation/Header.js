@@ -159,7 +159,7 @@ const Header = (props) => {
 
     const handleCourseClick = (course) => {
         dispatch(setCourseId(course._id));
-        props.history.push('/user/' + course._id);
+        props.history.push('/user/course/streams');
     };
 
     const menuId = 'primary-search-account-menu';

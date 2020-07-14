@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react';
+import { useDispatch , useSelector } from 'react-redux';
 import axios from 'axios';
 import StreamGrid from '../components/StreamGrid';
 import YearGrid from '../components/YearGrid';
 import '../styles/coursedetailspage.css';
 
 const CourseDetailsPage = (props) => {
-    let [courseId, setCourseId] = useState('');
+    const dispatch = useDispatch();
     let [streams, setStreams] = useState([]);
     let [year, setYear] = useState([]);
-    let path = props.history.location.pathname;
-    courseId = path.split("/")[2];
 
-
+    let courseId = useSelector(state => {
+        return state.routeParamsReducer.courseId;
+    });
+    
     useEffect(() => {
         axios.get('http://localhost:5000/user/stream/' + courseId)
             .then(response => {
@@ -20,6 +22,7 @@ const CourseDetailsPage = (props) => {
                     setStreams(response.data.result.stream);
                 } else {
                     setStreams([]);
+                    props.history.push("/user/course/stream/years");
                 }
             })
             .catch(err => {

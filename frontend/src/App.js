@@ -37,13 +37,11 @@ const App=()=> {
   
       <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
 
-      <Route path="/user/:courseId" exact component={CourseDetailsPage} />
+      <Route path="/user/course/streams" exact component={CourseDetailsPage} />
 
-      <Route path="/user/:courseId/:streamId" exact component={StreamDetailsPage} />
-
-      <Route path="/user/:courseId/:year" exact component={SubjectDetailsPage} />
+      <Route path="/user/course/stream/years" exact component={StreamDetailsPage} />
  
-      <Route path="/user/:courseId/:streamId/:year" exact component={SubjectDetailsPage} />
+      <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
 
       <Redirect to="/dashboard" />
     </Switch>
