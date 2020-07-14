@@ -1,5 +1,5 @@
-import React from 'react'
-import { withRouter } from 'react-router-dom'
+import React from 'react';
+import { withRouter } from 'react-router-dom';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -10,7 +10,7 @@ const SubjectGrid = (props) => {
     let subjects = props.subjectInfo;
 
     const subjectCardClick = (subject) => {
-        console.log(subject);
+        props.history.push('/user/studymaterials/'+subject.subjectName);
     };
 
     return (

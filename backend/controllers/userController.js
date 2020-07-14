@@ -12,7 +12,10 @@ exports.searchSubject = (req, res, next) => {
             if (result.length === 0) {
                 return next(new HttpError('Please enter correct subject name.', 404));
             } else {
-                res.json({ result });
+                let filteredSubjects = result.filter(r => {
+                    return r.subject.toLowerCase() === subjectName.toLowerCase()
+                });
+                filteredSubjects.length > 0 ? res.json({ result: filteredSubjects }) : res.json({ result });
             }
         })
         .catch(err => {
@@ -55,9 +58,7 @@ exports.getSubjects = (req, res, next) => {
 
             if (streamId !== null) {
                 const streamObj = courseData.stream.filter(s => {
-                    if (s._id.toString() === streamId) {
-                        return s;
-                    };
+                    return s._id.toString() === streamId
                 });
                 streamObj.length === 0 ? streamName = "" : streamName = streamObj[0].title;
             }
