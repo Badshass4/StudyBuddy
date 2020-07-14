@@ -15,6 +15,7 @@ import { isValidText, isValidFile, isValidSubject } from '../../utils/validate'
 import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
+import { theme } from '../../utils/colorPalette';
 
 const FormElements = (props) => {
 
@@ -43,12 +44,6 @@ const FormElements = (props) => {
             // }
         }
     }));
-
-    const theme = createMuiTheme({
-        palette: {
-            primary: { main: '#008080' },
-        },
-    });
 
     const dropdownErrorClass = useStyles();
 
