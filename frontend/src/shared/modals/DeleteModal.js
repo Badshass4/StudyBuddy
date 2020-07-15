@@ -31,6 +31,7 @@ const DeleteModal = (props) => {
                     "success",
                     response.data.message));
                 props.closeModal();
+                props.refresh();
             })
             .catch(err => {
                 dispatch(setSnackbar(

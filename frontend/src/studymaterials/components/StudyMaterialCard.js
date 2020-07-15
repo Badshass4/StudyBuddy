@@ -23,7 +23,6 @@ const StudyMaterialCard = (props) => {
 
     const handleModalClose = () => {
         setDeleteModalOpen(false);
-        props.refresh();
     }
 
     const { info } = props;
@@ -55,7 +54,7 @@ const StudyMaterialCard = (props) => {
                 </CardActions>
             </Card>
 
-            <DeleteModal openStatus={deleteModalOpen} noteInfo={info} closeModal={handleModalClose} />
+            <DeleteModal openStatus={deleteModalOpen} refresh={props.refresh} noteInfo={info} closeModal={handleModalClose} />
         </div>
     )
 }
