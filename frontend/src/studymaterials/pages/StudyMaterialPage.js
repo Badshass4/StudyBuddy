@@ -25,6 +25,7 @@ const StudyMaterialPage = (props) => {
     let [subjectValues, setSubjectValues] = useState([]);
     let [subjectList, setSubjectList] = useState([]);
     let [subjectName, setSubjectName] = useState([]);
+    let [refresh, setRefresh] = useState(false);
     const dispatch = useDispatch();
     let path = props.history.location.pathname;
     subjectName = path.split("/")[3];
@@ -68,7 +69,11 @@ const StudyMaterialPage = (props) => {
             setSubjectKeys([]);
             setSubjectValues([]);
         }
-    }, [subjectName])
+    }, [subjectName,refresh])
+
+    const refreshPage=()=>{
+        setRefresh(!refresh);
+    }
 
     const classes = useStyles();
 
@@ -83,7 +88,7 @@ const StudyMaterialPage = (props) => {
                                 studyMaterials[key].map(note => {
                                     return (<React.Fragment>
                                         <Grid key={note._id} item xs={12} sm={2}>
-                                            <StudyMaterialCard className={classes.card} info={note} />
+                                            <StudyMaterialCard className={classes.card} info={note} refresh={refreshPage}/>
                                         </Grid>
                                     </React.Fragment>);
                                 })

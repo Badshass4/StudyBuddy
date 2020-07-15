@@ -159,6 +159,7 @@ const Header = (props) => {
 
     const handleCourseClick = (course) => {
         dispatch(setCourseId(course._id));
+        setDrawerOpen(!drawerOpen);
         props.history.push('/user/course/streams');
     };
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -7,15 +9,36 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import Slide from '@material-ui/core/Slide';
 import { theme } from '../../utils/colorPalette';
 import { ThemeProvider } from "@material-ui/core/styles";
+import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 const DeleteModal = (props) => {
+    const dispatch = useDispatch();
 
     const deleteNote = () => {
-
+        axios.delete("http://localhost:5000/admin/deletenote",
+            {
+                params: {
+                    noteId: props.noteInfo._id
+                }
+            })
+            .then(response => {
+                dispatch(setSnackbar(
+                    true,
+                    "success",
+                    response.data.message));
+                props.closeModal();
+            })
+            .catch(err => {
+                dispatch(setSnackbar(
+                    true,
+                    "error",
+                    err.response.data.message))
+                props.closeModal();
+            })
     };
 
     return (
@@ -30,7 +53,7 @@ const DeleteModal = (props) => {
         >
             <DialogContent>
                 <DialogContentText id="alert-dialog-slide-description">
-                    Do you want to remove <b>{props.title}</b> ?
+                    Do you want to remove <b>{props.noteInfo.title}</b> ?
               </DialogContentText>
             </DialogContent>
             <DialogActions>
@@ -42,7 +65,7 @@ const DeleteModal = (props) => {
                 <ThemeProvider theme={theme}>
                     <Button onClick={deleteNote} variant="contained" color="primary">
                         YES
-              </Button>
+                    </Button>
                 </ThemeProvider>
             </DialogActions>
         </Dialog>
