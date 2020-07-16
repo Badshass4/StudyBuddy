@@ -16,4 +16,7 @@ userRoutes.get('/stream/:courseId', userController.getStreams);
 //user/subject => GET
 userRoutes.get('/subject', userController.getSubjects);
 
+//user/downloadnote => GET
+userRoutes.get('/downloadnote', userController.downloadNote);
+
 module.exports = userRoutes;

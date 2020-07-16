@@ -43,7 +43,7 @@ const App=()=> {
  
       <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
 
-      <Redirect to="/dashboard" />
+      {/* <Redirect to="/dashboard" /> */}
     </Switch>
   </BrowserRouter>;
 }

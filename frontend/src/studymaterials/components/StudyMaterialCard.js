@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -10,9 +11,9 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
-import DeleteModal from '../../shared/modals/DeleteModal'
+import DeleteModal from '../../shared/modals/DeleteModal';
 import '../styles/studymaterialcard.css';
-import '../../shared/styles/font.css'
+import '../../shared/styles/font.css';
 
 const StudyMaterialCard = (props) => {
     let [deleteModalOpen, setDeleteModalOpen] = useState(false);
@@ -23,6 +24,30 @@ const StudyMaterialCard = (props) => {
 
     const handleModalClose = () => {
         setDeleteModalOpen(false);
+    }
+
+    const handleDownload = () => {
+        axios.get('http://localhost:5000/user/downloadnote',
+            {
+                params: {
+                    noteId: info._id
+                }
+            })
+            .then(response => {
+                console.log(response);
+                let type = 'application/pdf';
+                // window.open('/'+response.data);
+                let data = new Blob([response.data], { type });
+                let url = window.URL.createObjectURL(data);
+                let link = document.createElement("a");
+                link.download = 'pdf-try';
+                link.href = url;
+                link.click();
+                window.URL.revokeObjectURL(url);
+            })
+            .catch(err => {
+                console.log(err.response.data.message);
+            })
     }
 
     const { info } = props;
@@ -43,7 +68,7 @@ const StudyMaterialCard = (props) => {
                         <FavoriteIcon />
                     </IconButton>
                     <IconButton aria-label="download">
-                        <CloudDownloadIcon />
+                        <CloudDownloadIcon onClick={handleDownload} />
                     </IconButton>
                     <IconButton aria-label="edit">
                         <EditIcon />

@@ -1,3 +1,5 @@
+const fs = require('fs');
+const path = require('path');
 const HttpError = require('../models/error');
 const StudyMaterial = require('../models/studyMaterial');
 const Course = require('../models/course');
@@ -6,7 +8,7 @@ const Subject = require('../models/subject');
 exports.searchSubject = (req, res, next) => {
     const subjectName = req.params.subname;
     StudyMaterial.find({ $text: { $search: subjectName } },
-        { title: 1, subject: 1, "file.filename": 1, "file.path": 1 }
+        { title: 1, subject: 1 }
     )
         .then(result => {
             if (result.length === 0) {
@@ -84,6 +86,30 @@ exports.getSubjects = (req, res, next) => {
         .catch(err => {
             console.log("Error in getting course details");
             console.log(err);
+            return next(new HttpError('Server timed out', 404));
+        })
+}
+
+exports.downloadNote = (req, res, next) => {
+    const noteId = req.query.noteId;
+
+    StudyMaterial.findOne({ _id: noteId },
+        { file: 1 })
+        .then(result => {
+            const filePath = result.file.path;
+            const fileName = result.file.originalname;
+            // fs.readFile(filePath, (err, data) => {
+            //     if (err){
+            //         return next(new HttpError('Oops ! An unknown problem occur... Please click download again', 404));
+            //     }
+            //     res.setHeader('Content-Type', 'application/pdf');
+            //     res.setHeader('Content-Disposition', 'attachment; filename="' + fileName + '"');
+            //     res.send(data);
+            //     res.json({message: 'message'})
+            // })
+            res.download(filePath, fileName);
+        })
+        .catch(err => {
             return next(new HttpError('Server timed out', 404));
         })
 }
