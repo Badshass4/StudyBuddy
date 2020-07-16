@@ -8,7 +8,7 @@ const Subject = require('../models/subject');
 exports.searchSubject = (req, res, next) => {
     const subjectName = req.params.subname;
     StudyMaterial.find({ $text: { $search: subjectName } },
-        { title: 1, subject: 1 }
+        { title: 1, subject: 1, "file.originalname": 1 }
     )
         .then(result => {
             if (result.length === 0) {

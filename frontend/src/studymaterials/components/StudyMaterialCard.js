@@ -31,16 +31,15 @@ const StudyMaterialCard = (props) => {
             {
                 params: {
                     noteId: info._id
-                }
+                },
+                responseType: 'blob'
             })
             .then(response => {
-                console.log(response);
-                let type = 'application/pdf';
-                // window.open('/'+response.data);
+                let type = response.data.type;
                 let data = new Blob([response.data], { type });
                 let url = window.URL.createObjectURL(data);
                 let link = document.createElement("a");
-                link.download = 'pdf-try';
+                link.download = info.file.originalname;
                 link.href = url;
                 link.click();
                 window.URL.revokeObjectURL(url);
