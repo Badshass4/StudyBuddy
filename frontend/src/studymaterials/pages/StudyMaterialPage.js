@@ -69,9 +69,9 @@ const StudyMaterialPage = (props) => {
             setSubjectKeys([]);
             setSubjectValues([]);
         }
-    }, [subjectName,refresh])
+    }, [subjectName, refresh])
 
-    const refreshPage=()=>{
+    const refreshPage = () => {
         setRefresh(!refresh);
     }
 
@@ -88,7 +88,7 @@ const StudyMaterialPage = (props) => {
                                 studyMaterials[key].map(note => {
                                     return (<React.Fragment>
                                         <Grid key={note._id} item xs={12} sm={2}>
-                                            <StudyMaterialCard className={classes.card} info={note} refresh={refreshPage}/>
+                                            <StudyMaterialCard className={classes.card} info={note} refresh={refreshPage} />
                                         </Grid>
                                     </React.Fragment>);
                                 })
