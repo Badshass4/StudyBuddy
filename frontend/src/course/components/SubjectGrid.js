@@ -9,6 +9,7 @@ import Grid from '@material-ui/core/Grid';
 const SubjectGrid = (props) => {
     let subjects = props.subjectInfo;
 
+    // Redirecting to studymaterials page of a single subject
     const subjectCardClick = (subject) => {
         props.history.push('/user/studymaterials/'+subject.subjectName);
     };

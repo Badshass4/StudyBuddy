@@ -1,3 +1,9 @@
+/*
+   This reducer is used to get and set the values reqd for below topics :
+      > selected Course ID
+      > selected Stream ID
+      > selected Year
+*/
 const initState = {
     courseId: "",
     streamId: "",

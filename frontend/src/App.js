@@ -15,7 +15,7 @@ import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
 // <Router> - If we want to acheive SPA(Single Page Applications),
 //          then we need to enclose App within <Router>  
 
-// <Route> - We need the enclose the desired component within this tag
+// <Route> - We need to enclose the desired component within this tag
 //           to redirect the pages to the desired component on entering the URL
 
 // <Redirect> - This tag is used to redirect to a default page if any wrong URL is entered
@@ -27,8 +27,7 @@ import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
 const App=()=> {
 
   return <BrowserRouter>
-    <Route component={Header}>
-    </Route>
+    <Route component={Header} />
     <Snackbar />
     <Switch>
       <Route path="/dashboard" exact component={DashboardPage} />
@@ -43,7 +42,7 @@ const App=()=> {
  
       <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
 
-      {/* <Redirect to="/dashboard" /> */}
+      <Redirect to="/dashboard" />
     </Switch>
   </BrowserRouter>;
 }

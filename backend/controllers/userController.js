@@ -1,10 +1,11 @@
-const fs = require('fs');
-const path = require('path');
+// const fs = require('fs');
+// const path = require('path');
 const HttpError = require('../models/error');
 const StudyMaterial = require('../models/studyMaterial');
 const Course = require('../models/course');
 const Subject = require('../models/subject');
 
+// Function to search/get materials of any given subject name
 exports.searchSubject = (req, res, next) => {
     const subjectName = req.params.subname;
     StudyMaterial.find({ $text: { $search: subjectName } },
@@ -25,6 +26,7 @@ exports.searchSubject = (req, res, next) => {
         });
 };
 
+// Function to get all the courses in side-drawer
 exports.getCourses = (req, res, next) => {
     Course.find({},
         { name: 1 })
@@ -36,6 +38,7 @@ exports.getCourses = (req, res, next) => {
         })
 };
 
+// Function to get all the streams and years of a selected course
 exports.getStreams = (req, res, next) => {
     const courseId = req.params.courseId;
     Course.findById(courseId)
@@ -48,6 +51,7 @@ exports.getStreams = (req, res, next) => {
         })
 }
 
+// Function to get subject lists of a particular combination of course, stream and year
 exports.getSubjects = (req, res, next) => {
     const { course, year } = req.query;
     const streamId = req.query.stream;
@@ -90,6 +94,7 @@ exports.getSubjects = (req, res, next) => {
         })
 }
 
+// Function to download the notes after clicking download icon in studyaterial-card
 exports.downloadNote = (req, res, next) => {
     const noteId = req.query.noteId;
 

@@ -11,8 +11,9 @@ const AddNotePage = (props) => {
 
     const dispatch = useDispatch();
 
+    // This function will only call while mounting for the first time
+    // Get all the available subjects into the auto-complete field in add-note page
     useEffect(() => {
-        //get subjects for dropdown
         axios
             .get(
                 "http://localhost:5000/admin/subjects"
@@ -26,12 +27,13 @@ const AddNotePage = (props) => {
             });
     }, []);
 
+    // Call the REST API to upload study-material
     const postFormHandler = (title, subject, file) => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('subject', subject.label);
         formData.append('file', file);
-        //submit add-note
+
         axios
             .post(
                 "http://localhost:5000/admin/add-note",
@@ -55,6 +57,8 @@ const AddNotePage = (props) => {
                   );
             });
     }
+
+
     const formElementParams = [
         {
             type: "text",

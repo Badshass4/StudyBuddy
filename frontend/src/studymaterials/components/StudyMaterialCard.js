@@ -16,16 +16,22 @@ import '../styles/studymaterialcard.css';
 import '../../shared/styles/font.css';
 
 const StudyMaterialCard = (props) => {
+    const { info } = props;
+    
     let [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
+    // This function will work upon clicking Delete icon
     const handleDelete = () => {
         setDeleteModalOpen(true);
     }
 
+    // This function will close the delete modal
     const handleModalClose = () => {
         setDeleteModalOpen(false);
     }
 
+    // This function will fetch a material and set correct filetype and filename
+    // and decode it for users to get ready to download
     const handleDownload = () => {
         axios.get('http://localhost:5000/user/downloadnote',
             {
@@ -49,7 +55,6 @@ const StudyMaterialCard = (props) => {
             })
     }
 
-    const { info } = props;
     return (
         <div>
             <Card className="study-card">

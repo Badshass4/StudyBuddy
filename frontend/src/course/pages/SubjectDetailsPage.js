@@ -16,6 +16,7 @@ const SubjectDetailsPage = (props) => {
         return state.routeParamsReducer.courseId;
     });
 
+    // Fetching all subject of a particular combination of course, stream and year
     useEffect(() => {
         axios.get('http://localhost:5000/user/subject',
             {

@@ -30,8 +30,9 @@ const StudyMaterialPage = (props) => {
     let path = props.history.location.pathname;
     subjectName = path.split("/")[3];
 
+    // This function will get all studymaterials for a particular subject
+    // or different subjects having same set of words(handled in REST API)
     useEffect(() => {
-        //get studymaterials for a particular subject
         axios
             .get(
                 "http://localhost:5000/user/notes/" + subjectName

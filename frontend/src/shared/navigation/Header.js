@@ -112,6 +112,8 @@ const Header = (props) => {
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
+    // This function will only call while mounting for the first time
+    // Fetching all courses for side-drawer
     useEffect(() => {
         axios.get('http://localhost:5000/user/courses')
             .then(response => {
@@ -139,24 +141,29 @@ const Header = (props) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    // Function for side-drawer
+    const handleOpenDrawer = () => {
+        setDrawerOpen(!drawerOpen);
+    };
+
+    // Function for Logo
+    const handleLogoClick = () => {
+        props.history.push("/dashboard");
+    }
+
+    // This function will redirect to studymaterials page whatever subject users search
     const handleSearchClick = (event) => {
         if (event.keyCode === 13) {
             props.history.push("/user/studymaterials/" + event.target.value);
         }
     };
 
+    // Function for Add Notes icon
     const handleAddNoteClick = () => {
         props.history.push("/admin/addnote");
     };
 
-    const handleOpenDrawer = () => {
-        setDrawerOpen(!drawerOpen);
-    };
-
-    const handleLogoClick = () => {
-        props.history.push("/dashboard");
-    }
-
+    // Function for clicking upon different courses
     const handleCourseClick = (course) => {
         dispatch(setCourseId(course._id));
         setDrawerOpen(!drawerOpen);

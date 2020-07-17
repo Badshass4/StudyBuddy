@@ -18,6 +18,7 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const DeleteModal = (props) => {
     const dispatch = useDispatch();
 
+    // This function will delete a studymaterial
     const deleteNote = () => {
         axios.delete("http://localhost:5000/admin/deletenote",
             {

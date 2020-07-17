@@ -16,6 +16,7 @@ const YearGrid = (props) => {
         yearList.push(i);
     }
 
+    // Setting the redux store with year and redirecting to subject page
     const handleYearClick = (year) => {
         dispatch(setYear(year));
         props.history.push('/user/course/stream/year/subjects');

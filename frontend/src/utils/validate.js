@@ -1,4 +1,5 @@
 
+// Function to validate input files
 export function isValidFile(inputFile) {
     let errMsg = "";
     let isValid = true;
@@ -16,6 +17,7 @@ export function isValidFile(inputFile) {
     return { errorMessage: errMsg, isValid: isValid };
 }
 
+// Function to validate subjects
 export function isValidSubject(inputField) {
     if (inputField === null || Object.keys(inputField).length === 0) {
         return false
@@ -23,6 +25,7 @@ export function isValidSubject(inputField) {
         return true
 }
 
+// Function to validate titles
 export function isValidText(inputField) {
     if (!inputField || inputField.length === 0) {
         return false

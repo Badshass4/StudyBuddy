@@ -49,20 +49,25 @@ const FormElements = (props) => {
 
     const optionsParams = props.parameters[1]
 
+    // Taking inputs for title field
     const handleTitleInput = (event) => {
         setTitle(event.target.value);
         setValidTitle(true);
     }
 
+    // taking inputs for subject field using AutoComplete
     const handleDropdownChange = (event, value) => {
         setSubject(value);
     }
 
+    // taking inputs for the file
     const fileSelectionHandler = (event) => {
         var fileObj = event.target.files[0];
         setFile(fileObj);
     }
 
+    // Submitting the add-note page with user input values
+    // Firstly, it will validate all the user inputs, if true then call the post method
     const handleFormSubmit = () => {
         setValidTitle(isValidText(title));
         setValidSubject(isValidSubject(subject));
