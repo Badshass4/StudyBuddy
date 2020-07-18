@@ -12,6 +12,7 @@ exports.searchSubject = (req, res, next) => {
         { title: 1, subject: 1, "file.originalname": 1 }
     )
         .then(result => {
+            result.sort();
             if (result.length === 0) {
                 return next(new HttpError('Please enter correct subject name.', 404));
             } else {

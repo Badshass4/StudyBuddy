@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import FormElements from '../components/FormElements';
 import '../styles/addnote.css';
@@ -28,7 +29,7 @@ const AddNotePage = (props) => {
     }, []);
 
     // Call the REST API to upload study-material
-    const postFormHandler = (title, subject, file, mode = 'addnote') => {
+    const postFormHandler = (title, subject, file, mode = 'addnote', noteId = "") => {
         if (mode === 'addnote') {
             const formData = new FormData();
             formData.append('title', title);
@@ -63,10 +64,9 @@ const AddNotePage = (props) => {
                 .put(
                     "http://localhost:5000/admin/edit-note",
                     {
-                        params: {
-                            title: title,
-                            subject: subject.label
-                        }
+                        noteId: noteId,
+                        title: title,
+                        subject: subject.label
                     }
                 )
                 .then(response => {
@@ -77,6 +77,7 @@ const AddNotePage = (props) => {
                             response.data.message
                         )
                     );
+                    props.history.goBack();
                 }).catch(err => {
                     dispatch(
                         setSnackbar(
@@ -113,4 +114,4 @@ const AddNotePage = (props) => {
     )
 }
 
-export default AddNotePage
+export default withRouter(AddNotePage)

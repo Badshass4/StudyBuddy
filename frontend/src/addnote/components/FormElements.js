@@ -19,19 +19,22 @@ import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 import { theme } from '../../utils/colorPalette';
 
 const FormElements = (props) => {
+    let [mode, setMode] = useState("");
 
-    let [title, setTitle] = useState("");
+    let pathname = props.location.pathname;
+    let path = pathname.split('/');
+    mode = path[2];
+
+    //setting val based on editnote mode to initially load title textfield
+    let val = mode === 'editnote' ? props.location.state.noteInfo.title : '';
+
+    let [title, setTitle] = useState(val);
     let [subject, setSubject] = useState({});
     let [file, setFile] = useState({ name: '' });
     let [validTitle, setValidTitle] = useState(true);
     let [validSubject, setValidSubject] = useState(true);
     let [validFile, setValidFile] = useState(true);
     let [fileErrorMsg, setFileErrorMsg] = useState("");
-    let [mode, setMode] = useState("");
-
-    let pathname = props.location.pathname;
-    let path = pathname.split('/');
-    mode = path[2];
 
     const dispatch = useDispatch();
 
@@ -106,7 +109,8 @@ const FormElements = (props) => {
         }
         if (mode === 'editnote') {
             if (isValidText(title) && isValidSubject(subject)) {
-                handlePostForm(title, subject, file, mode);
+                let noteId = props.location.state.noteInfo._id;
+                handlePostForm(title, subject, file, mode, noteId);
             }
         }
     };
@@ -114,7 +118,7 @@ const FormElements = (props) => {
     const textElement = <React.Fragment>
         <TextField
             label="Title"
-            value={mode === 'editnote' ? title : ''}
+            defaultValue={title}
             onKeyUp={handleTitleInput}
             required
             variant="outlined"
