@@ -12,10 +12,10 @@ import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
 
 //  <------Note------>
 
-// <Router> - If we want to acheive SPA(Single Page Applications),
+// <Router> - If we want to acheive an SPA(Single Page Applications),
 //          then we need to enclose App within <Router>  
 
-// <Route> - We need the enclose the desired component within this tag
+// <Route> - We need to enclose the desired component within this tag
 //           to redirect the pages to the desired component on entering the URL
 
 // <Redirect> - This tag is used to redirect to a default page if any wrong URL is entered
@@ -24,25 +24,34 @@ import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
 //            To avoid this we need to enclose the Routes within <Switch>.
 //            This tag tells the dom to redirect all the other URLs to default except the mentioned routes.
 
-const App=()=> {
+const App = () => {
 
   return <BrowserRouter>
-    <Route component={Header}>
-    </Route>
+    <Route component={Header} />
     <Snackbar />
     <Switch>
+      {/* Dashboard page */}
       <Route path="/dashboard" exact component={DashboardPage} />
-  
+
+      {/* Add new note page */}
       <Route path="/admin/addnote" exact component={AddNotePage} />
-  
+
+      {/* Edit note page */}
+      <Route path="/admin/editnote" exact component={AddNotePage} />
+
+      {/* Note view according to subjects page */}
       <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
 
+      {/* Streams view page  */}
       <Route path="/user/course/streams" exact component={CourseDetailsPage} />
 
+      {/* Year view page */}
       <Route path="/user/course/stream/years" exact component={StreamDetailsPage} />
- 
+
+      {/* Subject view page */}
       <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
 
+      {/* Redirect to default Dashboard page while setting incorrect path */}
       <Redirect to="/dashboard" />
     </Switch>
   </BrowserRouter>;

@@ -14,6 +14,8 @@ const StreamDetailsPage = (props) => {
         return state.routeParamsReducer.courseId;
     });
 
+    // This function will call whenever streamId will be change, else nothing will happen
+    // Fetching duration of a single stream using courseId
     useEffect(() => {
         axios.get('http://localhost:5000/user/stream/' + courseId)
             .then(response => {
@@ -23,6 +25,8 @@ const StreamDetailsPage = (props) => {
                 setYear([]);
             })
     }, [streamId])
+
+    
     return (
         <React.Fragment>
             <div className="main-container">

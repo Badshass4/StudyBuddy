@@ -12,9 +12,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import { isValidText, isValidFile, isValidSubject } from '../../utils/validate'
-import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
+import { theme } from '../../utils/colorPalette';
 
 const FormElements = (props) => {
 
@@ -44,30 +45,29 @@ const FormElements = (props) => {
         }
     }));
 
-    const theme = createMuiTheme({
-        palette: {
-            primary: { main: '#008080' },
-        },
-    });
-
     const dropdownErrorClass = useStyles();
 
-    const optionsParams = props.parameters[1]
+    const optionsParams = props.parameters[1];
 
+    // Taking inputs for title field
     const handleTitleInput = (event) => {
         setTitle(event.target.value);
         setValidTitle(true);
     }
 
+    // taking inputs for subject field using AutoComplete
     const handleDropdownChange = (event, value) => {
         setSubject(value);
     }
 
+    // taking inputs for the file
     const fileSelectionHandler = (event) => {
         var fileObj = event.target.files[0];
         setFile(fileObj);
     }
 
+    // Submitting the add-note page with user input values
+    // Firstly, it will validate all the user inputs, if true then call the post method
     const handleFormSubmit = () => {
         setValidTitle(isValidText(title));
         setValidSubject(isValidSubject(subject));

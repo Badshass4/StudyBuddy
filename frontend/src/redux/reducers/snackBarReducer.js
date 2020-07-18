@@ -1,3 +1,8 @@
+/*
+   This reducer is used to get and set the values reqd for below topics :
+      > SnackBar
+*/
+
 const initState = {
     snackbarOpen: false,
     snackbarType: "",

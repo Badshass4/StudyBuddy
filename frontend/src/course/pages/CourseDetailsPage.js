@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch , useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 import StreamGrid from '../components/StreamGrid';
 import YearGrid from '../components/YearGrid';
 import '../styles/coursedetailspage.css';
 
 const CourseDetailsPage = (props) => {
-    const dispatch = useDispatch();
     let [streams, setStreams] = useState([]);
     let [year, setYear] = useState([]);
 
@@ -14,6 +13,9 @@ const CourseDetailsPage = (props) => {
         return state.routeParamsReducer.courseId;
     });
     
+    // This function will call whenever courseId will be change, else nothing will happen
+    // Fetching all the streams of a particular course and there duration
+    // If there is no stream available, redirecting to year page of that course
     useEffect(() => {
         axios.get('http://localhost:5000/user/stream/' + courseId)
             .then(response => {

@@ -12,6 +12,7 @@ const StreamGrid = (props) => {
     const dispatch = useDispatch();
     let streams = props.streamInfo;
 
+    // Setting the redux store with stream id and redirecting to year page
     const streamCardClick = (stream) => {
         dispatch(setStreamId(stream._id));
         props.history.push("/user/course/stream/years");
