@@ -36,6 +36,9 @@ const App = () => {
       //Add new note page
       <Route path="/admin/addnote" exact component={AddNotePage} />
 
+      //Edit note page
+      <Route path="/admin/editnote" exact component={AddNotePage} />
+
       //Note view according to subjects page
       <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
 

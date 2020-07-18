@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
-import FormElements from '../components/FormElements'
-import '../styles/addnote.css'
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import FormElements from '../components/FormElements';
+import '../styles/addnote.css';
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 
@@ -28,34 +28,65 @@ const AddNotePage = (props) => {
     }, []);
 
     // Call the REST API to upload study-material
-    const postFormHandler = (title, subject, file) => {
-        const formData = new FormData();
-        formData.append('title', title);
-        formData.append('subject', subject.label);
-        formData.append('file', file);
+    const postFormHandler = (title, subject, file, mode = 'addnote') => {
+        if (mode === 'addnote') {
+            const formData = new FormData();
+            formData.append('title', title);
+            formData.append('subject', subject.label);
+            formData.append('file', file);
 
-        axios
-            .post(
-                "http://localhost:5000/admin/add-note",
-                formData
-            )
-            .then(response => {
-                dispatch(
-                    setSnackbar(
-                      true,
-                      "success",
-                      response.data.message
-                    )
-                  );
-            }).catch(err => {
-                dispatch(
-                    setSnackbar(
-                      true,
-                      "error",
-                      err.response.data.message
-                    )
-                  );
-            });
+            axios
+                .post(
+                    "http://localhost:5000/admin/add-note",
+                    formData
+                )
+                .then(response => {
+                    dispatch(
+                        setSnackbar(
+                            true,
+                            "success",
+                            response.data.message
+                        )
+                    );
+                }).catch(err => {
+                    dispatch(
+                        setSnackbar(
+                            true,
+                            "error",
+                            err.response.data.message
+                        )
+                    );
+                });
+        } else {
+            //mode=editnote
+            axios
+                .put(
+                    "http://localhost:5000/admin/edit-note",
+                    {
+                        params: {
+                            title: title,
+                            subject: subject.label
+                        }
+                    }
+                )
+                .then(response => {
+                    dispatch(
+                        setSnackbar(
+                            true,
+                            "success",
+                            response.data.message
+                        )
+                    );
+                }).catch(err => {
+                    dispatch(
+                        setSnackbar(
+                            true,
+                            "error",
+                            err.response.data.message
+                        )
+                    );
+                });
+        }
     }
 
 
@@ -72,7 +103,7 @@ const AddNotePage = (props) => {
         {
             type: "upload",
             label: "Upload File"
-            
+
         }];
 
     return (

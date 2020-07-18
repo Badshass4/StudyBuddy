@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
-import '../styles/formelements.css'
+import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
+import '../styles/formelements.css';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -21,13 +22,32 @@ const FormElements = (props) => {
 
     let [title, setTitle] = useState("");
     let [subject, setSubject] = useState({});
-    let [file, setFile] = useState({});
+    let [file, setFile] = useState({ name: '' });
     let [validTitle, setValidTitle] = useState(true);
     let [validSubject, setValidSubject] = useState(true);
     let [validFile, setValidFile] = useState(true);
     let [fileErrorMsg, setFileErrorMsg] = useState("");
+    let [mode, setMode] = useState("");
+
+    let pathname = props.location.pathname;
+    let path = pathname.split('/');
+    mode = path[2];
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (mode === 'addnote') {
+            setFile({ name: '' });
+        }
+        if (props.location.state !== undefined && mode === "editnote") {
+            const { title, subject, file } = props.location.state.noteInfo;
+            file['name'] = file.originalname;
+            delete file.originalname;
+            setTitle(title);
+            setSubject({ label: subject });
+            setFile(file);
+        }
+    }, [mode]);
 
     const handlePostForm = props.submitForm;
 
@@ -47,7 +67,7 @@ const FormElements = (props) => {
 
     const dropdownErrorClass = useStyles();
 
-    const optionsParams = props.parameters[1]
+    const optionsParams = props.parameters[1];
 
     // Taking inputs for title field
     const handleTitleInput = (event) => {
@@ -71,22 +91,30 @@ const FormElements = (props) => {
     const handleFormSubmit = () => {
         setValidTitle(isValidText(title));
         setValidSubject(isValidSubject(subject));
-        setValidFile(isValidFile(file).isValid);
-        setFileErrorMsg(isValidFile(file).errorMessage);
-        if (isValidText(title) && isValidSubject(subject) && isValidFile(file).isValid) {
-            handlePostForm(title, subject, file);
+        if (mode === 'addnote') {
+            setValidFile(isValidFile(file).isValid);
+            setFileErrorMsg(isValidFile(file).errorMessage);
+            if (isValidText(title) && isValidSubject(subject) && isValidFile(file).isValid) {
+                handlePostForm(title, subject, file, mode);
+            }
+            else {
+                dispatch(setSnackbar(
+                    true,
+                    "error",
+                    "Please fill all the fields"))
+            }
         }
-        else {
-            dispatch(setSnackbar(
-                true,
-                "error",
-                "Please fill all the fields"))
+        if (mode === 'editnote') {
+            if (isValidText(title) && isValidSubject(subject)) {
+                handlePostForm(title, subject, file, mode);
+            }
         }
     };
 
     const textElement = <React.Fragment>
         <TextField
             label="Title"
+            value={mode === 'editnote' ? title : ''}
             onKeyUp={handleTitleInput}
             required
             variant="outlined"
@@ -103,14 +131,19 @@ const FormElements = (props) => {
         return <React.Fragment>
             <Autocomplete
                 id="subjectDropdown"
-                classes={!validSubject ? dropdownErrorClass :{}}
+                classes={!validSubject ? dropdownErrorClass : {}}
+                value={mode === 'editnote' ? subject : ''}
                 key={(option) => option.id}
                 options={optionsParams.options}
                 getOptionLabel={(option) => option.label}
                 style={{ width: '100%' }}
                 onChange={handleDropdownChange}
                 renderInput={(params) =>
-                    <TextField {...params} label="Subjects" variant="outlined" required />}
+                    <TextField
+                        {...params}
+                        label="Subjects"
+                        variant="outlined"
+                        required />}
             />
             <FormHelperText id="outlined-weight-helper-text">
                 <span style={!validSubject ? { paddingLeft: '10px', color: 'red' } : { display: 'none' }}>Please select a subject</span>
@@ -125,6 +158,7 @@ const FormElements = (props) => {
                 id="contained-button-file"
                 type="file"
                 onChange={fileSelectionHandler}
+                disabled={mode === 'editnote' ? true : false}
                 required
             />
             <label htmlFor="contained-button-file">
@@ -133,10 +167,17 @@ const FormElements = (props) => {
                     <OutlinedInput
                         id="outlined-adornment-weight"
                         placeholder="Upload file *"
-                        value={file.name}
+                        value={file.name === undefined ? '' : file.name}
+                        disabled={mode === 'editnote' ? true : false}
                         required
                         autoComplete="off"
-                        endAdornment={<InputAdornment className="upload-button-style" position="end"><CloudUploadIcon /></InputAdornment>}
+                        endAdornment={
+                            <InputAdornment
+                                className={mode === 'editnote' ? "" : "upload-button-style"}
+                                position="end">
+                                <CloudUploadIcon />
+                            </InputAdornment>
+                        }
                         inputprops={{
                             readOnly: true
                         }}
@@ -144,7 +185,9 @@ const FormElements = (props) => {
                         error={!validFile}
                     />
                     <FormHelperText id="outlined-weight-helper-text">
-                        <span style={!validFile ? { paddingLeft: '10px', color: 'red' } : { display: 'none' }}>{fileErrorMsg}</span>
+                        <span style={!validFile ? { paddingLeft: '10px', color: 'red' } : { display: 'none' }}>
+                            {fileErrorMsg}
+                        </span>
                     </FormHelperText>
                 </FormControl>
             </label>
@@ -178,4 +221,4 @@ const FormElements = (props) => {
     )
 }
 
-export default FormElements
+export default withRouter(FormElements)

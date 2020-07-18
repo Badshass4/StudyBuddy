@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { withRouter } from 'react-router-dom'
 import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -17,12 +18,22 @@ import '../../shared/styles/font.css';
 
 const StudyMaterialCard = (props) => {
     const { info } = props;
-    
+
     let [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     // This function will work upon clicking Delete icon
     const handleDelete = () => {
         setDeleteModalOpen(true);
+    }
+
+    // This function will edit the note info and redirect to addnote page
+    const handleEdit = () => {
+        props.history.push({
+            pathname: '/admin/editnote',
+            state: {
+                noteInfo: info
+            }
+        })
     }
 
     // This function will close the delete modal
@@ -74,7 +85,7 @@ const StudyMaterialCard = (props) => {
                     <IconButton aria-label="download">
                         <CloudDownloadIcon onClick={handleDownload} />
                     </IconButton>
-                    <IconButton aria-label="edit">
+                    <IconButton onClick={handleEdit} aria-label="edit">
                         <EditIcon />
                     </IconButton>
                     <IconButton onClick={handleDelete} aria-label="delete">
@@ -88,4 +99,4 @@ const StudyMaterialCard = (props) => {
     )
 }
 
-export default StudyMaterialCard
+export default withRouter(StudyMaterialCard)
