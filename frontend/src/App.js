@@ -30,27 +30,28 @@ const App = () => {
     <Route component={Header} />
     <Snackbar />
     <Switch>
-      //Dashboard page
+      {/* Dashboard page */}
       <Route path="/dashboard" exact component={DashboardPage} />
 
-      //Add new note page
+      {/* Add new note page */}
       <Route path="/admin/addnote" exact component={AddNotePage} />
 
-      //Edit note page
+      {/* Edit note page */}
       <Route path="/admin/editnote" exact component={AddNotePage} />
 
-      //Note view according to subjects page
+      {/* Note view according to subjects page */}
       <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
 
-      //Streams view page 
+      {/* Streams view page  */}
       <Route path="/user/course/streams" exact component={CourseDetailsPage} />
 
-      //Year view page
+      {/* Year view page */}
       <Route path="/user/course/stream/years" exact component={StreamDetailsPage} />
 
-      //Subject view page
+      {/* Subject view page */}
       <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
 
+      {/* Redirect to default Dashboard page while setting incorrect path */}
       <Redirect to="/dashboard" />
     </Switch>
   </BrowserRouter>;
