@@ -12,7 +12,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import { isValidText, isValidFile, isValidSubject } from '../../utils/validate'
-import { makeStyles, createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import { useDispatch } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 import { theme } from '../../utils/colorPalette';
@@ -47,7 +47,7 @@ const FormElements = (props) => {
 
     const dropdownErrorClass = useStyles();
 
-    const optionsParams = props.parameters[1]
+    const optionsParams = props.parameters[1];
 
     // Taking inputs for title field
     const handleTitleInput = (event) => {

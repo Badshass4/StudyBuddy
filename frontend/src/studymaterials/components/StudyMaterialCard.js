@@ -13,6 +13,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import DeleteModal from '../../shared/modals/DeleteModal';
+import EditModal from '../../shared/modals/EditModal';
 import '../styles/studymaterialcard.css';
 import '../../shared/styles/font.css';
 
@@ -20,20 +21,26 @@ const StudyMaterialCard = (props) => {
     const { info } = props;
 
     let [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    let [editModalOpen, setEditModalOpen] = useState(false);
 
     // This function will work upon clicking Delete icon
     const handleDelete = () => {
         setDeleteModalOpen(true);
     }
 
-    // This function will edit the note info and redirect to addnote page
+    // This function will work upon clicking Edit icon
     const handleEdit = () => {
-        
+        setEditModalOpen(true);
     }
 
     // This function will close the delete modal
-    const handleModalClose = () => {
+    const handleDeleteModalClose = () => {
         setDeleteModalOpen(false);
+    }
+
+    // This function will close the edit modal
+    const handleEditModalClose = () => {
+        setEditModalOpen(false);
     }
 
     // This function will fetch a material and set correct filetype and filename
@@ -89,7 +96,8 @@ const StudyMaterialCard = (props) => {
                 </CardActions>
             </Card>
 
-            <DeleteModal openStatus={deleteModalOpen} refresh={props.refresh} noteInfo={info} closeModal={handleModalClose} />
+            <DeleteModal openStatus={deleteModalOpen} refresh={props.refresh} noteInfo={info} closeModal={handleDeleteModalClose} />
+            <EditModal openStatus={editModalOpen} refresh={props.refresh} noteInfo={info} closeModal={handleEditModalClose} />
         </div>
     )
 }
