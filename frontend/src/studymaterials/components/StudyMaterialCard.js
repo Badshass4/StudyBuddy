@@ -28,12 +28,7 @@ const StudyMaterialCard = (props) => {
 
     // This function will edit the note info and redirect to addnote page
     const handleEdit = () => {
-        props.history.push({
-            pathname: '/admin/editnote',
-            state: {
-                noteInfo: info
-            }
-        })
+        
     }
 
     // This function will close the delete modal

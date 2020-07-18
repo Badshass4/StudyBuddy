@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { withRouter } from 'react-router-dom';
-import '../styles/formelements.css';
+import React, { useState } from 'react'
+import '../styles/formelements.css'
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -19,38 +18,16 @@ import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 import { theme } from '../../utils/colorPalette';
 
 const FormElements = (props) => {
-    let [mode, setMode] = useState("");
 
-    let pathname = props.location.pathname;
-    let path = pathname.split('/');
-    mode = path[2];
-
-    //setting val based on editnote mode to initially load title textfield
-    let val = mode === 'editnote' ? props.location.state.noteInfo.title : '';
-
-    let [title, setTitle] = useState(val);
+    let [title, setTitle] = useState("");
     let [subject, setSubject] = useState({});
-    let [file, setFile] = useState({ name: '' });
+    let [file, setFile] = useState({});
     let [validTitle, setValidTitle] = useState(true);
     let [validSubject, setValidSubject] = useState(true);
     let [validFile, setValidFile] = useState(true);
     let [fileErrorMsg, setFileErrorMsg] = useState("");
 
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        if (mode === 'addnote') {
-            setFile({ name: '' });
-        }
-        if (props.location.state !== undefined && mode === "editnote") {
-            const { title, subject, file } = props.location.state.noteInfo;
-            file['name'] = file.originalname;
-            delete file.originalname;
-            setTitle(title);
-            setSubject({ label: subject });
-            setFile(file);
-        }
-    }, [mode]);
 
     const handlePostForm = props.submitForm;
 
@@ -70,7 +47,7 @@ const FormElements = (props) => {
 
     const dropdownErrorClass = useStyles();
 
-    const optionsParams = props.parameters[1];
+    const optionsParams = props.parameters[1]
 
     // Taking inputs for title field
     const handleTitleInput = (event) => {
@@ -94,31 +71,22 @@ const FormElements = (props) => {
     const handleFormSubmit = () => {
         setValidTitle(isValidText(title));
         setValidSubject(isValidSubject(subject));
-        if (mode === 'addnote') {
-            setValidFile(isValidFile(file).isValid);
-            setFileErrorMsg(isValidFile(file).errorMessage);
-            if (isValidText(title) && isValidSubject(subject) && isValidFile(file).isValid) {
-                handlePostForm(title, subject, file, mode);
-            }
-            else {
-                dispatch(setSnackbar(
-                    true,
-                    "error",
-                    "Please fill all the fields"))
-            }
+        setValidFile(isValidFile(file).isValid);
+        setFileErrorMsg(isValidFile(file).errorMessage);
+        if (isValidText(title) && isValidSubject(subject) && isValidFile(file).isValid) {
+            handlePostForm(title, subject, file);
         }
-        if (mode === 'editnote') {
-            if (isValidText(title) && isValidSubject(subject)) {
-                let noteId = props.location.state.noteInfo._id;
-                handlePostForm(title, subject, file, mode, noteId);
-            }
+        else {
+            dispatch(setSnackbar(
+                true,
+                "error",
+                "Please fill all the fields"))
         }
     };
 
     const textElement = <React.Fragment>
         <TextField
             label="Title"
-            defaultValue={title}
             onKeyUp={handleTitleInput}
             required
             variant="outlined"
@@ -135,19 +103,14 @@ const FormElements = (props) => {
         return <React.Fragment>
             <Autocomplete
                 id="subjectDropdown"
-                classes={!validSubject ? dropdownErrorClass : {}}
-                value={mode === 'editnote' ? subject : ''}
+                classes={!validSubject ? dropdownErrorClass :{}}
                 key={(option) => option.id}
                 options={optionsParams.options}
                 getOptionLabel={(option) => option.label}
                 style={{ width: '100%' }}
                 onChange={handleDropdownChange}
                 renderInput={(params) =>
-                    <TextField
-                        {...params}
-                        label="Subjects"
-                        variant="outlined"
-                        required />}
+                    <TextField {...params} label="Subjects" variant="outlined" required />}
             />
             <FormHelperText id="outlined-weight-helper-text">
                 <span style={!validSubject ? { paddingLeft: '10px', color: 'red' } : { display: 'none' }}>Please select a subject</span>
@@ -162,7 +125,6 @@ const FormElements = (props) => {
                 id="contained-button-file"
                 type="file"
                 onChange={fileSelectionHandler}
-                disabled={mode === 'editnote' ? true : false}
                 required
             />
             <label htmlFor="contained-button-file">
@@ -171,17 +133,10 @@ const FormElements = (props) => {
                     <OutlinedInput
                         id="outlined-adornment-weight"
                         placeholder="Upload file *"
-                        value={file.name === undefined ? '' : file.name}
-                        disabled={mode === 'editnote' ? true : false}
+                        value={file.name}
                         required
                         autoComplete="off"
-                        endAdornment={
-                            <InputAdornment
-                                className={mode === 'editnote' ? "" : "upload-button-style"}
-                                position="end">
-                                <CloudUploadIcon />
-                            </InputAdornment>
-                        }
+                        endAdornment={<InputAdornment className="upload-button-style" position="end"><CloudUploadIcon /></InputAdornment>}
                         inputprops={{
                             readOnly: true
                         }}
@@ -189,9 +144,7 @@ const FormElements = (props) => {
                         error={!validFile}
                     />
                     <FormHelperText id="outlined-weight-helper-text">
-                        <span style={!validFile ? { paddingLeft: '10px', color: 'red' } : { display: 'none' }}>
-                            {fileErrorMsg}
-                        </span>
+                        <span style={!validFile ? { paddingLeft: '10px', color: 'red' } : { display: 'none' }}>{fileErrorMsg}</span>
                     </FormHelperText>
                 </FormControl>
             </label>
@@ -225,4 +178,4 @@ const FormElements = (props) => {
     )
 }
 
-export default withRouter(FormElements)
+export default FormElements
