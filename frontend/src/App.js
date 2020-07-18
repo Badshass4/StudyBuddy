@@ -12,7 +12,7 @@ import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
 
 //  <------Note------>
 
-// <Router> - If we want to acheive SPA(Single Page Applications),
+// <Router> - If we want to acheive an SPA(Single Page Applications),
 //          then we need to enclose App within <Router>  
 
 // <Route> - We need to enclose the desired component within this tag
