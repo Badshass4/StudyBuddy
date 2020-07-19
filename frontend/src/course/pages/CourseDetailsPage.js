@@ -12,12 +12,12 @@ const CourseDetailsPage = (props) => {
     let courseId = useSelector(state => {
         return state.routeParamsReducer.courseId;
     });
-    
+
     // This function will call whenever courseId will be change, else nothing will happen
     // Fetching all the streams of a particular course and there duration
     // If there is no stream available, redirecting to year page of that course
     useEffect(() => {
-        axios.get('http://localhost:5000/user/stream/' + courseId)
+        axios.get(`${process.env.REACT_APP_BACKEND_API}/user/stream/` + courseId)
             .then(response => {
                 setYear([response.data.result.duration]);
                 if (response.data.result.stream.length !== 0) {

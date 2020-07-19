@@ -115,7 +115,7 @@ const Header = (props) => {
     // This function will only call while mounting for the first time
     // Fetching all courses for side-drawer
     useEffect(() => {
-        axios.get('http://localhost:5000/user/courses')
+        axios.get(`${process.env.REACT_APP_BACKEND_API}/user/courses`)
             .then(response => {
                 setCourses(response.data.result);
             })

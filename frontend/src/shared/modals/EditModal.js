@@ -47,7 +47,7 @@ const EditModal = (props) => {
     useEffect(() => {
         axios
             .get(
-                "http://localhost:5000/admin/subjects"
+                `${process.env.REACT_APP_BACKEND_API}/admin/subjects`
             )
             .then(response => {
                 setAllSubjects(response.data.allSubject);
@@ -76,7 +76,7 @@ const EditModal = (props) => {
     // This function will edit a studymaterial
     const editNote = () => {
         if (isValidText(title) && isValidSubject(subject)) {
-            axios.put("http://localhost:5000/admin/edit-note",
+            axios.put(`${process.env.REACT_APP_BACKEND_API}/admin/edit-note`,
                 {
                     noteId: props.noteInfo._id,
                     title: title,

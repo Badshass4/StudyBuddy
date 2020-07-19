@@ -20,7 +20,7 @@ const DeleteModal = (props) => {
 
     // This function will delete a studymaterial
     const deleteNote = () => {
-        axios.delete("http://localhost:5000/admin/deletenote",
+        axios.delete(`${process.env.REACT_APP_BACKEND_API}/admin/deletenote`,
             {
                 params: {
                     noteId: props.noteInfo._id

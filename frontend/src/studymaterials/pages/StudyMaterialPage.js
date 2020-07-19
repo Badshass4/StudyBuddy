@@ -35,7 +35,7 @@ const StudyMaterialPage = (props) => {
     useEffect(() => {
         axios
             .get(
-                "http://localhost:5000/user/notes/" + subjectName
+                `${process.env.REACT_APP_BACKEND_API}/user/notes/` + subjectName
             )
             .then(response => {
                 //classify each subjects

@@ -46,7 +46,7 @@ const StudyMaterialCard = (props) => {
     // This function will fetch a material and set correct filetype and filename
     // and decode it for users to get ready to download
     const handleDownload = () => {
-        axios.get('http://localhost:5000/user/downloadnote',
+        axios.get(`${process.env.REACT_APP_BACKEND_API}/user/downloadnote`,
             {
                 params: {
                     noteId: info._id

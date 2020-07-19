@@ -1,14 +1,25 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
-import AddNotePage from './addnote/pages/AddNotePage';
-import Header from './shared/navigation/Header';
-import Snackbar from './shared/snackBar/snackBar';
-import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
-import DashboardPage from './dashboard/pages/DashboardPage';
-import CourseDetailsPage from './course/pages/CourseDetailsPage';
-import StreamDetailsPage from './course/pages/StreamDetailsPage';
-import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
+// import Header from './shared/navigation/Header';
+// import AddNotePage from './addnote/pages/AddNotePage';
+// import Snackbar from './shared/snackBar/snackBar';
+// import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
+// import DashboardPage from './dashboard/pages/DashboardPage';
+// import CourseDetailsPage from './course/pages/CourseDetailsPage';
+// import StreamDetailsPage from './course/pages/StreamDetailsPage';
+// import SubjectDetailsPage from './course/pages/SubjectDetailsPage';
+
+
+// Modified imports to not load all pages at a time - Code Splitting
+const Header = React.lazy(() => import('./shared/navigation/Header'));
+const AddNotePage = React.lazy(() => import('./addnote/pages/AddNotePage'));
+const Snackbar = React.lazy(() => import('./shared/snackBar/snackBar'));
+const StudyMaterialPage = React.lazy(() => import('./studymaterials/pages/StudyMaterialPage'));
+const DashboardPage = React.lazy(() => import('./dashboard/pages/DashboardPage'));
+const CourseDetailsPage = React.lazy(() => import('./course/pages/CourseDetailsPage'));
+const StreamDetailsPage = React.lazy(() => import('./course/pages/StreamDetailsPage'));
+const SubjectDetailsPage = React.lazy(() => import('./course/pages/SubjectDetailsPage'));
 
 //  <------Note------>
 
@@ -28,32 +39,35 @@ const App = () => {
 
   return <BrowserRouter>
     <Route component={Header} />
-    <Snackbar />
-    <Switch>
-      {/* Dashboard page */}
-      <Route path="/dashboard" exact component={DashboardPage} />
+    <Suspense 
+    fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}><h3>Loading...</h3></div>}>
+      <Snackbar />
+      <Switch>
+        {/* Dashboard page */}
+        <Route path="/dashboard" exact component={DashboardPage} />
 
-      {/* Add new note page */}
-      <Route path="/admin/addnote" exact component={AddNotePage} />
+        {/* Add new note page */}
+        <Route path="/admin/addnote" exact component={AddNotePage} />
 
-      {/* Edit note page */}
-      <Route path="/admin/editnote" exact component={AddNotePage} />
+        {/* Edit note page */}
+        <Route path="/admin/editnote" exact component={AddNotePage} />
 
-      {/* Note view according to subjects page */}
-      <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
+        {/* Note view according to subjects page */}
+        <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
 
-      {/* Streams view page  */}
-      <Route path="/user/course/streams" exact component={CourseDetailsPage} />
+        {/* Streams view page  */}
+        <Route path="/user/course/streams" exact component={CourseDetailsPage} />
 
-      {/* Year view page */}
-      <Route path="/user/course/stream/years" exact component={StreamDetailsPage} />
+        {/* Year view page */}
+        <Route path="/user/course/stream/years" exact component={StreamDetailsPage} />
 
-      {/* Subject view page */}
-      <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
+        {/* Subject view page */}
+        <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
 
-      {/* Redirect to default Dashboard page while setting incorrect path */}
-      <Redirect to="/dashboard" />
-    </Switch>
+        {/* Redirect to default Dashboard page while setting incorrect path */}
+        <Redirect to="/dashboard" />
+      </Switch>
+    </Suspense>
   </BrowserRouter>;
 }
 export default App;

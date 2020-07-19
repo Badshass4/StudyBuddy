@@ -16,7 +16,7 @@ const AddNotePage = (props) => {
     useEffect(() => {
         axios
             .get(
-                "http://localhost:5000/admin/subjects"
+                `${process.env.REACT_APP_BACKEND_API}/admin/subjects`
             )
             .then(response => {
                 document.title = "StudyBuddy | Add Notes";
@@ -36,7 +36,7 @@ const AddNotePage = (props) => {
 
         axios
             .post(
-                "http://localhost:5000/admin/add-note",
+                `${process.env.REACT_APP_BACKEND_API}/admin/add-note`,
                 formData
             )
             .then(response => {

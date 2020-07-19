@@ -18,7 +18,7 @@ const SubjectDetailsPage = (props) => {
 
     // Fetching all subject of a particular combination of course, stream and year
     useEffect(() => {
-        axios.get('http://localhost:5000/user/subject',
+        axios.get(`${process.env.REACT_APP_BACKEND_API}/user/subject`,
             {
                 params: {
                     course: courseId,
