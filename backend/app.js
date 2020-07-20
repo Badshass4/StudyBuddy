@@ -24,8 +24,8 @@ app.use((req, res, next) => {
 })
 
 //accessing routes
-app.use('/admin', adminRoutes);
-app.use('/user', userRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/user', userRoutes);
 
 
 //unsupported routes

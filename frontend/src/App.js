@@ -38,9 +38,9 @@ const SubjectDetailsPage = React.lazy(() => import('./course/pages/SubjectDetail
 const App = () => {
 
   return <BrowserRouter>
-    <Route component={Header} />
-    <Suspense 
-    fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}><h3>Loading...</h3></div>}>
+    <Suspense
+      fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}><h3>Loading...</h3></div>}>
+      <Route component={Header} />
       <Snackbar />
       <Switch>
         {/* Dashboard page */}
