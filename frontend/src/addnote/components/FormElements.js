@@ -69,6 +69,7 @@ const FormElements = (props) => {
     // Submitting the add-note page with user input values
     // Firstly, it will validate all the user inputs, if true then call the post method
     const handleFormSubmit = () => {
+        title = title.trim();
         setValidTitle(isValidText(title));
         setValidSubject(isValidSubject(subject));
         setValidFile(isValidFile(file).isValid);
