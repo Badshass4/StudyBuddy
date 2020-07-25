@@ -20,23 +20,28 @@ const userSchema = new Schema({
         required: true
     },
     phoneNo: {
-        type: String
+        type: String,
+        default: ''
     },
     password: {
         type: String,
         required: true
     },
     course: {
-        type: String
+        type: String,
+        default: ''
     },
     stream: {
-        type: String
+        type: String,
+        default: ''
     },
     college: {
-        type: String
+        type: String,
+        default: ''
     },
     avatar: {
-        type: Object
+        type: Object,
+        default: {}
     },
     isAdmin: {
         type: Boolean,
