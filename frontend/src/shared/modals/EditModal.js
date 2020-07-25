@@ -76,11 +76,13 @@ const EditModal = (props) => {
     // This function will edit a studymaterial
     const editNote = () => {
         if (isValidText(title) && isValidSubject(subject)) {
+            let subjectName = '';
+            typeof subject === 'object' ? subjectName = subject.label : subjectName = subject;
             axios.put(`${process.env.REACT_APP_BACKEND_API}/admin/edit-note`,
                 {
                     noteId: props.noteInfo._id,
                     title: title,
-                    subject: subject.label
+                    subject: subjectName
                 })
                 .then(response => {
                     dispatch(setSnackbar(
