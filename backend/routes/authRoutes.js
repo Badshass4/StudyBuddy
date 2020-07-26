@@ -8,4 +8,7 @@ const authRoutes = express.Router();
 //authentication/registration => POST
 authRoutes.post('/registration', authController.postAddUser);
 
+//authentication/login => GET
+authRoutes.get('/login', authController.getAuthUser);
+
 module.exports = authRoutes;

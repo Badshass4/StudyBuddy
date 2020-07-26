@@ -19,3 +19,17 @@ exports.postAddUser = (req, res, next) => {
             return next(new HttpError('An unknown error occurred ! Please check after sometime...', 404));
         });
 }
+
+// Function to get authenticated user after clicking sign in button
+exports.getAuthUser = (req, res, next) => {
+    const { email, password } = req.query;
+
+    User.findOne({ $and: { email: email, password: password } })
+        .then(result => {
+            res.json({ result });
+        })
+        .catch(err => {
+            return next(new HttpError('Email is not registered', 401));
+        });
+
+}
