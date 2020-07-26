@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -111,6 +111,11 @@ const Header = (props) => {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    //to show/hide components based on login state
+    let isLoggedIn = useSelector(state => {
+        return state.authReducer.isLoggedIn;
+    });
 
     // This function will only call while mounting for the first time
     // Fetching all courses for side-drawer
@@ -272,11 +277,17 @@ const Header = (props) => {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <Tooltip title="Add Notes">
-                            <IconButton color="inherit" onClick={handleAddNoteClick}>
-                                <NoteAddIcon />
-                            </IconButton>
-                        </Tooltip>
+                        {
+                            isLoggedIn &&
+                            (
+                                <Tooltip title="Add Notes">
+                                    <IconButton color="inherit" onClick={handleAddNoteClick}>
+                                        <NoteAddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            )
+
+                        }
                         <Tooltip title="Need any Support ?">
                             <IconButton color="inherit">
                                 <ContactSupportIcon />

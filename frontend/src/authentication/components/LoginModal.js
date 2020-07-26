@@ -21,6 +21,7 @@ import { theme } from '../../utils/colorPalette';
 import { ThemeProvider, formatMs } from "@material-ui/core/styles";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 import { isValidText } from '../../utils/validate';
+import { setLogIn } from '../../redux/reducers/authReducer';
 // import { makeStyles } from "@material-ui/core/styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -74,6 +75,7 @@ const LoginModal = (props) => {
         )
             .then(response => {
                 console.log(response.data.result);
+                dispatch(setLogIn(true));
                 // dispatch(
                 //     setSnackbar(
                 //         true,

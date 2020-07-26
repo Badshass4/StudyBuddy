@@ -23,12 +23,16 @@ exports.postAddUser = (req, res, next) => {
 // Function to get authenticated user after clicking sign in button
 exports.getAuthUser = (req, res, next) => {
     const { email, password } = req.query;
+    console.log(email);
+    console.log(password);
 
-    User.findOne({ $and: { email: email, password: password } })
+    User.findOne({ $and: [{ email: email }, { password: password }] })
         .then(result => {
+            console.log(result);
             res.json({ result });
         })
         .catch(err => {
+            console.log(err);
             return next(new HttpError('Email is not registered', 401));
         });
 

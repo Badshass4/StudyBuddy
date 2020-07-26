@@ -1,14 +1,14 @@
 /*
    This reducer is used to get and set the values reqd for below topics :
       > isAdmin
-      > userId
+      > userFullName
       > userMail
       > userName
 */
 
 const initState = {
     isAdmin: false,
-    userId: "",
+    userFullName: "",
     userMail: "",
     userName: ""
 }
@@ -20,10 +20,10 @@ export default (state = initState, action) => {
                 ...state,
                 isAdmin: action.payload
             };
-        case "SET_USERID":
+        case "SET_USERFULLNAME":
             return {
                 ...state,
-                userId: action.payload
+                userFullName: action.payload
             };
         case "SET_USERMAIL":
             return {
@@ -45,9 +45,9 @@ export const setIsAdmin = (userMode) =>({
     payload: userMode
 });
 
-export const setUserId = (userId) =>({
-    type: 'SET_USERID',
-    payload: userId
+export const setUserFullName = (userFullName) =>({
+    type: 'SET_USERFULLNAME',
+    payload: userFullName
 });
 
 export const setUserMail = (userMail) =>({

@@ -1,4 +1,5 @@
 import React, { Suspense } from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 // import Header from './shared/navigation/Header';
@@ -36,21 +37,19 @@ const SubjectDetailsPage = React.lazy(() => import('./course/pages/SubjectDetail
 //            This tag tells the dom to redirect all the other URLs to default except the mentioned routes.
 
 const App = () => {
+  let isLoggedIn = useSelector(state => {
+    return state.authReducer.isLoggedIn;
+  });
 
-  return <BrowserRouter>
-    <Suspense
-      fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}><h3>Loading...</h3></div>}>
-      <Route component={Header} />
-      <Snackbar />
+  let routes;
+  if (isLoggedIn) {
+    routes = (
       <Switch>
         {/* Dashboard page */}
         <Route path="/dashboard" exact component={DashboardPage} />
 
         {/* Add new note page */}
         <Route path="/admin/addnote" exact component={AddNotePage} />
-
-        {/* Edit note page */}
-        <Route path="/admin/editnote" exact component={AddNotePage} />
 
         {/* Note view according to subjects page */}
         <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
@@ -67,6 +66,36 @@ const App = () => {
         {/* Redirect to default Dashboard page while setting incorrect path */}
         <Redirect to="/dashboard" />
       </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        {/* Dashboard page */}
+        <Route path="/dashboard" exact component={DashboardPage} />
+
+        {/* Note view according to subjects page */}
+        <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
+
+        {/* Streams view page  */}
+        <Route path="/user/course/streams" exact component={CourseDetailsPage} />
+
+        {/* Year view page */}
+        <Route path="/user/course/stream/years" exact component={StreamDetailsPage} />
+
+        {/* Subject view page */}
+        <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
+
+        {/* Redirect to default Dashboard page while setting incorrect path */}
+        <Redirect to="/dashboard" />
+      </Switch>
+    );
+  }
+  return <BrowserRouter>
+    <Suspense
+      fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}><h3>Loading...</h3></div>}>
+      <Route component={Header} />
+      <Snackbar />
+      {routes}
     </Suspense>
   </BrowserRouter>;
 }
