@@ -1,45 +1,23 @@
 import React, { useEffect, useState } from 'react';
-// import clsx from 'clsx';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-// import FilledInput from '@material-ui/core/FilledInput';
-// import OutlinedInput from '@material-ui/core/OutlinedInput';
-// import InputLabel from '@material-ui/core/InputLabel';
-// import InputAdornment from '@material-ui/core/InputAdornment';
-// import FormControl from '@material-ui/core/FormControl';
-// import Visibility from '@material-ui/icons/Visibility';
-// import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import Slide from '@material-ui/core/Slide';
-// import IconButton from '@material-ui/core/IconButton';
 import { theme } from '../../utils/colorPalette';
 import { ThemeProvider, formatMs } from "@material-ui/core/styles";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 import { isValidText } from '../../utils/validate';
 import { setLogIn } from '../../redux/reducers/authReducer';
-// import { makeStyles } from "@material-ui/core/styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
-
-// const useStyles = makeStyles((theme) => ({
-//     root: {
-//         display: 'flex',
-//         flexWrap: 'wrap',
-//     },
-//     withoutLabel: {
-//         marginTop: theme.spacing(3),
-//     },
-//     textField: {
-//         width: '25ch',
-//     },
-// }));
 
 const LoginModal = (props) => {
     const dispatch = useDispatch();
@@ -76,6 +54,8 @@ const LoginModal = (props) => {
             .then(response => {
                 console.log(response.data.result);
                 dispatch(setLogIn(true));
+                props.afterLogin();
+                // props.history.push('/admin/addnote');
                 // dispatch(
                 //     setSnackbar(
                 //         true,
@@ -143,4 +123,4 @@ const LoginModal = (props) => {
     )
 }
 
-export default LoginModal
+export default withRouter(LoginModal)

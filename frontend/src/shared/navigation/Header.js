@@ -28,6 +28,7 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import '../../shared/styles/font.css';
 import axios from 'axios';
 import { setCourseId } from '../../redux/reducers/routeParamsReducer';
+import { setLogIn } from '../../redux/reducers/authReducer';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -168,6 +169,13 @@ const Header = (props) => {
         props.history.push("/admin/addnote");
     };
 
+    // Function for Logout Button
+    const handleLogoutClick = () => {
+        dispatch(setLogIn(false));
+        props.history.go();
+        handleMenuClose();
+    };
+
     // Function for clicking upon different courses
     const handleCourseClick = (course) => {
         dispatch(setCourseId(course._id));
@@ -195,7 +203,7 @@ const Header = (props) => {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
         </Menu>
     );
 
@@ -228,17 +236,20 @@ const Header = (props) => {
                 </IconButton>
                 <p>About Us !</p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
+            {
+                isLoggedIn &&
+                <MenuItem onClick={handleProfileMenuOpen}>
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <p>Profile</p>
+                </MenuItem>
+            }
         </Menu>
     );
 
@@ -298,16 +309,19 @@ const Header = (props) => {
                                 <SupervisorAccountIcon />
                             </IconButton>
                         </Tooltip>
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                        {
+                            isLoggedIn &&
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                        }
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton

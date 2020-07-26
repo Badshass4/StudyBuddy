@@ -57,7 +57,6 @@ exports.getAuthUser = (req, res, next) => {
                 if (isValidPassword) {
                     let token;
                     try {
-                        console.log(process.env.JWT_TOKEN);
                         token = jwt.sign(
                             { userName: userName, email: email },
                             process.env.JWT_TOKEN,

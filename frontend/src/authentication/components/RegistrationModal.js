@@ -80,8 +80,7 @@ const RegistrationModal = (props) => {
     };
 
     const handleRegistrationCancel = () => {
-        setFirstName('');
-        // props.closeModal();
+        props.closeModal();
     };
 
     const handleRegisterClick = () => {

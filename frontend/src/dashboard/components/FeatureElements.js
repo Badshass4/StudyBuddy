@@ -1,10 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
+// import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import Switch from '@material-ui/core/Switch';
+import store from '../../redux/store';
 import SpeedDial from '@material-ui/lab/SpeedDial';
 import SpeedDialIcon from '@material-ui/lab/SpeedDialIcon';
 import SpeedDialAction from '@material-ui/lab/SpeedDialAction';
@@ -43,14 +40,33 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const actions = [
-    { icon: <PersonRoundedIcon />, name: 'Login' },
-    { icon: <PersonAddRoundedIcon />, name: 'Registration' },
-    { icon: <ShareIcon />, name: 'Share' },
-    { icon: <FavoriteIcon />, name: 'Like' },
-];
 
 const FeatureElements = () => {
+
+    // This actions are shown in speed-dial feature of dashboard
+    let [actions, setActions] = useState([]);
+    let [isLoggedIn, setIsLoggedIn] = useState(store.getState().authReducer.isLoggedIn);
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            setActions([
+                { icon: <ShareIcon />, name: 'Share' },
+                { icon: <FavoriteIcon />, name: 'Like' }
+            ])
+        } else {
+            setActions([
+                { icon: <PersonRoundedIcon />, name: 'Login' },
+                { icon: <PersonAddRoundedIcon />, name: 'Registration' },
+                { icon: <ShareIcon />, name: 'Share' },
+                { icon: <FavoriteIcon />, name: 'Like' }
+            ])
+        }
+    }, [isLoggedIn])
+
+    const handleAfterLogin = () => {
+        setIsLoggedIn(store.getState().authReducer.isLoggedIn);
+    };
+
     const classes = useStyles();
     const [open, setOpen] = useState(false);
     const [loginModalOpen, setLoginModalOpen] = useState(false);
@@ -66,9 +82,9 @@ const FeatureElements = () => {
 
     const handleIconClick = (actionType) => {
         handleClose();
-        if (actionType === 'Login'){
+        if (actionType === 'Login') {
             handleLoginClick();
-        } else if (actionType === 'Registration'){
+        } else if (actionType === 'Registration') {
             handleRegistrationClick();
         }
     };
@@ -109,8 +125,8 @@ const FeatureElements = () => {
                         />
                     ))}
                 </SpeedDial>
-                <LoginModal openStatus={loginModalOpen} closeModal={handleLoginClose}/>
-                <RegistrationModal openStatus={registrationModalOpen} closeModal={handleRegistrationClose}/>
+                <LoginModal openStatus={loginModalOpen} closeModal={handleLoginClose} afterLogin={handleAfterLogin} />
+                <RegistrationModal openStatus={registrationModalOpen} closeModal={handleRegistrationClose} />
             </div>
         </div>
     );
