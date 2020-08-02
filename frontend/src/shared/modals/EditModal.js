@@ -146,18 +146,20 @@ const EditModal = (props) => {
                     </FormHelperText>*/}
 
             </DialogContent>
-            <DialogActions>
-                <ThemeProvider theme={theme}>
-                    <Button onClick={handleEditCancel} variant="contained" color="secondary">
-                        CANCEL
+            <DialogContent>
+                <DialogActions>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={handleEditCancel} variant="contained" color="secondary">
+                            CANCEL
                     </Button>
-                </ThemeProvider>
-                <ThemeProvider theme={theme}>
-                    <Button onClick={editNote} variant="contained" color="primary">
-                        SUBMIT
+                    </ThemeProvider>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={editNote} variant="contained" color="primary">
+                            SUBMIT
                     </Button>
-                </ThemeProvider>
-            </DialogActions>
+                    </ThemeProvider>
+                </DialogActions>
+            </DialogContent>
         </Dialog>
     )
 }

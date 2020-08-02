@@ -1,14 +1,23 @@
 .main-container{
-    margin-top: 5%;
-    margin-left: 5%;
-    margin-right: 5%;
-    max-width: 32%;
-    padding-left: 25%;
+    margin-top: 5vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    /* max-width: 32%; */
+    /*padding-left: 25%; */
 } 
 
 .stream-card,
-.subject-card{
-    width: 15vw;
+.subject-card,
+.year-card{
+    min-width: 15vw;
+    min-height: 15vh;
+}
+
+.stream-action__area,
+.subject-action__area,
+.year-action__area{
+    height: "20vh";
+    background-color: "#132020";
 }
 
 .card-text{

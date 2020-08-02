@@ -27,7 +27,7 @@ const YearGrid = (props) => {
             {yearList.map(year => {
                 return (
                     <Grid key={year} item xs={12} sm={6}>
-                        <Card className="stream-card">
+                        <Card className="year-card">
                             <CardActionArea style={{ height: '20vh', backgroundColor: "#132020" }}>
                                 <CardContent className="card-text" onClick={() => handleYearClick(year)}>
                                     <input type="hidden" name={year} value={year}></input>

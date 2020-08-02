@@ -99,23 +99,23 @@ const RegistrationModal = (props) => {
                 password: password
             }
         )
-        .then(response => {
-            dispatch(
-                setSnackbar(
-                  true,
-                  "success",
-                  response.data.message
-                )
-              );
-        }).catch(err => {
-            dispatch(
-                setSnackbar(
-                  true,
-                  "error",
-                  err.response.data.message
-                )
-              );
-        });
+            .then(response => {
+                dispatch(
+                    setSnackbar(
+                        true,
+                        "success",
+                        response.data.message
+                    )
+                );
+            }).catch(err => {
+                dispatch(
+                    setSnackbar(
+                        true,
+                        "error",
+                        err.response.data.message
+                    )
+                );
+            });
         props.closeModal();
     }
 
@@ -129,7 +129,7 @@ const RegistrationModal = (props) => {
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
         >
-            <DialogTitle id="alert-dialog-title" style={{ width: '30vw' }}>{"Sign up your free account"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title" style={{ minWidth: '30vw' }}>{"Sign up your free account"}</DialogTitle>
             <DialogContent>
                 <TextField
                     label="First Name"
@@ -196,18 +196,20 @@ const RegistrationModal = (props) => {
                 // error={!isValidText(title)}
                 />
             </DialogContent>
-            <DialogActions>
-                <ThemeProvider theme={theme}>
-                    <Button onClick={handleRegistrationCancel} variant="contained" color="secondary">
-                        CANCEL
+            <DialogContent>
+                <DialogActions>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={handleRegistrationCancel} variant="contained" color="secondary">
+                            CANCEL
                     </Button>
-                </ThemeProvider>
-                <ThemeProvider theme={theme}>
-                    <Button onClick={handleRegisterClick} variant="contained" color="primary">
-                        REGISTER
+                    </ThemeProvider>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={handleRegisterClick} variant="contained" color="primary">
+                            REGISTER
                     </Button>
-                </ThemeProvider>
-            </DialogActions>
+                    </ThemeProvider>
+                </DialogActions>
+            </DialogContent>
         </Dialog>
     )
 }

@@ -77,7 +77,7 @@ const StudyMaterialCard = (props) => {
                 <CardActionArea style={{ backgroundColor: "#132020" }}>
                     <CardContent>
                         <input type="hidden" name={info._id} value={info._id}></input>
-                        <Typography gutterBottom variant="h6" component="h6" className="font">
+                        <Typography gutterBottom variant="h5" component="h6" className="font">
                             {info.title}
                         </Typography>
                     </CardContent>

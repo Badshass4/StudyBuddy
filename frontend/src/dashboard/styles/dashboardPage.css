@@ -1,7 +1,18 @@
 .dashboard-main{
-    padding-top: 18px;
-    height:600px;
-    width: 100%;
+    padding-top: 2vh;
+    padding-left: 3vw;
+    height:100vh;
+    width: 100vw;
     background: url('../../shared/photos/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.dashboard-main__mobile{
+    padding-top: 1vh;
+    padding-left: 6vw;
+    height:100vh;
+    width: 100vw;
+    background: url('../../shared/photos/background.jpg') no-repeat center center fixed;
+    image-orientation: none;
     background-size: cover;
 }

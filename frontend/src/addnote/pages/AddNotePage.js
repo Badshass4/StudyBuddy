@@ -19,7 +19,7 @@ const AddNotePage = (props) => {
                 `${process.env.REACT_APP_BACKEND_API}/admin/subjects`
             )
             .then(response => {
-                document.title = "StudyBuddy | Add Notes";
+                // document.title = "StudyBuddy | Add Notes";
                 allSubjects = response.data;
                 setAllSubjects(allSubjects.allSubject);
             }).catch(err => {

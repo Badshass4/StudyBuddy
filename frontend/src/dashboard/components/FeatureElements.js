@@ -43,9 +43,15 @@ const useStyles = makeStyles((theme) => ({
 
 const FeatureElements = () => {
 
+    const classes = useStyles();
+    
     // This actions are shown in speed-dial feature of dashboard
     let [actions, setActions] = useState([]);
     let [isLoggedIn, setIsLoggedIn] = useState(store.getState().authReducer.isLoggedIn);
+    
+    const [open, setOpen] = useState(false);
+    const [loginModalOpen, setLoginModalOpen] = useState(false);
+    const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -66,11 +72,6 @@ const FeatureElements = () => {
     const handleAfterLogin = () => {
         setIsLoggedIn(store.getState().authReducer.isLoggedIn);
     };
-
-    const classes = useStyles();
-    const [open, setOpen] = useState(false);
-    const [loginModalOpen, setLoginModalOpen] = useState(false);
-    const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
 
     const handleClose = () => {
         setOpen(false);

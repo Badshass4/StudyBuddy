@@ -162,7 +162,7 @@ const FormElements = (props) => {
     })
 
     return (
-        <div style={{ paddingTop: '20px' }}>
+        <div style={{ paddingTop: '5vh' }}>
             <Card className="card-style">
                 <CardContent>
                     {finalElement}

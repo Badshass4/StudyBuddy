@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(3),
-            width: '300px',
+            width: '30vw',
         },
     },
     searchIcon: {
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
         flexShrink: 0,
     },
     drawerPaper: {
-        width: 240,
+        width: 220,
         background: '#2f4f4f',
         boxShadow: '2px -5px 8px #4d4d33'
     },
@@ -167,6 +167,9 @@ const Header = (props) => {
     // Function for Add Notes icon
     const handleAddNoteClick = () => {
         props.history.push("/admin/addnote");
+        if (isMobileMenuOpen) {
+            handleMobileMenuClose();
+        }
     };
 
     // Function for Logout Button
@@ -218,12 +221,15 @@ const Header = (props) => {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton color="inherit" onClick={handleAddNoteClick}>
-                    <NoteAddIcon />
-                </IconButton>
-                <p>Add Notes</p>
-            </MenuItem>
+            {
+                isLoggedIn &&
+                <MenuItem onClick={handleAddNoteClick}>
+                    <IconButton color="inherit">
+                        <NoteAddIcon />
+                    </IconButton>
+                    <p>Add Notes</p>
+                </MenuItem>
+            }
             <MenuItem>
                 <IconButton color="inherit">
                     <ContactSupportIcon />
