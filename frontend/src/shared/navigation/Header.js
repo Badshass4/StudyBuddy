@@ -205,7 +205,6 @@ const Header = (props) => {
         // }}
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
         </Menu>
     );
@@ -350,6 +349,7 @@ const Header = (props) => {
                 classes={{
                     paper: classes.drawerPaper,
                 }}
+                onBackdropClick={handleOpenDrawer}
             >
                 <Divider />
                 <List>

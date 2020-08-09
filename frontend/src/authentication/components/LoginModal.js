@@ -13,9 +13,7 @@ import Slide from '@material-ui/core/Slide';
 import { theme } from '../../utils/colorPalette';
 import { ThemeProvider } from "@material-ui/core/styles";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
-import { isValidEmail, isValidPassword } from '../../utils/validate';
 import { setLogIn } from '../../redux/reducers/authReducer';
-import store from '../../redux/store';
 import Link from '@material-ui/core/Link';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -25,8 +23,8 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const LoginModal = (props) => {
     const dispatch = useDispatch();
     // const classes = useStyles();
-    let [email, setEmail] = useState('someone@example.com'); //
-    let [password, setPassword] = useState('AeuDbjh2f');
+    let [email, setEmail] = useState('');
+    let [password, setPassword] = useState('');
 
     const handleEmail = (event) => {
         setEmail(event.target.value);
@@ -43,67 +41,38 @@ const LoginModal = (props) => {
     const handleLoginClick = () => {
         let trimmedEmail = email.trim();
         let trimmedPassword = password.trim();
-        let isValidEmailStatus = isValidEmail(trimmedEmail);
-        let isValidPasswordStatus = isValidPassword(trimmedPassword);
 
-        if (email === 'someone@example.com' || password === 'AeuDbjh2f') {
-            dispatch(
-                setSnackbar(
-                    true,
-                    "error",
-                    "Please enter all the fields !"
-                )
-            );
-        } else if (!isValidEmailStatus) {
-            dispatch(
-                setSnackbar(
-                    true,
-                    "error",
-                    "Please enter a valid email !"
-                )
-            );
-            // } else if (!isValidPasswordStatus ) {
-            //     dispatch(
-            //         setSnackbar(
-            //             true,
-            //             "error",
-            //             "Please enter a password of min 8 characters with a digit, an uppercase & a lowercase !"
-            //         )
-            //     );
-        } else {
-
-            axios.get(
-                `${process.env.REACT_APP_BACKEND_API}/authentication/login`,
-                {
-                    params: {
-                        email: trimmedEmail,
-                        password: trimmedPassword
-                    }
+        axios.get(
+            `${process.env.REACT_APP_BACKEND_API}/authentication/login`,
+            {
+                params: {
+                    email: trimmedEmail,
+                    password: trimmedPassword
                 }
-            )
-                .then(response => {
-                    console.log(response.data.result);
-                    dispatch(setLogIn(true));
-                    props.afterLogin();
-                    props.closeModal();
-                    // props.history.push('/admin/addnote');
-                    // dispatch(
-                    //     setSnackbar(
-                    //         true,
-                    //         "success",
-                    //         response.data.message
-                    //     )
-                    // );
-                }).catch(err => {
-                    dispatch(
-                        setSnackbar(
-                            true,
-                            "error",
-                            err.response.data.message
-                        )
-                    );
-                });
-        }
+            }
+        )
+            .then(response => {
+                console.log(response.data.result);
+                dispatch(setLogIn(true));
+                props.afterLogin();
+                props.closeModal();
+                // props.history.push('/admin/addnote');
+                // dispatch(
+                //     setSnackbar(
+                //         true,
+                //         "success",
+                //         response.data.message
+                //     )
+                // );
+            }).catch(err => {
+                dispatch(
+                    setSnackbar(
+                        true,
+                        "error",
+                        err.response.data.message
+                    )
+                );
+            });
     }
 
     return (
@@ -125,7 +94,7 @@ const LoginModal = (props) => {
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
-                    error={!isValidEmail(email)}
+                // error={!isValidEmail(email)}
                 />
             </DialogContent>
             <DialogContent>
@@ -137,7 +106,7 @@ const LoginModal = (props) => {
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
-                    error={!isValidPassword(password)}
+                // error={!isValidPassword(password)}
                 />
             </DialogContent>
             <DialogContent>

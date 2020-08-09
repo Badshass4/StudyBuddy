@@ -16,39 +16,24 @@ const useStyles = makeStyles((theme) => ({
     root: {
         transform: 'translateZ(0px)',
         flexGrow: 1,
+        position: 'fixed',
+        right: '5vw',
+        top: '45vh'
     },
-    //   exampleWrapper: {
-    //     position: 'fixed',
-    //     height: '70vh',
-    //     width: '92vw'
-    //   },
     radioGroup: {
         margin: theme.spacing(1, 0),
-    },
-    speedDial: {
-        position: 'fixed',
-        top: '100%',
-        right: '17%',
-        // '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
-        //   bottom: theme.spacing(2),
-        //   right: theme.spacing(2),
-        // },
-        // '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
-        //   top: theme.spacing(2),
-        //   left: theme.spacing(2),
-        // },
-    },
+    }
 }));
 
 
 const FeatureElements = () => {
 
     const classes = useStyles();
-    
+
     // This actions are shown in speed-dial feature of dashboard
     let [actions, setActions] = useState([]);
     let [isLoggedIn, setIsLoggedIn] = useState(store.getState().authReducer.isLoggedIn);
-    
+
     const [open, setOpen] = useState(false);
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
@@ -107,28 +92,25 @@ const FeatureElements = () => {
     };
 
     return (
-        <div styles={{ position: 'fixed' }}>
-            <div className={classes.root}>
-                <SpeedDial
-                    ariaLabel="SpeedDial example"
-                    className={classes.speedDial}
-                    icon={<SpeedDialIcon />}
-                    onClose={handleClose}
-                    onOpen={handleOpen}
-                    open={open}
-                >
-                    {actions.map((action) => (
-                        <SpeedDialAction
-                            key={action.name}
-                            icon={action.icon}
-                            tooltipTitle={action.name}
-                            onClick={() => handleIconClick(action.name)}
-                        />
-                    ))}
-                </SpeedDial>
-                <LoginModal openStatus={loginModalOpen} closeModal={handleLoginClose} afterLogin={handleAfterLogin} />
-                <RegistrationModal openStatus={registrationModalOpen} closeModal={handleRegistrationClose} />
-            </div>
+        <div className={classes.root}>
+            <SpeedDial
+                ariaLabel="SpeedDial example"
+                icon={<SpeedDialIcon />}
+                onClose={handleClose}
+                onOpen={handleOpen}
+                open={open}
+            >
+                {actions.map((action) => (
+                    <SpeedDialAction
+                        key={action.name}
+                        icon={action.icon}
+                        tooltipTitle={action.name}
+                        onClick={() => handleIconClick(action.name)}
+                    />
+                ))}
+            </SpeedDial>
+            <LoginModal openStatus={loginModalOpen} closeModal={handleLoginClose} afterLogin={handleAfterLogin} />
+            <RegistrationModal openStatus={registrationModalOpen} closeModal={handleRegistrationClose} />
         </div>
     );
 }
