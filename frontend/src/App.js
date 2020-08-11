@@ -2,7 +2,9 @@ import React, { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
-// import Header from './shared/navigation/Header';
+import Header from './shared/navigation/Header';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
 // import AddNotePage from './addnote/pages/AddNotePage';
 // import Snackbar from './shared/snackBar/snackBar';
 // import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
@@ -13,7 +15,8 @@ import './App.css';
 
 
 // Modified imports to not load all pages at a time - Code Splitting
-const Header = React.lazy(() => import('./shared/navigation/Header'));
+
+// const Header = React.lazy(() => import('./shared/navigation/Header'));
 const AddNotePage = React.lazy(() => import('./addnote/pages/AddNotePage'));
 const Snackbar = React.lazy(() => import('./shared/snackBar/snackBar'));
 const StudyMaterialPage = React.lazy(() => import('./studymaterials/pages/StudyMaterialPage'));
@@ -91,9 +94,13 @@ const App = () => {
     );
   }
   return <BrowserRouter>
+    <Route component={Header} />
     <Suspense
-      fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}><h3>Loading...</h3></div>}>
-      <Route component={Header} />
+      fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Backdrop className="backdrop" open={true}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      </div>}>
       <Snackbar />
       {routes}
     </Suspense>

@@ -349,7 +349,6 @@ const Header = (props) => {
                 classes={{
                     paper: classes.drawerPaper,
                 }}
-                onBackdropClick={handleOpenDrawer}
             >
                 <Divider />
                 <List>
@@ -380,6 +379,7 @@ const Header = (props) => {
                     ))}
                 </List>
             </Drawer>
+
             {renderMobileMenu}
             {renderMenu}
         </div>
