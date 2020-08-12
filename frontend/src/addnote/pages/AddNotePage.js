@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import FormElements from '../components/FormElements'
 import '../styles/addnote.css'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 
 
 const AddNotePage = (props) => {
+    let authToken = useSelector(state => {
+        return state.userReducer.authToken;
+      });
     let [allSubjects, setAllSubjects] = useState([]);
 
     const dispatch = useDispatch();
@@ -36,25 +39,28 @@ const AddNotePage = (props) => {
 
         axios
             .post(
-                `${process.env.REACT_APP_BACKEND_API}/admin/add-note`,
-                formData
+                `${process.env.REACT_APP_BACKEND_API}/admin/add-note`, 
+                formData,
+                {
+                    headers: {'Authorization': 'Bearer ' + authToken}
+                }
             )
             .then(response => {
                 dispatch(
                     setSnackbar(
-                      true,
-                      "success",
-                      response.data.message
+                        true,
+                        "success",
+                        response.data.message
                     )
-                  );
+                );
             }).catch(err => {
                 dispatch(
                     setSnackbar(
-                      true,
-                      "error",
-                      err.response.data.message
+                        true,
+                        "error",
+                        err.response.data.message
                     )
-                  );
+                );
             });
     }
 
@@ -72,7 +78,7 @@ const AddNotePage = (props) => {
         {
             type: "upload",
             label: "Upload File"
-            
+
         }];
 
     return (

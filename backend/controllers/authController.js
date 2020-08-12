@@ -73,6 +73,7 @@ exports.getAuthUser = (req, res, next) => {
                                 userName: userName,
                                 email: email,
                                 firstName: firstName,
+                                lastName: lastName,
                                 isAdmin: isAdmin,
                                 college: college,
                                 stream: stream,

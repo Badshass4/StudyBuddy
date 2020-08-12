@@ -14,6 +14,7 @@ import { theme } from '../../utils/colorPalette';
 import { ThemeProvider } from "@material-ui/core/styles";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 import { setLogIn } from '../../redux/reducers/authReducer';
+import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken }from '../../redux/reducers/userReducer';
 import Link from '@material-ui/core/Link';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -53,17 +54,35 @@ const LoginModal = (props) => {
         )
             .then(response => {
                 console.log(response.data.result);
+                const {
+                    isAdmin,
+                    firstName,
+                    lastName,
+                    email,
+                    userName,
+                    token,
+                    college,
+                    course,
+                    stream,
+                    phoneNo
+                } = response.data.result;
                 dispatch(setLogIn(true));
+                dispatch(setIsAdmin(isAdmin));
+                dispatch(setUserFirstName(firstName));
+                dispatch(setUserLastName(lastName));
+                dispatch(setUserMail(email));
+                dispatch(setUserName(userName));
+                dispatch(setAuthToken(token));
                 props.afterLogin();
                 props.closeModal();
                 // props.history.push('/admin/addnote');
-                // dispatch(
-                //     setSnackbar(
-                //         true,
-                //         "success",
-                //         response.data.message
-                //     )
-                // );
+                dispatch(
+                    setSnackbar(
+                        true,
+                        "success",
+                        "Welcome " + firstName + " !"
+                    )
+                );
             }).catch(err => {
                 dispatch(
                     setSnackbar(

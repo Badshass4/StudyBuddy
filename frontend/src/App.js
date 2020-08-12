@@ -97,7 +97,7 @@ const App = () => {
     <Route component={Header} />
     <Suspense
       fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}>
-        <Backdrop className="backdrop" open={true}>
+        <Backdrop className="backdrop">
           <CircularProgress color="inherit" />
         </Backdrop>
       </div>}>
