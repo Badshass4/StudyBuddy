@@ -29,6 +29,7 @@ import '../../shared/styles/font.css';
 import axios from 'axios';
 import { setCourseId } from '../../redux/reducers/routeParamsReducer';
 import { setLogIn } from '../../redux/reducers/authReducer';
+import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken }from '../../redux/reducers/userReducer';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -175,7 +176,19 @@ const Header = (props) => {
     // Function for Logout Button
     const handleLogoutClick = () => {
         dispatch(setLogIn(false));
-        props.history.go();
+        dispatch(setIsAdmin(false));
+        dispatch(setUserFirstName(''));
+        dispatch(setUserLastName(''));
+        dispatch(setUserMail(''));
+        dispatch(setUserName(''));
+        dispatch(setAuthToken(''));
+        localStorage.removeItem('userData');
+        localStorage.removeItem('expirationTime');
+        if (props.history.location.pathname === "/dashboard"){
+            props.history.go();
+        } else {
+            props.history.push('/dashboard');
+        }
         handleMenuClose();
     };
 
@@ -185,6 +198,11 @@ const Header = (props) => {
         setDrawerOpen(!drawerOpen);
         props.history.push('/user/course/streams');
     };
+
+    const handleProfileClick = () => {
+        handleMenuClose();
+        props.history.push('/user/profile');
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -204,7 +222,7 @@ const Header = (props) => {
         //     }
         // }}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+            <MenuItem onClick={handleProfileClick}>My Profile</MenuItem>
             <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
         </Menu>
     );

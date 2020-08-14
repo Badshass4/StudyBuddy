@@ -1,10 +1,12 @@
-import React, { Suspense } from 'react';
-import { useSelector } from 'react-redux';
+import React, { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './shared/navigation/Header';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import { setLogIn } from './redux/reducers/authReducer';
+import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken } from './redux/reducers/userReducer';
 // import AddNotePage from './addnote/pages/AddNotePage';
 // import Snackbar from './shared/snackBar/snackBar';
 // import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
@@ -24,6 +26,7 @@ const DashboardPage = React.lazy(() => import('./dashboard/pages/DashboardPage')
 const CourseDetailsPage = React.lazy(() => import('./course/pages/CourseDetailsPage'));
 const StreamDetailsPage = React.lazy(() => import('./course/pages/StreamDetailsPage'));
 const SubjectDetailsPage = React.lazy(() => import('./course/pages/SubjectDetailsPage'));
+const Profile = React.lazy(() => import('./profile/pages/Profile'));
 
 //  <------Note------>
 
@@ -40,9 +43,29 @@ const SubjectDetailsPage = React.lazy(() => import('./course/pages/SubjectDetail
 //            This tag tells the dom to redirect all the other URLs to default except the mentioned routes.
 
 const App = () => {
+  const dispatch = useDispatch();
   let isLoggedIn = useSelector(state => {
     return state.authReducer.isLoggedIn;
   });
+
+  useEffect(() => {
+    const loggedInUserData = JSON.parse(localStorage.getItem('userData'));
+    const expirationTime = localStorage.getItem('expirationTime');
+    const currentTime = new Date().getTime();
+    if (loggedInUserData && currentTime < expirationTime) {
+      isLoggedIn = true;
+      dispatch(setLogIn(true));
+      dispatch(setIsAdmin(loggedInUserData.isAdmin));
+      dispatch(setUserFirstName(loggedInUserData.firstName));
+      dispatch(setUserLastName(loggedInUserData.lastName));
+      dispatch(setUserMail(loggedInUserData.email));
+      dispatch(setUserName(loggedInUserData.userName));
+      dispatch(setAuthToken(loggedInUserData.token));
+    } else {
+      localStorage.removeItem('userData');
+      localStorage.removeItem('expirationTime');
+    }
+  }, []);
 
   let routes;
   if (isLoggedIn) {
@@ -65,6 +88,9 @@ const App = () => {
 
         {/* Subject view page */}
         <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
+
+        {/* My profile view page */}
+        <Route path="/user/profile" exact component={Profile} />
 
         {/* Redirect to default Dashboard page while setting incorrect path */}
         <Redirect to="/dashboard" />

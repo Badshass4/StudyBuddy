@@ -18,11 +18,11 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         position: 'fixed',
         right: '5vw',
-        top: '45vh'
+        bottom: '10vh'
     },
     radioGroup: {
         margin: theme.spacing(1, 0),
-    }
+    },
 }));
 
 

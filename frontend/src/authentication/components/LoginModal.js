@@ -14,7 +14,7 @@ import { theme } from '../../utils/colorPalette';
 import { ThemeProvider } from "@material-ui/core/styles";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 import { setLogIn } from '../../redux/reducers/authReducer';
-import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken }from '../../redux/reducers/userReducer';
+import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken } from '../../redux/reducers/userReducer';
 import Link from '@material-ui/core/Link';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -66,6 +66,8 @@ const LoginModal = (props) => {
                     stream,
                     phoneNo
                 } = response.data.result;
+                localStorage.setItem('userData', JSON.stringify(response.data.result));
+                localStorage.setItem('expirationTime', new Date().getTime() + 1000 * 60 * 60);
                 dispatch(setLogIn(true));
                 dispatch(setIsAdmin(isAdmin));
                 dispatch(setUserFirstName(firstName));
