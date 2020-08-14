@@ -58,18 +58,20 @@ const DeleteModal = (props) => {
                     Do you want to remove <b>{props.noteInfo.title}</b> ?
               </DialogContentText>
             </DialogContent>
-            <DialogActions>
-                <ThemeProvider theme={theme}>
-                    <Button onClick={props.closeModal} variant="contained" color="secondary">
-                        NO
+            <DialogContent>
+                <DialogActions>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={props.closeModal} variant="contained" color="secondary">
+                            NO
                     </Button>
-                </ThemeProvider>
-                <ThemeProvider theme={theme}>
-                    <Button onClick={deleteNote} variant="contained" color="primary">
-                        YES
+                    </ThemeProvider>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={deleteNote} variant="contained" color="primary">
+                            YES
                     </Button>
-                </ThemeProvider>
-            </DialogActions>
+                    </ThemeProvider>
+                </DialogActions>
+            </DialogContent>
         </Dialog>
     )
 }

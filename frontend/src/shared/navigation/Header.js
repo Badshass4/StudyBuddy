@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -28,6 +28,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import '../../shared/styles/font.css';
 import axios from 'axios';
 import { setCourseId } from '../../redux/reducers/routeParamsReducer';
+import { setLogIn } from '../../redux/reducers/authReducer';
+import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken }from '../../redux/reducers/userReducer';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -49,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
         width: '100%',
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(3),
-            width: '300px',
+            width: '30vw',
         },
     },
     searchIcon: {
@@ -91,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
         flexShrink: 0,
     },
     drawerPaper: {
-        width: 240,
+        width: 220,
         background: '#2f4f4f',
         boxShadow: '2px -5px 8px #4d4d33'
     },
@@ -111,6 +113,11 @@ const Header = (props) => {
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+    //to show/hide components based on login state
+    let isLoggedIn = useSelector(state => {
+        return state.authReducer.isLoggedIn;
+    });
 
     // This function will only call while mounting for the first time
     // Fetching all courses for side-drawer
@@ -161,6 +168,28 @@ const Header = (props) => {
     // Function for Add Notes icon
     const handleAddNoteClick = () => {
         props.history.push("/admin/addnote");
+        if (isMobileMenuOpen) {
+            handleMobileMenuClose();
+        }
+    };
+
+    // Function for Logout Button
+    const handleLogoutClick = () => {
+        dispatch(setLogIn(false));
+        dispatch(setIsAdmin(false));
+        dispatch(setUserFirstName(''));
+        dispatch(setUserLastName(''));
+        dispatch(setUserMail(''));
+        dispatch(setUserName(''));
+        dispatch(setAuthToken(''));
+        localStorage.removeItem('userData');
+        localStorage.removeItem('expirationTime');
+        if (props.history.location.pathname === "/dashboard"){
+            props.history.go();
+        } else {
+            props.history.push('/dashboard');
+        }
+        handleMenuClose();
     };
 
     // Function for clicking upon different courses
@@ -169,6 +198,11 @@ const Header = (props) => {
         setDrawerOpen(!drawerOpen);
         props.history.push('/user/course/streams');
     };
+
+    const handleProfileClick = () => {
+        handleMenuClose();
+        props.history.push('/user/profile');
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
@@ -188,9 +222,8 @@ const Header = (props) => {
         //     }
         // }}
         >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={handleProfileClick}>My Profile</MenuItem>
+            <MenuItem onClick={handleLogoutClick}>Logout</MenuItem>
         </Menu>
     );
 
@@ -205,12 +238,15 @@ const Header = (props) => {
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
-            <MenuItem>
-                <IconButton color="inherit" onClick={handleAddNoteClick}>
-                    <NoteAddIcon />
-                </IconButton>
-                <p>Add Notes</p>
-            </MenuItem>
+            {
+                isLoggedIn &&
+                <MenuItem onClick={handleAddNoteClick}>
+                    <IconButton color="inherit">
+                        <NoteAddIcon />
+                    </IconButton>
+                    <p>Add Notes</p>
+                </MenuItem>
+            }
             <MenuItem>
                 <IconButton color="inherit">
                     <ContactSupportIcon />
@@ -223,17 +259,20 @@ const Header = (props) => {
                 </IconButton>
                 <p>About Us !</p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
+            {
+                isLoggedIn &&
+                <MenuItem onClick={handleProfileMenuOpen}>
+                    <IconButton
+                        aria-label="account of current user"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                        color="inherit"
+                    >
+                        <AccountCircle />
+                    </IconButton>
+                    <p>Profile</p>
+                </MenuItem>
+            }
         </Menu>
     );
 
@@ -272,11 +311,17 @@ const Header = (props) => {
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
-                        <Tooltip title="Add Notes">
-                            <IconButton color="inherit" onClick={handleAddNoteClick}>
-                                <NoteAddIcon />
-                            </IconButton>
-                        </Tooltip>
+                        {
+                            isLoggedIn &&
+                            (
+                                <Tooltip title="Add Notes">
+                                    <IconButton color="inherit" onClick={handleAddNoteClick}>
+                                        <NoteAddIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            )
+
+                        }
                         <Tooltip title="Need any Support ?">
                             <IconButton color="inherit">
                                 <ContactSupportIcon />
@@ -287,16 +332,19 @@ const Header = (props) => {
                                 <SupervisorAccountIcon />
                             </IconButton>
                         </Tooltip>
-                        <IconButton
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                        {
+                            isLoggedIn &&
+                            <IconButton
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
+                        }
                     </div>
                     <div className={classes.sectionMobile}>
                         <IconButton
@@ -349,6 +397,7 @@ const Header = (props) => {
                     ))}
                 </List>
             </Drawer>
+
             {renderMobileMenu}
             {renderMenu}
         </div>

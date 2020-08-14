@@ -1,10 +1,11 @@
 .card-style{
-    min-width: 500px;
-    min-height: 380px;
+    min-width: 35vw;
+    min-height: 12vh;
     background-color: #e6e6e6 !important;
     /* display: flex; */
     justify-content: center;
     align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 
 .upload-button-style{

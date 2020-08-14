@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -19,7 +20,9 @@ import '../../shared/styles/font.css';
 
 const StudyMaterialCard = (props) => {
     const { info } = props;
-
+    let isLoggedIn = useSelector(state => {
+        return state.authReducer.isLoggedIn;
+    })
     let [deleteModalOpen, setDeleteModalOpen] = useState(false);
     let [editModalOpen, setEditModalOpen] = useState(false);
 
@@ -74,7 +77,7 @@ const StudyMaterialCard = (props) => {
                 <CardActionArea style={{ backgroundColor: "#132020" }}>
                     <CardContent>
                         <input type="hidden" name={info._id} value={info._id}></input>
-                        <Typography gutterBottom variant="h6" component="h6" className="font">
+                        <Typography gutterBottom variant="h5" component="h6" className="font">
                             {info.title}
                         </Typography>
                     </CardContent>
@@ -87,12 +90,18 @@ const StudyMaterialCard = (props) => {
                     <IconButton aria-label="download">
                         <CloudDownloadIcon onClick={handleDownload} />
                     </IconButton>
-                    <IconButton onClick={handleEdit} aria-label="edit">
-                        <EditIcon />
-                    </IconButton>
-                    <IconButton onClick={handleDelete} aria-label="delete">
-                        <DeleteIcon />
-                    </IconButton>
+                    {
+                        isLoggedIn &&
+                        <IconButton onClick={handleEdit} aria-label="edit">
+                            <EditIcon />
+                        </IconButton>
+                    }
+                    {
+                        isLoggedIn &&
+                        <IconButton onClick={handleDelete} aria-label="delete">
+                            <DeleteIcon />
+                        </IconButton>
+                    }
                 </CardActions>
             </Card>
 

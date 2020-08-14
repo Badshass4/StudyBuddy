@@ -1,16 +1,19 @@
 /*
    This reducer is used to get and set the values reqd for below topics :
       > isAdmin
-      > userId
+      > userFullName
       > userMail
       > userName
+      > authToken
 */
 
 const initState = {
     isAdmin: false,
-    userId: "",
+    userFirstName: "",
+    userLastName: "",
     userMail: "",
-    userName: ""
+    userName: "",
+    authToken: ""
 }
 
 export default (state = initState, action) => {
@@ -20,10 +23,15 @@ export default (state = initState, action) => {
                 ...state,
                 isAdmin: action.payload
             };
-        case "SET_USERID":
+        case "SET_USERFIRSTNAME":
             return {
                 ...state,
-                userId: action.payload
+                userFirstName: action.payload
+            };
+        case "SET_USERLASTNAME":
+            return {
+                ...state,
+                userLastName: action.payload
             };
         case "SET_USERMAIL":
             return {
@@ -35,27 +43,42 @@ export default (state = initState, action) => {
                 ...state,
                 userName: action.payload
             };
+        case "SET_AUTHTOKEN":
+            return {
+                ...state,
+                authToken: action.payload
+            };
         default:
             return state;
     }
 };
 
-export const setIsAdmin = (userMode) =>({
+export const setIsAdmin = (userMode) => ({
     type: 'SET_IS_ADMIN',
     payload: userMode
 });
 
-export const setUserId = (userId) =>({
-    type: 'SET_USERID',
-    payload: userId
+export const setUserFirstName = (userFirstName) => ({
+    type: 'SET_USERFIRSTNAME',
+    payload: userFirstName
 });
 
-export const setUserMail = (userMail) =>({
+export const setUserLastName = (userLastName) => ({
+    type: 'SET_USERLASTNAME',
+    payload: userLastName
+});
+
+export const setUserMail = (userMail) => ({
     type: 'SET_USERMAIL',
     payload: userMail
 });
 
-export const setUserName = (userName) =>({
+export const setUserName = (userName) => ({
     type: 'SET_USERNAME',
     payload: userName
+});
+
+export const setAuthToken = (authToken) => ({
+    type: 'SET_AUTHTOKEN',
+    payload: authToken
 });

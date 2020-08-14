@@ -1,0 +1,48 @@
+.form_main{
+    margin: 3%;
+    display: flex;
+}
+
+.form_main-mobile{
+    margin: 7%;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.profile_image {
+    margin-left: 5vw;
+    margin-right: 5vw;
+    margin-bottom: 5vw;
+    margin-top: 2vw;
+    padding: 1rem;
+    max-width: 258px;
+    background: #008080;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.profile_image-toggle {
+    padding-left: 14%;
+}
+
+.profile_card{ 
+    margin: 1%;
+    padding: 2%;
+    padding-left: 6%;
+    flex-wrap: wrap;
+    /* background: #e6e6e6; */
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+ }
+
+ .profile_card-field{
+     margin: 1%;
+     width: 92%;
+ }
+
+ .profile_card-button {
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 1%;
+    margin-right: 4%;
+    width: 95%;
+}

@@ -18,9 +18,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import Slide from '@material-ui/core/Slide';
 import IconButton from '@material-ui/core/IconButton';
 import { theme } from '../../utils/colorPalette';
-import { ThemeProvider, formatMs } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
-import { isValidText } from '../../utils/validate';
+import { isValidText, isValidEmail, isValidPassword, isValidConfirmPassword } from '../../utils/validate';
 import { makeStyles } from "@material-ui/core/styles";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -80,44 +80,111 @@ const RegistrationModal = (props) => {
     };
 
     const handleRegistrationCancel = () => {
-        setFirstName('');
-        // props.closeModal();
+        props.closeModal();
     };
 
     const handleRegisterClick = () => {
-        firstName = firstName.trim();
-        lastName = lastName.trim();
-        email = email.trim();
-        password = password.trim();
-        confirmPassword = confirmPassword.trim();
+        let trimmedFirstName = firstName.trim();
+        let trimmedLastName = lastName.trim();
+        let trimmedEmail = email.trim();
+        let trimmedPassword = password.trim();
+        let trimmedConfirmPassword = confirmPassword.trim();
 
-        axios.post(
-            `${process.env.REACT_APP_BACKEND_API}/authentication/registration`,
-            {
-                firstName: firstName,
-                lastName: lastName,
-                email: email,
-                password: password
-            }
-        )
-        .then(response => {
+        let validFirstName = isValidText(trimmedFirstName);
+        let validLastName = isValidText(trimmedLastName);
+        let validEmail = isValidEmail(trimmedEmail);
+        let validPassword = isValidPassword(trimmedPassword);
+        let validConfirmPassword = isValidConfirmPassword(trimmedPassword, trimmedConfirmPassword);
+
+        if (trimmedFirstName === '' ||
+            trimmedLastName === '' ||
+            trimmedEmail === '' ||
+            trimmedPassword === '' ||
+            trimmedConfirmPassword === '') {
             dispatch(
                 setSnackbar(
-                  true,
-                  "success",
-                  response.data.message
+                    true,
+                    "error",
+                    "Please enter all the fields !"
                 )
-              );
-        }).catch(err => {
+            );
+        } else if (!validFirstName) {
             dispatch(
                 setSnackbar(
-                  true,
-                  "error",
-                  err.response.data.message
+                    true,
+                    "error",
+                    "Please enter a valid first name !"
                 )
-              );
-        });
-        props.closeModal();
+            );
+        } else if (!validLastName) {
+            dispatch(
+                setSnackbar(
+                    true,
+                    "error",
+                    "Please enter a valid last name !"
+                )
+            );
+        } else if (!validEmail) {
+            dispatch(
+                setSnackbar(
+                    true,
+                    "error",
+                    "Please enter a valid email !"
+                )
+            );
+        } else if (!validPassword) {
+            dispatch(
+                setSnackbar(
+                    true,
+                    "error",
+                    "Password should have min of 8 characters - an uppercase, a lowercase, a digit !"
+                )
+            );
+        } else if (!validConfirmPassword) {
+            dispatch(
+                setSnackbar(
+                    true,
+                    "error",
+                    "Confirm password didn't match with password  !"
+                )
+            );
+        } else {
+            dispatch(
+                setSnackbar(
+                    true,
+                    "success",
+                    "Registerd cheers !"
+                )
+            );
+            // axios.post(
+            //     `${process.env.REACT_APP_BACKEND_API}/authentication/registration`,
+            //     {
+            //         firstName: trimmedFirstName,
+            //         lastName: trimmedLastName,
+            //         email: trimmedEmail,
+            //         password: trimmedPassword
+            //     }
+
+            // )
+            //     .then(response => {
+            //         dispatch(
+            //             setSnackbar(
+            //                 true,
+            //                 "success",
+            //                 response.data.message
+            //             )
+            //         );
+            //     }).catch(err => {
+            //         dispatch(
+            //             setSnackbar(
+            //                 true,
+            //                 "error",
+            //                 err.response.data.message
+            //             )
+            //         );
+            //     });
+            // props.closeModal();
+        }
     }
 
     return (
@@ -130,7 +197,7 @@ const RegistrationModal = (props) => {
             aria-labelledby="alert-dialog-slide-title"
             aria-describedby="alert-dialog-slide-description"
         >
-            <DialogTitle id="alert-dialog-title" style={{ width: '30vw' }}>{"Sign up your free account"}</DialogTitle>
+            <DialogTitle id="alert-dialog-title" style={{ minWidth: '30vw' }}>{"Sign up your free account"}</DialogTitle>
             <DialogContent>
                 <TextField
                     label="First Name"
@@ -197,18 +264,20 @@ const RegistrationModal = (props) => {
                 // error={!isValidText(title)}
                 />
             </DialogContent>
-            <DialogActions>
-                <ThemeProvider theme={theme}>
-                    <Button onClick={handleRegistrationCancel} variant="contained" color="secondary">
-                        CANCEL
+            <DialogContent>
+                <DialogActions>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={handleRegistrationCancel} variant="contained" color="secondary">
+                            CANCEL
                     </Button>
-                </ThemeProvider>
-                <ThemeProvider theme={theme}>
-                    <Button onClick={handleRegisterClick} variant="contained" color="primary">
-                        REGISTER
+                    </ThemeProvider>
+                    <ThemeProvider theme={theme}>
+                        <Button onClick={handleRegisterClick} variant="contained" color="primary">
+                            REGISTER
                     </Button>
-                </ThemeProvider>
-            </DialogActions>
+                    </ThemeProvider>
+                </DialogActions>
+            </DialogContent>
         </Dialog>
     )
 }

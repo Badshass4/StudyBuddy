@@ -1,7 +1,12 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
-// import Header from './shared/navigation/Header';
+import Header from './shared/navigation/Header';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { setLogIn } from './redux/reducers/authReducer';
+import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken } from './redux/reducers/userReducer';
 // import AddNotePage from './addnote/pages/AddNotePage';
 // import Snackbar from './shared/snackBar/snackBar';
 // import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
@@ -12,7 +17,8 @@ import './App.css';
 
 
 // Modified imports to not load all pages at a time - Code Splitting
-const Header = React.lazy(() => import('./shared/navigation/Header'));
+
+// const Header = React.lazy(() => import('./shared/navigation/Header'));
 const AddNotePage = React.lazy(() => import('./addnote/pages/AddNotePage'));
 const Snackbar = React.lazy(() => import('./shared/snackBar/snackBar'));
 const StudyMaterialPage = React.lazy(() => import('./studymaterials/pages/StudyMaterialPage'));
@@ -20,6 +26,7 @@ const DashboardPage = React.lazy(() => import('./dashboard/pages/DashboardPage')
 const CourseDetailsPage = React.lazy(() => import('./course/pages/CourseDetailsPage'));
 const StreamDetailsPage = React.lazy(() => import('./course/pages/StreamDetailsPage'));
 const SubjectDetailsPage = React.lazy(() => import('./course/pages/SubjectDetailsPage'));
+const Profile = React.lazy(() => import('./profile/pages/Profile'));
 
 //  <------Note------>
 
@@ -36,12 +43,33 @@ const SubjectDetailsPage = React.lazy(() => import('./course/pages/SubjectDetail
 //            This tag tells the dom to redirect all the other URLs to default except the mentioned routes.
 
 const App = () => {
+  const dispatch = useDispatch();
+  let isLoggedIn = useSelector(state => {
+    return state.authReducer.isLoggedIn;
+  });
 
-  return <BrowserRouter>
-    <Suspense
-      fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}><h3>Loading...</h3></div>}>
-      <Route component={Header} />
-      <Snackbar />
+  useEffect(() => {
+    const loggedInUserData = JSON.parse(localStorage.getItem('userData'));
+    const expirationTime = localStorage.getItem('expirationTime');
+    const currentTime = new Date().getTime();
+    if (loggedInUserData && currentTime < expirationTime) {
+      isLoggedIn = true;
+      dispatch(setLogIn(true));
+      dispatch(setIsAdmin(loggedInUserData.isAdmin));
+      dispatch(setUserFirstName(loggedInUserData.firstName));
+      dispatch(setUserLastName(loggedInUserData.lastName));
+      dispatch(setUserMail(loggedInUserData.email));
+      dispatch(setUserName(loggedInUserData.userName));
+      dispatch(setAuthToken(loggedInUserData.token));
+    } else {
+      localStorage.removeItem('userData');
+      localStorage.removeItem('expirationTime');
+    }
+  }, []);
+
+  let routes;
+  if (isLoggedIn) {
+    routes = (
       <Switch>
         {/* Dashboard page */}
         <Route path="/dashboard" exact component={DashboardPage} />
@@ -49,8 +77,30 @@ const App = () => {
         {/* Add new note page */}
         <Route path="/admin/addnote" exact component={AddNotePage} />
 
-        {/* Edit note page */}
-        <Route path="/admin/editnote" exact component={AddNotePage} />
+        {/* Note view according to subjects page */}
+        <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
+
+        {/* Streams view page  */}
+        <Route path="/user/course/streams" exact component={CourseDetailsPage} />
+
+        {/* Year view page */}
+        <Route path="/user/course/stream/years" exact component={StreamDetailsPage} />
+
+        {/* Subject view page */}
+        <Route path="/user/course/stream/year/subjects" exact component={SubjectDetailsPage} />
+
+        {/* My profile view page */}
+        <Route path="/user/profile" exact component={Profile} />
+
+        {/* Redirect to default Dashboard page while setting incorrect path */}
+        <Redirect to="/dashboard" />
+      </Switch>
+    );
+  } else {
+    routes = (
+      <Switch>
+        {/* Dashboard page */}
+        <Route path="/dashboard" exact component={DashboardPage} />
 
         {/* Note view according to subjects page */}
         <Route path="/user/studymaterials/:subjectName" exact component={StudyMaterialPage} />
@@ -67,6 +117,18 @@ const App = () => {
         {/* Redirect to default Dashboard page while setting incorrect path */}
         <Redirect to="/dashboard" />
       </Switch>
+    );
+  }
+  return <BrowserRouter>
+    <Route component={Header} />
+    <Suspense
+      fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}>
+        <Backdrop className="backdrop">
+          <CircularProgress color="inherit" />
+        </Backdrop>
+      </div>}>
+      <Snackbar />
+      {routes}
     </Suspense>
   </BrowserRouter>;
 }
