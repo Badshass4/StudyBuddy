@@ -13,6 +13,11 @@ const initState = {
     userLastName: "",
     userMail: "",
     userName: "",
+    userPhoneNo: "",
+    userCollege: "",
+    userCourse: "",
+    userStream: "",
+    userImagePath: "",
     authToken: ""
 }
 
@@ -42,6 +47,32 @@ export default (state = initState, action) => {
             return {
                 ...state,
                 userName: action.payload
+            };
+        case "SET_USERPHONENO":
+            return {
+                ...state,
+                userPhoneNo: action.payload
+            };
+
+        case "SET_USERCOLLEGE":
+            return {
+                ...state,
+                userCollege: action.payload
+            };
+        case "SET_USERCOURSE":
+            return {
+                ...state,
+                userCourse: action.payload
+            };
+        case "SET_USERSTREAM":
+            return {
+                ...state,
+                userStream: action.payload
+            };
+        case "SET_USERIMAGEPATH":
+            return {
+                ...state,
+                userImagePath: action.payload
             };
         case "SET_AUTHTOKEN":
             return {
@@ -76,6 +107,31 @@ export const setUserMail = (userMail) => ({
 export const setUserName = (userName) => ({
     type: 'SET_USERNAME',
     payload: userName
+});
+
+export const setUserPhoneNo = (userPhoneNo) => ({
+    type: 'SET_USERPHONENO',
+    payload: userPhoneNo
+});
+
+export const setUserCollege = (userCollege) => ({
+    type: 'SET_USERCOLLEGE',
+    payload: userCollege
+});
+
+export const setUserCourse = (userCourse) => ({
+    type: 'SET_USERCOURSE',
+    payload: userCourse
+});
+
+export const setUserStream = (userStream) => ({
+    type: 'SET_USERSTREAM',
+    payload: userStream
+});
+
+export const setUserImagePath = (userImagePath) => ({
+    type: 'SET_USERIMAGEPATH',
+    payload: userImagePath
 });
 
 export const setAuthToken = (authToken) => ({

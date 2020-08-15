@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import axios from "axios"
-import FormElements from '../components/FormElements'
-import '../styles/addnote.css'
+import React, { useEffect, useState } from 'react';
+import axios from "axios";
+import FormElements from '../components/FormElements';
+import '../styles/addnote.css';
 import { useDispatch, useSelector } from "react-redux";
 import { setSnackbar } from "../../redux/reducers/snackBarReducer";
 

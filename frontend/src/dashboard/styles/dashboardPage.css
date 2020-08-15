@@ -16,3 +16,11 @@
     image-orientation: none;
     background-size: cover;
 }
+
+.speeddial_icon-btn .MuiFab-primary{
+    background-color: #008080;
+}
+
+.speeddial_icon-btn:hover .MuiFab-primary{
+    background-color: #004e4e;
+}

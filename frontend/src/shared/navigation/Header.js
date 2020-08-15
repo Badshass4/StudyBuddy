@@ -29,7 +29,12 @@ import '../../shared/styles/font.css';
 import axios from 'axios';
 import { setCourseId } from '../../redux/reducers/routeParamsReducer';
 import { setLogIn } from '../../redux/reducers/authReducer';
-import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken }from '../../redux/reducers/userReducer';
+import {
+    setIsAdmin, setUserFirstName, setUserLastName,
+    setUserMail, setUserName, setUserPhoneNo,
+    setUserCollege, setUserCourse, setUserStream,
+    setAuthToken, setUserImagePath
+} from '../../redux/reducers/userReducer';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -181,10 +186,15 @@ const Header = (props) => {
         dispatch(setUserLastName(''));
         dispatch(setUserMail(''));
         dispatch(setUserName(''));
+        dispatch(setUserPhoneNo(''));
+        dispatch(setUserCollege(''));
+        dispatch(setUserCourse(''));
+        dispatch(setUserStream(''));
+        dispatch(setUserImagePath(''));
         dispatch(setAuthToken(''));
         localStorage.removeItem('userData');
         localStorage.removeItem('expirationTime');
-        if (props.history.location.pathname === "/dashboard"){
+        if (props.history.location.pathname === "/dashboard") {
             props.history.go();
         } else {
             props.history.push('/dashboard');

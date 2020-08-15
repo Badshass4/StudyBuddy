@@ -1,6 +1,7 @@
 // const fs = require('fs');
 // const path = require('path');
 const HttpError = require('../models/error');
+const User = require('../models/user');
 const StudyMaterial = require('../models/studyMaterial');
 const Course = require('../models/course');
 const Subject = require('../models/subject');
@@ -98,7 +99,7 @@ exports.getSubjects = (req, res, next) => {
 // Function to download the notes after clicking download icon in studyaterial-card
 exports.downloadNote = (req, res, next) => {
     const noteId = req.query.noteId;
-
+    console.log(noteId);
     StudyMaterial.findOne({ _id: noteId },
         { file: 1 })
         .then(result => {
@@ -118,4 +119,28 @@ exports.downloadNote = (req, res, next) => {
         .catch(err => {
             return next(new HttpError('Server timed out', 404));
         })
+}
+
+// Function to add profile picture
+exports.profileImage = (req, res, next) => {
+    const { userName } = req.body;
+    const file = req.file;
+    
+    User.find({userName: userName})
+    .then(data => {
+        if (data) {
+            User.updateOne({$set: {avatar: file}})
+            .then(result => {
+                res.json({filePath: file.path});
+            })
+            .catch(err => {
+                return next(new HttpError('Server timed out', 404));
+            })
+        } else {
+            return next(new HttpError('No such username !', 404));
+        }
+    })
+    .catch(err => {
+        return next(new HttpError('Server timed out', 404));
+    })
 }

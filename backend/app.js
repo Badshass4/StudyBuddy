@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const bodyParser = require('body-parser');// for parsing data from one page to another page
 const mongoose = require('mongoose');
 
@@ -23,6 +24,8 @@ app.use((req, res, next) => {
     }
     next();
 })
+
+app.use(express.static(path.join(__dirname, 'uploads')));
 
 //accessing routes
 app.use('/api/admin', adminRoutes);
