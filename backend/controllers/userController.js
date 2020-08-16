@@ -125,22 +125,45 @@ exports.downloadNote = (req, res, next) => {
 exports.profileImage = (req, res, next) => {
     const { userName } = req.body;
     const file = req.file;
-    
-    User.find({userName: userName})
-    .then(data => {
-        if (data) {
-            User.updateOne({$set: {avatar: file}})
-            .then(result => {
-                res.json({filePath: file.path});
-            })
-            .catch(err => {
-                return next(new HttpError('Server timed out', 404));
-            })
-        } else {
-            return next(new HttpError('No such username !', 404));
+
+    User.find({ userName: userName })
+        .then(data => {
+            if (data) {
+                User.updateOne({ $set: { avatar: file } })
+                    .then(result => {
+                        res.json({ filePath: file.path });
+                    })
+                    .catch(err => {
+                        return next(new HttpError('Server timed out', 404));
+                    })
+            } else {
+                return next(new HttpError('No such username !', 404));
+            }
+        })
+        .catch(err => {
+            return next(new HttpError('Server timed out', 404));
+        })
+}
+
+exports.editProfile = (req, res, next) => {
+    const userDetails = req.body;
+    User.updateOne({ userName: userDetails.userName },
+        {
+            $set: {
+                firstName: userDetails.userFirstName,
+                lastName: userDetails.userFirstName,
+                email: userDetails.userMail,
+                phoneNo: userDetails.userPhoneNo,
+                college: userDetails.userCollege,
+                course: userDetails.userCourse,
+                stream: userDetails.userStream
+            }
         }
-    })
-    .catch(err => {
-        return next(new HttpError('Server timed out', 404));
-    })
+    )
+        .then(result => {
+            res.json({ message: "Profile updated successfully !" });
+        })
+        .catch(err => {
+            return next(new HttpError('No such username !', 404));
+        })
 }

@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux'
+import { setSnackbar } from '../../redux/reducers/snackBarReducer';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from '../../utils/colorPalette';
-import Axios from 'axios';
+import { isValidText, isValidEmail } from '../../utils/validate';
+
 
 const ProfileCard = (props) => {
+    const dispatch = useDispatch();
 
     const userData = props.userData;
     const courseData = props.courseData;
     const streamData = props.streamData;
 
-    const [userDetails, setUserDetails] = React.useState({
+    const [userDetails, setUserDetails] = useState({
         userFirstName: userData.userFirstName,
         userLastName: userData.userLastName,
         userMail: userData.userMail,
@@ -38,8 +42,26 @@ const ProfileCard = (props) => {
     const handleStreamChange = (event, value) => {
         let streamName = value.title;
         console.log(streamName);
-        setUserDetails({ ...userDetails, userStream: streamName});
+        setUserDetails({ ...userDetails, userStream: streamName });
     };
+
+    const handleEditClick = () => {
+        let editUserDetails = userDetails;
+        editUserDetails.userFirstName = editUserDetails.userFirstName.trim();
+        editUserDetails.userLastName = editUserDetails.userLastName.trim();
+        console.log(userDetails);
+        editUserDetails.userMail = editUserDetails.userMail.trim();
+        if (isValidText(editUserDetails.userFirstName)
+            && isValidText(editUserDetails.userLastName)
+            && isValidEmail(editUserDetails.userMail)) {
+            props.editprofile(editUserDetails);
+        } else {
+            dispatch(setSnackbar(
+                true,
+                "error",
+                "Please fill all the required fields"));
+        }
+    }
 
     return (
         <div className={"profile_card"} >
@@ -147,7 +169,7 @@ const ProfileCard = (props) => {
                 </Grid>
                 <div className="profile_card-button">
                     <ThemeProvider theme={theme}>
-                        <Button variant="contained" color="primary" style={{ width: '100%' }}>
+                        <Button variant="contained" color="primary" onClick={handleEditClick} style={{ width: '100%' }}>
                             Edit Account
                     </Button>
                     </ThemeProvider>
