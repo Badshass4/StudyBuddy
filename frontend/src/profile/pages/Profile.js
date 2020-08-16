@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import ProfileImage from '../components/ProfileImage';
@@ -22,12 +23,9 @@ const Profile = (props) => {
         return state.userReducer.authToken;
     });
 
-    const [innerWidth,
-        setInnerWidth] = useState(window.innerWidth);
-    const [courses,
-        setCourses] = useState([]);
-    const [streams,
-        setStreams] = useState([]);
+    const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+    const [courses, setCourses] = useState([]);
+    const [streams, setStreams] = useState([]);
     const userData = useSelector(state => {
         return state.userReducer;
     });
@@ -86,6 +84,7 @@ const Profile = (props) => {
                 localUserData.course = userDetails.userCourse;
                 localUserData.stream = userDetails.userStream;
                 localStorage.setItem('userData', JSON.stringify(localUserData));
+                props.history.go();
                 dispatch(setSnackbar(true, "success", response.data.message));
             })
             .catch(err => {
@@ -95,9 +94,7 @@ const Profile = (props) => {
 
     return (
         <div
-            className={innerWidth >= 500
-                ? "form_main"
-                : "form_main-mobile"}>
+            className={innerWidth >= 500 ? "form_main" : "form_main-mobile"}>
             <ProfileImage userData={userData} />
             <ProfileCard
                 userData={userData}
@@ -109,4 +106,4 @@ const Profile = (props) => {
     );
 }
 
-export default Profile
+export default withRouter(Profile)

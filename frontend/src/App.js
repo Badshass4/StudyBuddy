@@ -52,6 +52,8 @@ const App = () => {
   let isLoggedIn = useSelector(state => {
     return state.authReducer.isLoggedIn;
   });
+  localStorage.getItem('userData') ? isLoggedIn = true : isLoggedIn= false;
+  
 
   useEffect(() => {
     const loggedInUserData = JSON.parse(localStorage.getItem('userData'));

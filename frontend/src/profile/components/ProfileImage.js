@@ -43,7 +43,7 @@ const ProfileImage = (props) => {
         backendApi = backendApi.replace("api", "");
         imagePath = backendApi + imagePath;
         setModifiedImagePath(imagePath);
-    }, [userDetails.userImagePath])
+    }, [userDetails])
 
     const handleToggleSwitch = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });

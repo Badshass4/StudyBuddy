@@ -7,7 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { ThemeProvider } from "@material-ui/core/styles";
 import { theme } from '../../utils/colorPalette';
-import { isValidText, isValidEmail } from '../../utils/validate';
+import { isValidText, isValidEmail, isValidPhoneNo } from '../../utils/validate';
 
 
 const ProfileCard = (props) => {
@@ -49,12 +49,20 @@ const ProfileCard = (props) => {
         let editUserDetails = userDetails;
         editUserDetails.userFirstName = editUserDetails.userFirstName.trim();
         editUserDetails.userLastName = editUserDetails.userLastName.trim();
-        console.log(userDetails);
         editUserDetails.userMail = editUserDetails.userMail.trim();
+        editUserDetails.userPhoneNo = editUserDetails.userPhoneNo.trim();
+        editUserDetails.userCollege = editUserDetails.userCollege.trim();
         if (isValidText(editUserDetails.userFirstName)
             && isValidText(editUserDetails.userLastName)
             && isValidEmail(editUserDetails.userMail)) {
-            props.editprofile(editUserDetails);
+            if (isValidPhoneNo(editUserDetails.userPhoneNo)){
+                props.editprofile(editUserDetails);
+            } else {
+                dispatch(setSnackbar(
+                    true,
+                    "error",
+                    "Please enter correct phone number"));
+            }
         } else {
             dispatch(setSnackbar(
                 true,
@@ -170,7 +178,7 @@ const ProfileCard = (props) => {
                 <div className="profile_card-button">
                     <ThemeProvider theme={theme}>
                         <Button variant="contained" color="primary" onClick={handleEditClick} style={{ width: '100%' }}>
-                            Edit Account
+                            Update Profile
                     </Button>
                     </ThemeProvider>
                 </div>

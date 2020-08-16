@@ -151,7 +151,7 @@ exports.editProfile = (req, res, next) => {
         {
             $set: {
                 firstName: userDetails.userFirstName,
-                lastName: userDetails.userFirstName,
+                lastName: userDetails.userLastName,
                 email: userDetails.userMail,
                 phoneNo: userDetails.userPhoneNo,
                 college: userDetails.userCollege,
