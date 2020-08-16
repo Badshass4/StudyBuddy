@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProfileImage from '../components/ProfileImage';
 import ProfileCard from '../components/ProfileCard';
 import { setSnackbar } from '../../redux/reducers/snackBarReducer';
+import {setLoader} from '../../redux/reducers/loaderReducer';
 import {
     setUserFirstName,
     setUserLastName,
@@ -46,7 +47,6 @@ const Profile = (props) => {
             .catch(err => {
                 console.log(err.response.data.message);
             });
-
     }, []);
 
     const handleCourseClick = (courseId) => {
@@ -61,6 +61,7 @@ const Profile = (props) => {
     };
 
     const handleProfileEdit = (userDetails) => {
+        dispatch(setLoader(true));
         axios
             .put(`${process.env.REACT_APP_BACKEND_API}/user/edit-profile/`, userDetails, {
                 headers: {
@@ -84,7 +85,8 @@ const Profile = (props) => {
                 localUserData.course = userDetails.userCourse;
                 localUserData.stream = userDetails.userStream;
                 localStorage.setItem('userData', JSON.stringify(localUserData));
-                props.history.go();
+                // props.history.go();
+                dispatch(setLoader(false));
                 dispatch(setSnackbar(true, "success", response.data.message));
             })
             .catch(err => {
@@ -93,15 +95,15 @@ const Profile = (props) => {
     }
 
     return (
-        <div
-            className={innerWidth >= 500 ? "form_main" : "form_main-mobile"}>
+        <div className={innerWidth >= 500 ? "form_main" : "form_main-mobile"}>
             <ProfileImage userData={userData} />
             <ProfileCard
                 userData={userData}
                 courseData={courses}
                 streamData={streams}
                 courseClick={handleCourseClick}
-                editprofile={handleProfileEdit} />
+                editprofile={handleProfileEdit}
+            />
         </div>
     );
 }

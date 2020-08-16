@@ -12,6 +12,7 @@ import {
   setUserCollege, setUserCourse, setUserStream,
   setAuthToken, setUserImagePath
 } from './redux/reducers/userReducer';
+import Loader from './shared/circularLoader/Loader';
 // import AddNotePage from './addnote/pages/AddNotePage';
 // import Snackbar from './shared/snackBar/snackBar';
 // import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
@@ -134,6 +135,7 @@ const App = () => {
   }
   return <BrowserRouter>
     <Route component={Header} />
+    <Loader />
     <Suspense
       fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Backdrop className="backdrop">
