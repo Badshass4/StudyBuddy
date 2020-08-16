@@ -8,7 +8,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import EditTwoToneIcon from '@material-ui/icons/EditTwoTone';
 import HighlightOffTwoToneIcon from '@material-ui/icons/HighlightOffTwoTone';
-import {setUserImagePath} from '../../redux/reducers/userReducer';
+import { setUserImagePath } from '../../redux/reducers/userReducer';
 
 const useStyles = makeStyles((theme) => ({
     large: {
@@ -44,6 +44,14 @@ const ProfileImage = (props) => {
         imagePath = backendApi + imagePath;
         setModifiedImagePath(imagePath);
     }, [userDetails])
+
+    useEffect(() => {
+        setUserDetails({
+            ...userDetails,
+            userFirstName: userData.userFirstName,
+            userLastName: userData.userLastName
+        })
+    }, [userData])
 
     const handleToggleSwitch = (event) => {
         setState({ ...state, [event.target.name]: event.target.checked });

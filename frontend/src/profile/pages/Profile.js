@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import ProfileImage from '../components/ProfileImage';
 import ProfileCard from '../components/ProfileCard';
 import { setSnackbar } from '../../redux/reducers/snackBarReducer';
-import {setLoader} from '../../redux/reducers/loaderReducer';
+import { setLoader } from '../../redux/reducers/loaderReducer';
 import {
     setUserFirstName,
     setUserLastName,
@@ -88,6 +88,8 @@ const Profile = (props) => {
                 // props.history.go();
                 dispatch(setLoader(false));
                 dispatch(setSnackbar(true, "success", response.data.message));
+                userData.userFirstName = userDetails.userFirstName;
+                userData.userLastName = userDetails.userLastName;
             })
             .catch(err => {
                 console.log(err);
