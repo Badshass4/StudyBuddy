@@ -33,16 +33,25 @@ const ProfileCard = (props) => {
     };
 
     const handleCourseChange = (event, value) => {
-        let courseId = value._id;
-        let courseName = value.name;
-        props.courseClick(courseId);
-        setUserDetails({ ...userDetails, userCourse: courseName });
+        if (value !== null) {
+            let courseId = value._id;
+            let courseName = value.name;
+            props.courseClick(courseId);
+            setUserDetails({ ...userDetails, userCourse: courseName });
+        } else {
+            props.courseClick("");
+            setUserDetails({ ...userDetails, userCourse: "", userStream: "" });
+        }
+
     };
 
     const handleStreamChange = (event, value) => {
-        let streamName = value.title;
-        console.log(streamName);
-        setUserDetails({ ...userDetails, userStream: streamName });
+        if (value !== null) {
+            let streamName = value.title;
+            setUserDetails({ ...userDetails, userStream: streamName });
+        } else {
+            setUserDetails({ ...userDetails, userStream: "" });
+        }
     };
 
     const handleEditClick = () => {
@@ -55,7 +64,7 @@ const ProfileCard = (props) => {
         if (isValidText(editUserDetails.userFirstName)
             && isValidText(editUserDetails.userLastName)
             && isValidEmail(editUserDetails.userMail)) {
-            if (isValidPhoneNo(editUserDetails.userPhoneNo)){
+            if (isValidPhoneNo(editUserDetails.userPhoneNo)) {
                 props.editprofile(editUserDetails);
             } else {
                 dispatch(setSnackbar(

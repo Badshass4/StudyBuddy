@@ -56,7 +56,7 @@ const Profile = (props) => {
                 setStreams(response.data.result.stream);
             })
             .catch(err => {
-                console.log(err.response.data.message);
+                setStreams([]);
             })
     };
 
