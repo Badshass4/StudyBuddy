@@ -28,14 +28,11 @@ const Profile = (props) => {
         setCourses] = useState([]);
     const [streams,
         setStreams] = useState([]);
-    // const [editCardData,
-    //     setEditCardData] = useState({});
     const userData = useSelector(state => {
         return state.userReducer;
     });
 
     useEffect(() => {
-        // setEditCardData(userData);
         axios
             .get(`${process.env.REACT_APP_BACKEND_API}/user/courses`)
             .then(response => {
@@ -73,7 +70,6 @@ const Profile = (props) => {
                 }
             })
             .then(response => {
-                // vai erom kore sb kota dispatch mar
                 dispatch(setUserFirstName(userDetails.userFirstName));
                 dispatch(setUserLastName(userDetails.userLastName));
                 dispatch(setUserMail(userDetails.userMail));
@@ -81,8 +77,6 @@ const Profile = (props) => {
                 dispatch(setUserCollege(userDetails.userCollege));
                 dispatch(setUserCourse(userDetails.userCourse));
                 dispatch(setUserStream(userDetails.userStream));
-                // haa age dispatch the localstorage e...ohh ok r same values ager din er moto
-                // localstorage eo push kor
                 let localUserData = JSON.parse(localStorage.getItem('userData'));
                 localUserData.firstName = userDetails.userFirstName;
                 localUserData.lastName = userDetails.userLastName;
@@ -93,7 +87,6 @@ const Profile = (props) => {
                 localUserData.stream = userDetails.userStream;
                 localStorage.setItem('userData', JSON.stringify(localUserData));
                 dispatch(setSnackbar(true, "success", response.data.message));
-                // setEditCardData()
             })
             .catch(err => {
                 console.log(err);
