@@ -85,14 +85,13 @@ const Profile = (props) => {
                 localUserData.course = userDetails.userCourse;
                 localUserData.stream = userDetails.userStream;
                 localStorage.setItem('userData', JSON.stringify(localUserData));
-                // props.history.go();
-                dispatch(setLoader(false));
-                dispatch(setSnackbar(true, "success", response.data.message));
                 userData.userFirstName = userDetails.userFirstName;
                 userData.userLastName = userDetails.userLastName;
+                dispatch(setLoader(false));
+                dispatch(setSnackbar(true, "success", response.data.message));
             })
             .catch(err => {
-                console.log(err);
+                dispatch(setLoader(false));
             })
     }
 

@@ -29,6 +29,7 @@ import '../../shared/styles/font.css';
 import axios from 'axios';
 import { setCourseId } from '../../redux/reducers/routeParamsReducer';
 import { setLogIn } from '../../redux/reducers/authReducer';
+import { setLoader } from '../../redux/reducers/loaderReducer';
 import {
     setIsAdmin, setUserFirstName, setUserLastName,
     setUserMail, setUserName, setUserPhoneNo,
@@ -127,12 +128,15 @@ const Header = (props) => {
     // This function will only call while mounting for the first time
     // Fetching all courses for side-drawer
     useEffect(() => {
+        dispatch(setLoader(true));
         axios.get(`${process.env.REACT_APP_BACKEND_API}/user/courses`)
             .then(response => {
                 setCourses(response.data.result);
+                dispatch(setLoader(false));
             })
             .catch(err => {
                 console.log(err.response.data.message);
+                dispatch(setLoader(false));
             });
     }, [])
 
