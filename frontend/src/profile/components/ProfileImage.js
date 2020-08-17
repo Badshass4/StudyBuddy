@@ -57,6 +57,11 @@ const ProfileImage = (props) => {
         setState({ ...state, [event.target.name]: event.target.checked });
     };
 
+    const removeProfileIcon = (event) => {
+        event.preventDefault();
+        alert("hi");
+    }
+
     const fileSelectionHandler = (event) => {
         let fileObj = event.target.files[0];
         let userName = userData.userName;
