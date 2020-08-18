@@ -36,13 +36,17 @@ const ProfileImage = (props) => {
     const [modifiedImagePath, setModifiedImagePath] = useState("");
 
     useEffect(() => {
-        let imagePath = userDetails.userImagePath;
-        let backendApi = process.env.REACT_APP_BACKEND_API;
-        imagePath = imagePath.replace("uploads\\", "/");
-        imagePath = imagePath.replace("\\", "/");
-        backendApi = backendApi.replace("api", "");
-        imagePath = backendApi + imagePath;
-        setModifiedImagePath(imagePath);
+        if (userDetails.userImagePath) {
+            let imagePath = userDetails.userImagePath;
+            let backendApi = process.env.REACT_APP_BACKEND_API;
+            imagePath = imagePath.replace("uploads\\", "/");
+            imagePath = imagePath.replace("\\", "/");
+            backendApi = backendApi.replace("api", "");
+            imagePath = backendApi + imagePath;
+            setModifiedImagePath(imagePath);
+        } else {
+            setModifiedImagePath("");
+        }
     }, [userDetails])
 
     useEffect(() => {
@@ -59,7 +63,25 @@ const ProfileImage = (props) => {
 
     const removeProfileIcon = (event) => {
         event.preventDefault();
-        alert("hi");
+        if (userData.userImagePath) {
+            axios.delete(`${process.env.REACT_APP_BACKEND_API}/user/remove-profile-image`,
+                {
+                    headers: { 'Authorization': 'Bearer ' + authToken },
+                    params: {
+                        userName: userData.userName
+                    }
+                })
+                .then(response => {
+                    setUserDetails({ ...userDetails, userImagePath: "" });
+                    dispatch(setUserImagePath(""));
+                    let userData = JSON.parse(localStorage.getItem('userData'));
+                    userData.imagePath = "";
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                })
+                .catch(err => {
+                    console.log(err);
+                })
+        }
     }
 
     const fileSelectionHandler = (event) => {
@@ -98,7 +120,9 @@ const ProfileImage = (props) => {
                     className={classes.large}
                 // className={"avatar"}
                 >
-                    {userDetails.userFirstName.substring(0, 1) + userDetails.userLastName.substring(0, 1)}
+                    <span style={{ fontSize: '70px' }}>
+                        {userDetails.userFirstName.substring(0, 1) + userDetails.userLastName.substring(0, 1)}
+                    </span>
                 </Avatar>
                 <div className={"profile_img-edit"}>
                     <Grid component="label" container alignItems="center" spacing={1}>
@@ -114,7 +138,7 @@ const ProfileImage = (props) => {
                         </Grid>
                         <Grid item></Grid>
                         <Grid item className={"delete_btn"}>
-                            <HighlightOffTwoToneIcon />
+                            <HighlightOffTwoToneIcon onClick={removeProfileIcon} />
                         </Grid>
                     </Grid>
                 </div>

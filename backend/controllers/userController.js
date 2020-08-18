@@ -1,4 +1,4 @@
-// const fs = require('fs');
+const fs = require('fs');
 // const path = require('path');
 const HttpError = require('../models/error');
 const User = require('../models/user');
@@ -126,12 +126,20 @@ exports.profileImage = (req, res, next) => {
     const { userName } = req.body;
     const file = req.file;
 
-    User.find({ userName: userName })
+    User.findOne({ userName: userName })
         .then(data => {
             if (data) {
-                User.updateOne({ $set: { avatar: file } })
+                let prevFilePath = data.avatar;
+                User.updateOne({ $set: { avatar: file.path } })
                     .then(result => {
-                        res.json({ filePath: file.path });
+                        if (prevFilePath.length) {
+                            fs.unlink(prevFilePath, err => {
+                                (err !== null) ? console.log(err) : res.json({ filePath: file.path });
+                            })
+                        } else {
+                            res.json({ filePath: file.path });
+                        }
+
                     })
                     .catch(err => {
                         return next(new HttpError('Server timed out', 404));
@@ -141,10 +149,33 @@ exports.profileImage = (req, res, next) => {
             }
         })
         .catch(err => {
+            return next(new HttpError('Failed to fetch user', 404));
+        })
+}
+
+// Function to remove profile picture
+exports.removeProfileImage = (req, res, next) => {
+    const userName = req.query.userName;
+    User.findOne({ userName: userName })
+        .then(user => {
+            let prevFilePath = user.avatar;
+            if (user) {
+                User.updateOne({ $set: { avatar: '' } })
+                    .then(result => {
+                        fs.unlink(prevFilePath, err => {
+                            err !== null ? console.log(err) : res.json({ message: "Profile picture removed successfully" })
+                        })
+                    });
+            } else {
+                return next(new HttpError('User not found', 404));
+            }
+        })
+        .catch(err => {
             return next(new HttpError('Server timed out', 404));
         })
 }
 
+// Function to edit profile details
 exports.editProfile = (req, res, next) => {
     const userDetails = req.body;
     User.updateOne({ userName: userDetails.userName },

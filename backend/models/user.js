@@ -40,8 +40,8 @@ const userSchema = new Schema({
         default: ''
     },
     avatar: {
-        type: Object,
-        default: {}
+        type: String,
+        default: ''
     },
     isAdmin: {
         type: Boolean,

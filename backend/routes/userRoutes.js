@@ -21,10 +21,13 @@ userRoutes.get('/subject', userController.getSubjects);
 //user/downloadnote => GET
 userRoutes.get('/downloadnote', userController.downloadNote);
 
-//user/profile-image => GET
+//user/profile-image => POST
 userRoutes.post('/profile-image', authToken, imageUpload.single('file'), userController.profileImage);
 
-//user/profile-image => GET
+//user/remove-profile-image => DELETE
+userRoutes.delete('/remove-profile-image', authToken, userController.removeProfileImage);
+
+//user/profile-image => PUT
 userRoutes.put('/edit-profile', authToken, userController.editProfile);
 
 module.exports = userRoutes;

@@ -165,6 +165,8 @@ const Header = (props) => {
             backendApi = backendApi.replace("api", "");
             imagePath = backendApi + imagePath;
             setModifiedImagePath(imagePath);
+        } else {
+            setModifiedImagePath("");
         }
     }, [userDetails])
 
@@ -388,7 +390,7 @@ const Header = (props) => {
                                     src={modifiedImagePath}
                                     className={classes.menuAvatar}
                                 >
-                                    {userDetails.userFirstName.substring(0, 1) + userDetails.userLastName.substring(0, 1)}
+                                    <span style={{ fontSize: '11px' }}>{userDetails.userFirstName.substring(0, 1) + userDetails.userLastName.substring(0, 1)}</span>
                                 </Avatar>
                             </IconButton>
                         }
