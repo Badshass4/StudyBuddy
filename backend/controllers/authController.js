@@ -48,6 +48,7 @@ exports.getAuthUser = (req, res, next) => {
             if (result) {
                 let existingPassword = result.password;
                 let { userName, email, firstName, lastName, isAdmin, college, stream, course, phoneNo } = result;
+                let imagePath = result.avatar.path;
                 let isValidPassword;
                 try {
                     isValidPassword = await bcrypt.compare(password, existingPassword);
@@ -79,6 +80,7 @@ exports.getAuthUser = (req, res, next) => {
                                 stream: stream,
                                 course: course,
                                 phoneNo: phoneNo,
+                                imagePath: imagePath,
                                 token: token
                             }
                         });

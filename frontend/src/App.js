@@ -6,7 +6,13 @@ import Header from './shared/navigation/Header';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { setLogIn } from './redux/reducers/authReducer';
-import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken } from './redux/reducers/userReducer';
+import {
+  setIsAdmin, setUserFirstName, setUserLastName,
+  setUserMail, setUserName, setUserPhoneNo,
+  setUserCollege, setUserCourse, setUserStream,
+  setAuthToken, setUserImagePath
+} from './redux/reducers/userReducer';
+import Loader from './shared/circularLoader/Loader';
 // import AddNotePage from './addnote/pages/AddNotePage';
 // import Snackbar from './shared/snackBar/snackBar';
 // import StudyMaterialPage from './studymaterials/pages/StudyMaterialPage';
@@ -47,6 +53,8 @@ const App = () => {
   let isLoggedIn = useSelector(state => {
     return state.authReducer.isLoggedIn;
   });
+  localStorage.getItem('userData') ? isLoggedIn = true : isLoggedIn= false;
+  
 
   useEffect(() => {
     const loggedInUserData = JSON.parse(localStorage.getItem('userData'));
@@ -60,7 +68,13 @@ const App = () => {
       dispatch(setUserLastName(loggedInUserData.lastName));
       dispatch(setUserMail(loggedInUserData.email));
       dispatch(setUserName(loggedInUserData.userName));
+      dispatch(setUserPhoneNo(loggedInUserData.phoneNo));
+      dispatch(setUserCollege(loggedInUserData.college));
+      dispatch(setUserCourse(loggedInUserData.course));
+      dispatch(setUserStream(loggedInUserData.stream));
+      dispatch(setUserImagePath(loggedInUserData.imagePath));
       dispatch(setAuthToken(loggedInUserData.token));
+      
     } else {
       localStorage.removeItem('userData');
       localStorage.removeItem('expirationTime');
@@ -121,6 +135,7 @@ const App = () => {
   }
   return <BrowserRouter>
     <Route component={Header} />
+    <Loader />
     <Suspense
       fallback={<div style={{ justifyContent: 'center', alignItems: 'center' }}>
         <Backdrop className="backdrop">

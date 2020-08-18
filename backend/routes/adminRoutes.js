@@ -1,7 +1,7 @@
 const express = require('express');
 
 const adminController = require('../controllers/adminController');
-const fileUpload = require('../middleware/file-upload');
+const {fileUpload} = require('../middleware/file-upload');
 const authToken = require('../middleware/authenticateToken');
 
 const adminRoutes = express.Router();

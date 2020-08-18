@@ -25,11 +25,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import Avatar from '@material-ui/core/Avatar';
 import '../../shared/styles/font.css';
 import axios from 'axios';
 import { setCourseId } from '../../redux/reducers/routeParamsReducer';
 import { setLogIn } from '../../redux/reducers/authReducer';
-import { setIsAdmin, setUserFirstName, setUserLastName, setUserMail, setUserName, setAuthToken }from '../../redux/reducers/userReducer';
+import { setLoader } from '../../redux/reducers/loaderReducer';
+import {
+    setIsAdmin, setUserFirstName, setUserLastName,
+    setUserMail, setUserName, setUserPhoneNo,
+    setUserCollege, setUserCourse, setUserStream,
+    setAuthToken, setUserImagePath
+} from '../../redux/reducers/userReducer';
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -100,16 +107,27 @@ const useStyles = makeStyles((theme) => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         background: '#004d4d',
+    },
+    menuAvatar: {
+        height: '24px',
+        width: '24px'
     }
 }));
 
 const Header = (props) => {
+    const userData = useSelector(state => {
+        return state.userReducer;
+    });
+
     const classes = useStyles();
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
     const [drawerOpen, setDrawerOpen] = React.useState(false);
     const [courses, setCourses] = React.useState([]);
+
+    let [userDetails, setUserDetails] = React.useState({});
+    const [modifiedImagePath, setModifiedImagePath] = React.useState("");
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -122,14 +140,35 @@ const Header = (props) => {
     // This function will only call while mounting for the first time
     // Fetching all courses for side-drawer
     useEffect(() => {
+        dispatch(setLoader(true));
         axios.get(`${process.env.REACT_APP_BACKEND_API}/user/courses`)
             .then(response => {
                 setCourses(response.data.result);
+                dispatch(setLoader(false));
             })
             .catch(err => {
                 console.log(err.response.data.message);
+                dispatch(setLoader(false));
             });
     }, [])
+
+    useEffect(() => {
+        setUserDetails(userData);
+    }, [userData]);
+
+    useEffect(() => {
+        if (userDetails.userImagePath) {
+            let imagePath = userDetails.userImagePath;
+            let backendApi = process.env.REACT_APP_BACKEND_API;
+            imagePath = imagePath.replace("uploads\\", "/");
+            imagePath = imagePath.replace("\\", "/");
+            backendApi = backendApi.replace("api", "");
+            imagePath = backendApi + imagePath;
+            setModifiedImagePath(imagePath);
+        } else {
+            setModifiedImagePath("");
+        }
+    }, [userDetails])
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -181,10 +220,15 @@ const Header = (props) => {
         dispatch(setUserLastName(''));
         dispatch(setUserMail(''));
         dispatch(setUserName(''));
+        dispatch(setUserPhoneNo(''));
+        dispatch(setUserCollege(''));
+        dispatch(setUserCourse(''));
+        dispatch(setUserStream(''));
+        dispatch(setUserImagePath(''));
         dispatch(setAuthToken(''));
         localStorage.removeItem('userData');
         localStorage.removeItem('expirationTime');
-        if (props.history.location.pathname === "/dashboard"){
+        if (props.history.location.pathname === "/dashboard") {
             props.history.go();
         } else {
             props.history.push('/dashboard');
@@ -342,7 +386,12 @@ const Header = (props) => {
                                 onClick={handleProfileMenuOpen}
                                 color="inherit"
                             >
-                                <AccountCircle />
+                                <Avatar
+                                    src={modifiedImagePath}
+                                    className={classes.menuAvatar}
+                                >
+                                    <span style={{ fontSize: '11px' }}>{userDetails.userFirstName.substring(0, 1) + userDetails.userLastName.substring(0, 1)}</span>
+                                </Avatar>
                             </IconButton>
                         }
                     </div>

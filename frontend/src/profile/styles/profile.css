@@ -20,6 +20,34 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
 }
 
+.avatar {
+    width: 240px;
+    height: 240px;
+}
+
+.avatar:hover .MuiAvatar-root{
+    /* filter: opacity(30%); */
+    filter: brightness(30%);
+    transition: .3s ease-in-out;
+}
+
+.avatar:hover .profile_img-edit{
+    display: block;
+}
+
+.profile_img-edit {
+    position: relative;
+    top: -131px;
+    right: -91px;
+    display: none;
+}
+
+.edit_btn,
+.delete_btn {
+    cursor: pointer;
+    color: #c8eeee;
+}
+
 .profile_image-toggle {
     padding-left: 14%;
 }

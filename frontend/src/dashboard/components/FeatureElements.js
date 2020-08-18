@@ -99,6 +99,7 @@ const FeatureElements = () => {
                 onClose={handleClose}
                 onOpen={handleOpen}
                 open={open}
+                className={"speeddial_icon-btn"}
             >
                 {actions.map((action) => (
                     <SpeedDialAction

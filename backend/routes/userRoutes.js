@@ -1,6 +1,8 @@
 const express = require('express');
 
 const userController = require('../controllers/userController');
+const { imageUpload } = require('../middleware/file-upload');
+const authToken = require('../middleware/authenticateToken');
 
 const userRoutes = express.Router();
 
@@ -18,5 +20,14 @@ userRoutes.get('/subject', userController.getSubjects);
 
 //user/downloadnote => GET
 userRoutes.get('/downloadnote', userController.downloadNote);
+
+//user/profile-image => POST
+userRoutes.post('/profile-image', authToken, imageUpload.single('file'), userController.profileImage);
+
+//user/remove-profile-image => DELETE
+userRoutes.delete('/remove-profile-image', authToken, userController.removeProfileImage);
+
+//user/profile-image => PUT
+userRoutes.put('/edit-profile', authToken, userController.editProfile);
 
 module.exports = userRoutes;

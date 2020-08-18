@@ -79,3 +79,13 @@ export function isValidConfirmPassword(password, confirmPassword) {
         return true
     }
 }
+
+// Function to validate Phone No
+export function isValidPhoneNo(phoneNo) {
+    const numbers = /^\d{10}$/;
+    if (phoneNo.length === 0 || phoneNo.match(numbers)) {
+        return true
+    } else {
+        return false
+    }
+}
