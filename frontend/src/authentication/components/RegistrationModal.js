@@ -149,41 +149,34 @@ const RegistrationModal = (props) => {
                 )
             );
         } else {
-            dispatch(
-                setSnackbar(
-                    true,
-                    "success",
-                    "Registerd cheers !"
-                )
-            );
-            // axios.post(
-            //     `${process.env.REACT_APP_BACKEND_API}/authentication/registration`,
-            //     {
-            //         firstName: trimmedFirstName,
-            //         lastName: trimmedLastName,
-            //         email: trimmedEmail,
-            //         password: trimmedPassword
-            //     }
+            axios.post(
+                `${process.env.REACT_APP_BACKEND_API}/authentication/registration`,
+                {
+                    firstName: trimmedFirstName,
+                    lastName: trimmedLastName,
+                    email: trimmedEmail,
+                    password: trimmedPassword
+                }
 
-            // )
-            //     .then(response => {
-            //         dispatch(
-            //             setSnackbar(
-            //                 true,
-            //                 "success",
-            //                 response.data.message
-            //             )
-            //         );
-            //     }).catch(err => {
-            //         dispatch(
-            //             setSnackbar(
-            //                 true,
-            //                 "error",
-            //                 err.response.data.message
-            //             )
-            //         );
-            //     });
-            // props.closeModal();
+            )
+                .then(response => {
+                    dispatch(
+                        setSnackbar(
+                            true,
+                            "success",
+                            response.data.message
+                        )
+                    );
+                }).catch(err => {
+                    dispatch(
+                        setSnackbar(
+                            true,
+                            "error",
+                            err.response.data.message
+                        )
+                    );
+                });
+            props.closeModal();
         }
     }
 

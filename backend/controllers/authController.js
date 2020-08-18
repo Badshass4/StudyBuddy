@@ -2,6 +2,7 @@ const HttpError = require('../models/error');
 const User = require('../models/user');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const mailUtil = require('../util/mail');
 
 // Function to add users after clicking sign up button
 exports.postAddUser = (req, res, next) => {
@@ -27,6 +28,7 @@ exports.postAddUser = (req, res, next) => {
             });
             user.save()
                 .then(result => {
+                    mailUtil.sendMail();
                     res.json({ message: "Registered successfully." })
                 })
                 .catch(err => {
