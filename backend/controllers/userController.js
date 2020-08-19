@@ -125,14 +125,14 @@ exports.downloadNote = (req, res, next) => {
 exports.profileImage = (req, res, next) => {
     const { userName } = req.body;
     const file = req.file;
-
+    
     User.findOne({ userName: userName })
         .then(data => {
             if (data) {
                 let prevFilePath = data.avatar;
-                User.updateOne({ $set: { avatar: file.path } })
+                User.updateOne({userName: data.userName},{ $set: { avatar: file.path } })
                     .then(result => {
-                        if (prevFilePath.length) {
+                        if (prevFilePath.length !== 0) {
                             fs.unlink(prevFilePath, err => {
                                 (err !== null) ? console.log(err) : res.json({ filePath: file.path });
                             })
@@ -160,7 +160,7 @@ exports.removeProfileImage = (req, res, next) => {
         .then(user => {
             let prevFilePath = user.avatar;
             if (user) {
-                User.updateOne({ $set: { avatar: '' } })
+                User.updateOne({userName: user.userName},{ $set: { avatar: '' } })
                     .then(result => {
                         fs.unlink(prevFilePath, err => {
                             err !== null ? console.log(err) : res.json({ message: "Profile picture removed successfully" })
