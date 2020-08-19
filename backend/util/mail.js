@@ -1,14 +1,13 @@
 const nodemailer = require('nodemailer');
 
-
-exports.sendMail = () => {
+exports.sendMail = (userData,mailData) => {
     const transporter = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 587,
+        host: process.env.MAIL_HOST,
+        port: process.env.MAIL_PORT,
         secure: false,
         auth: {
-            user: 'study4buddy420@gmail.com',
-            pass: 'Admin@123'
+            user: process.env.MAIL_USER,
+            pass: process.env.MAIL_PASS
         },
         tls: {
             rejectUnauthorized: false
@@ -16,10 +15,10 @@ exports.sendMail = () => {
     });
 
     const mailOptions = {
-        from: 'study4buddy420@gmail.com',
-        to: 'badsha1695@gmail.com',
-        subject: 'Registration',
-        text: 'That was easy!'
+        from: process.env.MAIL_USER,
+        to: userData.email,
+        subject: mailData.subject,
+        html: mailData.html
     };
 
     console.log(mailOptions);

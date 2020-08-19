@@ -26,9 +26,18 @@ exports.postAddUser = (req, res, next) => {
                 email: email,
                 password: hashedPassword
             });
+
+            // To get data at util -> mail.js
+            let mail = {
+                subject: 'Registration Successful !',
+                html: 'Dear ' + user.firstName.toUpperCase()
+                + ',<br/><br/>Your profile has been registered successfully. Your username is '
+                + user.userName.bold()
+                + '. Please keep it safe and secure. <br/><br/><br/> Warm Regards, <br/> Team Study4Buddy'
+            };
             user.save()
                 .then(result => {
-                    mailUtil.sendMail();
+                    mailUtil.sendMail(user, mail);
                     res.json({ message: "Registered successfully." })
                 })
                 .catch(err => {
