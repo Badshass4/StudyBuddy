@@ -40,8 +40,16 @@ const LoginModal = (props) => {
         setPassword(event.target.value);
     };
 
+    const clear = () => {
+        setTimeout(() => {
+            setEmail('');
+            setPassword('');
+        }, 500);
+    };
+
     const handleLoginCancel = () => {
         props.closeModal();
+        clear();
     };
 
     const handleLoginClick = () => {
@@ -88,7 +96,7 @@ const LoginModal = (props) => {
                 dispatch(setAuthToken(token));
                 props.afterLogin();
                 props.closeModal();
-                // props.history.push('/admin/addnote');
+                clear();
                 dispatch(
                     setSnackbar(
                         true,
@@ -121,8 +129,8 @@ const LoginModal = (props) => {
             <DialogContent>
                 <TextField
                     label="email"
-                    onKeyUp={handleEmail}
-                    placeholder={email}
+                    onChange={handleEmail}
+                    value={email}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -133,8 +141,8 @@ const LoginModal = (props) => {
                 <TextField
                     label="Password"
                     type="password"
-                    onKeyUp={handlePassword}
-                    placeholder={password}
+                    onChange={handlePassword}
+                    value={password}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}

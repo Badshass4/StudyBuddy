@@ -23,7 +23,7 @@ const EditModal = (props) => {
 
     let [allSubjects, setAllSubjects] = useState([]);
     let [title, setTitle] = useState(props.noteInfo.title);
-    let [subject, setSubject] = useState(props.noteInfo.subject);
+    let [subject, setSubject] = useState({ label: props.noteInfo.subject });
     const prevTitle = props.noteInfo.title;
     const prevSubject = props.noteInfo.subject;
 
@@ -67,10 +67,11 @@ const EditModal = (props) => {
     }
 
     const handleEditCancel = () => {
-        setTitle(prevTitle);
-        setSubject(prevSubject);
-        console.log(prevTitle);
         props.closeModal();
+        setTimeout(() => {
+            setTitle(prevTitle);
+            setSubject({ label: prevSubject });
+        }, 500);
     }
 
     // This function will edit a studymaterial
@@ -121,7 +122,8 @@ const EditModal = (props) => {
                 <TextField
                     label="Title"
                     defaultValue={prevTitle}
-                    onKeyUp={handleTitleInput}
+                    value={title}
+                    onChange={handleTitleInput}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -132,7 +134,7 @@ const EditModal = (props) => {
                 <Autocomplete
                     id="subjectDropdown"
                     classes={!isValidSubject(subject) ? dropdownErrorClass : {}}
-                    defaultValue={{ label: subject }}
+                    value={subject}
                     key={(option) => option.id}
                     options={allSubjects}
                     getOptionLabel={(option) => option.label}
@@ -141,10 +143,6 @@ const EditModal = (props) => {
                     renderInput={(params) =>
                         <TextField {...params} label="Subjects" variant="outlined" required />}
                 />
-                {/*<FormHelperText id="outlined-weight-helper-text">
-                    <span style={!validSubject ? { paddingLeft: '10px', color: 'red' } : { display: 'none' }}>Please select a subject</span>
-                    </FormHelperText>*/}
-
             </DialogContent>
             <DialogContent>
                 <DialogActions>

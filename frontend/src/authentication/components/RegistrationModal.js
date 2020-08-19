@@ -81,7 +81,19 @@ const RegistrationModal = (props) => {
 
     const handleRegistrationCancel = () => {
         props.closeModal();
+        clear();
     };
+
+    const clear = () => {
+        setTimeout(() => {
+            setFirstName('');
+            setLastName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+            setShowPassword(false);
+        }, 500);
+    }
 
     const handleRegisterClick = () => {
         let trimmedFirstName = firstName.trim();
@@ -149,6 +161,13 @@ const RegistrationModal = (props) => {
                 )
             );
         } else {
+            dispatch(
+                setSnackbar(
+                    true,
+                    "success",
+                    "Wowww"
+                )
+            );
             axios.post(
                 `${process.env.REACT_APP_BACKEND_API}/authentication/registration`,
                 {
@@ -177,6 +196,7 @@ const RegistrationModal = (props) => {
                     );
                 });
             props.closeModal();
+            clear();
         }
     }
 
@@ -194,7 +214,8 @@ const RegistrationModal = (props) => {
             <DialogContent>
                 <TextField
                     label="First Name"
-                    onKeyUp={handleFirstName}
+                    onChange={handleFirstName}
+                    value={firstName}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -204,7 +225,8 @@ const RegistrationModal = (props) => {
             <DialogContent>
                 <TextField
                     label="Last Name"
-                    onKeyUp={handleLastName}
+                    onChange={handleLastName}
+                    value={lastName}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -214,7 +236,8 @@ const RegistrationModal = (props) => {
             <DialogContent>
                 <TextField
                     label="email"
-                    onKeyUp={handleEmail}
+                    onChange={handleEmail}
+                    value={email}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -250,7 +273,8 @@ const RegistrationModal = (props) => {
                 <TextField
                     label="Confirm password"
                     type="password"
-                    onKeyUp={handleConfirmPassword}
+                    onChange={handleConfirmPassword}
+                    value={confirmPassword}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
