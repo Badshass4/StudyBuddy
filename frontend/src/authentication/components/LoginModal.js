@@ -21,6 +21,7 @@ import {
     setAuthToken, setUserImagePath
 } from '../../redux/reducers/userReducer';
 import Link from '@material-ui/core/Link';
+import '../styles/authStyles.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -40,8 +41,16 @@ const LoginModal = (props) => {
         setPassword(event.target.value);
     };
 
+    const clear = () => {
+        setTimeout(() => {
+            setEmail('');
+            setPassword('');
+        }, 500);
+    };
+
     const handleLoginCancel = () => {
         props.closeModal();
+        clear();
     };
 
     const handleLoginClick = () => {
@@ -88,7 +97,7 @@ const LoginModal = (props) => {
                 dispatch(setAuthToken(token));
                 props.afterLogin();
                 props.closeModal();
-                // props.history.push('/admin/addnote');
+                clear();
                 dispatch(
                     setSnackbar(
                         true,
@@ -105,7 +114,13 @@ const LoginModal = (props) => {
                     )
                 );
             });
-    }
+    };
+
+    const handleForgotPassword = () => {
+        props.closeModal();
+        // opening forgot password modal
+        props.forgotPassword();
+    };
 
     return (
         <Dialog
@@ -120,9 +135,9 @@ const LoginModal = (props) => {
             <DialogTitle id="alert-dialog-title" style={{ minWidth: '30vw' }}>{"Sign in to your account"}</DialogTitle>
             <DialogContent>
                 <TextField
-                    label="email"
-                    onKeyUp={handleEmail}
-                    placeholder={email}
+                    label="Email"
+                    onChange={handleEmail}
+                    value={email}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -133,8 +148,8 @@ const LoginModal = (props) => {
                 <TextField
                     label="Password"
                     type="password"
-                    onKeyUp={handlePassword}
-                    placeholder={password}
+                    onChange={handlePassword}
+                    value={password}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -144,7 +159,7 @@ const LoginModal = (props) => {
             <DialogContent>
                 <DialogActions>
                     <Typography>
-                        <Link href="#">
+                        <Link onClick={handleForgotPassword} className={'forgot_pass'}>
                             Forgot Password?
                         </Link>
                     </Typography>

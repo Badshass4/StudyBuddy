@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FilledInput from '@material-ui/core/FilledInput';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -81,7 +80,19 @@ const RegistrationModal = (props) => {
 
     const handleRegistrationCancel = () => {
         props.closeModal();
+        clear();
     };
+
+    const clear = () => {
+        setTimeout(() => {
+            setFirstName('');
+            setLastName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
+            setShowPassword(false);
+        }, 500);
+    }
 
     const handleRegisterClick = () => {
         let trimmedFirstName = firstName.trim();
@@ -149,41 +160,36 @@ const RegistrationModal = (props) => {
                 )
             );
         } else {
-            dispatch(
-                setSnackbar(
-                    true,
-                    "success",
-                    "Registerd cheers !"
-                )
-            );
-            // axios.post(
-            //     `${process.env.REACT_APP_BACKEND_API}/authentication/registration`,
-            //     {
-            //         firstName: trimmedFirstName,
-            //         lastName: trimmedLastName,
-            //         email: trimmedEmail,
-            //         password: trimmedPassword
-            //     }
+            axios.post(
+                `${process.env.REACT_APP_BACKEND_API}/authentication/registration`,
+                {
+                    type: 'register',
+                    firstName: trimmedFirstName,
+                    lastName: trimmedLastName,
+                    email: trimmedEmail,
+                    password: trimmedPassword
+                }
 
-            // )
-            //     .then(response => {
-            //         dispatch(
-            //             setSnackbar(
-            //                 true,
-            //                 "success",
-            //                 response.data.message
-            //             )
-            //         );
-            //     }).catch(err => {
-            //         dispatch(
-            //             setSnackbar(
-            //                 true,
-            //                 "error",
-            //                 err.response.data.message
-            //             )
-            //         );
-            //     });
-            // props.closeModal();
+            )
+                .then(response => {
+                    props.closeModal();
+                    clear();
+                    dispatch(
+                        setSnackbar(
+                            true,
+                            "success",
+                            response.data.message
+                        )
+                    );
+                }).catch(err => {
+                    dispatch(
+                        setSnackbar(
+                            true,
+                            "error",
+                            err.response.data.message
+                        )
+                    );
+                });
         }
     }
 
@@ -201,7 +207,8 @@ const RegistrationModal = (props) => {
             <DialogContent>
                 <TextField
                     label="First Name"
-                    onKeyUp={handleFirstName}
+                    onChange={handleFirstName}
+                    value={firstName}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -211,7 +218,8 @@ const RegistrationModal = (props) => {
             <DialogContent>
                 <TextField
                     label="Last Name"
-                    onKeyUp={handleLastName}
+                    onChange={handleLastName}
+                    value={lastName}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -220,8 +228,9 @@ const RegistrationModal = (props) => {
             </DialogContent>
             <DialogContent>
                 <TextField
-                    label="email"
-                    onKeyUp={handleEmail}
+                    label="Email"
+                    onChange={handleEmail}
+                    value={email}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}
@@ -257,7 +266,8 @@ const RegistrationModal = (props) => {
                 <TextField
                     label="Confirm password"
                     type="password"
-                    onKeyUp={handleConfirmPassword}
+                    onChange={handleConfirmPassword}
+                    value={confirmPassword}
                     required
                     variant="outlined"
                     style={{ width: '100%' }}

@@ -11,6 +11,7 @@ import ShareIcon from '@material-ui/icons/Share';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import LoginModal from '../../authentication/components/LoginModal';
 import RegistrationModal from '../../authentication/components/RegistrationModal';
+import ForgotPasswordModal from '../../authentication/components/ForgotPasswordModal';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -37,6 +38,7 @@ const FeatureElements = () => {
     const [open, setOpen] = useState(false);
     const [loginModalOpen, setLoginModalOpen] = useState(false);
     const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
+    const [forgotPasswordModalOpen, setForgotPasswordModalOpen] = useState(false);
 
     useEffect(() => {
         if (isLoggedIn) {
@@ -91,6 +93,14 @@ const FeatureElements = () => {
         setRegistrationModalOpen(false);
     };
 
+    const handleForgotPasswordCLick = () => {
+        setForgotPasswordModalOpen(true);
+    };
+
+    const handleForgotPasswordClose = () => {
+        setForgotPasswordModalOpen(false);
+    };
+
     return (
         <div className={classes.root}>
             <SpeedDial
@@ -110,8 +120,20 @@ const FeatureElements = () => {
                     />
                 ))}
             </SpeedDial>
-            <LoginModal openStatus={loginModalOpen} closeModal={handleLoginClose} afterLogin={handleAfterLogin} />
-            <RegistrationModal openStatus={registrationModalOpen} closeModal={handleRegistrationClose} />
+            <LoginModal
+                openStatus={loginModalOpen}
+                closeModal={handleLoginClose}
+                afterLogin={handleAfterLogin}
+                forgotPassword={handleForgotPasswordCLick}
+            />
+            <RegistrationModal
+                openStatus={registrationModalOpen}
+                closeModal={handleRegistrationClose}
+            />
+            <ForgotPasswordModal
+                openStatus={forgotPasswordModalOpen}
+                closeModal={handleForgotPasswordClose}
+            />
         </div>
     );
 }

@@ -66,6 +66,14 @@ const FormElements = (props) => {
         setFile(fileObj);
     }
 
+    const clear = () => {
+        setTimeout(() => {
+            setTitle('');
+            setSubject({label:''});
+            setFile({ name: '' })
+        }, 500);
+    };
+
     // Submitting the add-note page with user input values
     // Firstly, it will validate all the user inputs, if true then call the post method
     const handleFormSubmit = () => {
@@ -76,6 +84,7 @@ const FormElements = (props) => {
         setFileErrorMsg(isValidFile(file).errorMessage);
         if (isValidText(title) && isValidSubject(subject) && isValidFile(file).isValid) {
             handlePostForm(title, subject, file);
+            clear();
         }
         else {
             dispatch(setSnackbar(
@@ -88,7 +97,8 @@ const FormElements = (props) => {
     const textElement = <React.Fragment>
         <TextField
             label="Title"
-            onKeyUp={handleTitleInput}
+            onChange={handleTitleInput}
+            value={title}
             required
             variant="outlined"
             style={{ width: '100%' }}
@@ -104,12 +114,13 @@ const FormElements = (props) => {
         return <React.Fragment>
             <Autocomplete
                 id="subjectDropdown"
-                classes={!validSubject ? dropdownErrorClass :{}}
+                classes={!validSubject ? dropdownErrorClass : {}}
                 key={(option) => option.id}
                 options={optionsParams.options}
                 getOptionLabel={(option) => option.label}
                 style={{ width: '100%' }}
                 onChange={handleDropdownChange}
+                value={subject}
                 renderInput={(params) =>
                     <TextField {...params} label="Subjects" variant="outlined" required />}
             />

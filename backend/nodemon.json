@@ -1,8 +1,0 @@
-{
-    "env": {
-        "DB_USERNAME": "badsha",
-        "DB_PASSWORD": "Goku1234",
-        "DATABASE": "studybuddy",
-        "JWT_TOKEN": "private_token_studybuddy"
-    }
-}
