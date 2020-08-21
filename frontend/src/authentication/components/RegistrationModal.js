@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import FilledInput from '@material-ui/core/FilledInput';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
@@ -161,16 +160,10 @@ const RegistrationModal = (props) => {
                 )
             );
         } else {
-            dispatch(
-                setSnackbar(
-                    true,
-                    "success",
-                    "Wowww"
-                )
-            );
             axios.post(
                 `${process.env.REACT_APP_BACKEND_API}/authentication/registration`,
                 {
+                    type: 'register',
                     firstName: trimmedFirstName,
                     lastName: trimmedLastName,
                     email: trimmedEmail,
@@ -179,6 +172,8 @@ const RegistrationModal = (props) => {
 
             )
                 .then(response => {
+                    props.closeModal();
+                    clear();
                     dispatch(
                         setSnackbar(
                             true,
@@ -195,8 +190,6 @@ const RegistrationModal = (props) => {
                         )
                     );
                 });
-            props.closeModal();
-            clear();
         }
     }
 
@@ -235,7 +228,7 @@ const RegistrationModal = (props) => {
             </DialogContent>
             <DialogContent>
                 <TextField
-                    label="email"
+                    label="Email"
                     onChange={handleEmail}
                     value={email}
                     required

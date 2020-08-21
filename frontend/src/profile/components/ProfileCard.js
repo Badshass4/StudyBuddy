@@ -137,7 +137,7 @@ const ProfileCard = (props) => {
                         onKeyUp={handleUserDetailsChange}
                         defaultValue={userDetails.userPhoneNo}
                         className={"profile_card-field"}
-                        label="Phone No"
+                        label="Phone Number"
                         variant="outlined" />
                 </Grid>
                 <Grid item xs={12} sm={6}>

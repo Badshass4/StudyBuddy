@@ -89,3 +89,13 @@ export function isValidPhoneNo(phoneNo) {
         return false
     }
 }
+
+// Function to validate OTP
+export function isValidOtp(otp) {
+    const numbers = /^\d{6}$/;
+    if (otp.match(numbers)) {
+        return true
+    } else {
+        return false
+    }
+}

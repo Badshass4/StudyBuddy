@@ -21,6 +21,7 @@ import {
     setAuthToken, setUserImagePath
 } from '../../redux/reducers/userReducer';
 import Link from '@material-ui/core/Link';
+import '../styles/authStyles.css';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
@@ -113,7 +114,13 @@ const LoginModal = (props) => {
                     )
                 );
             });
-    }
+    };
+
+    const handleForgotPassword = () => {
+        props.closeModal();
+        // opening forgot password modal
+        props.forgotPassword();
+    };
 
     return (
         <Dialog
@@ -128,7 +135,7 @@ const LoginModal = (props) => {
             <DialogTitle id="alert-dialog-title" style={{ minWidth: '30vw' }}>{"Sign in to your account"}</DialogTitle>
             <DialogContent>
                 <TextField
-                    label="email"
+                    label="Email"
                     onChange={handleEmail}
                     value={email}
                     required
@@ -152,7 +159,7 @@ const LoginModal = (props) => {
             <DialogContent>
                 <DialogActions>
                     <Typography>
-                        <Link href="#">
+                        <Link onClick={handleForgotPassword} className={'forgot_pass'}>
                             Forgot Password?
                         </Link>
                     </Typography>
