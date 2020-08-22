@@ -7,7 +7,7 @@ const BuddiesCard = () => {
         <Card className="flip-card">
             <div className="flip-card-inner">
                 <div className="flip-card-front">
-                    <img src="img_avatar.png" alt="Avatar" style={{ width: '300px', height: '300px' }} />
+                    <img src="img_avatar.png" alt="Avatar" style={{ width: '20vw', height: '20vh' }} />
                 </div>
                 <div className="flip-card-back">
                     <h1>John Doe</h1>

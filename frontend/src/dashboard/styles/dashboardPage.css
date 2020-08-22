@@ -30,7 +30,7 @@
     margin-right: 7%;
 }
 
-.info-container,.buddies-container{
+.info-container,.buddies-container, .contact-us-container{
     margin:6%;
     padding-top:7vh;
     padding-right: 6vw;
@@ -40,6 +40,8 @@
     margin-left:11%;
     margin-top:3%;
     margin-bottom:3%;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
 .image{
@@ -56,4 +58,12 @@
 .key_features-card{
     margin: 5%;
     padding: 2%;
+}
+
+.contact-us-card{
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26); */
+    margin: 4%;
+    margin-left: -3%;
+    padding-left: 5%;
+    padding-bottom: 4%;
 }

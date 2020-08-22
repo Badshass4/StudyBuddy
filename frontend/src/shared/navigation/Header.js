@@ -170,6 +170,22 @@ const Header = (props) => {
         }
     }, [userDetails])
 
+    const handleContactIconClick = () => {
+        const currentPath = props.history.location.pathname;
+        if (currentPath === '/dashboard') {
+            let contactDiv = document.getElementById('contactContainer');
+            contactDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    const handleAboutIconClick = () => {
+        const currentPath = props.history.location.pathname;
+        if (currentPath === '/dashboard') {
+            let contactDiv = document.getElementById('buddiesContainer');
+            contactDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -367,12 +383,12 @@ const Header = (props) => {
 
                         }
                         <Tooltip title="Need any Support ?">
-                            <IconButton color="inherit">
+                            <IconButton color="inherit" onClick={handleContactIconClick}>
                                 <ContactSupportIcon />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="About Us !">
-                            <IconButton color="inherit">
+                            <IconButton color="inherit" onClick={handleAboutIconClick}>
                                 <SupervisorAccountIcon />
                             </IconButton>
                         </Tooltip>

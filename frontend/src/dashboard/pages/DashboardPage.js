@@ -9,7 +9,9 @@ import Footer from '../components/Footer';
 import Grid from '@material-ui/core/Grid';
 
 const DashboardPage = () => {
+
     const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+
     return (
         <React.Fragment>
             <div className={innerWidth >= 500 ? "dashboard-main" : "dashboard-main__mobile"}>
@@ -22,14 +24,14 @@ const DashboardPage = () => {
                             <img className="image" src={require('../../shared/photos/background.jpg')} alt="photo"></img>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <span>
-                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to
+                            <span style={{fontSize:'2em'}}>
+                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that
                             </span>
                         </Grid>
                     </Grid>
                 </div>
 
-                <div className="info-container">
+                <div id="infoContainer" className="info-container">
                     <div className="key_features-text">
                         Key Features
                     </div>
@@ -46,7 +48,7 @@ const DashboardPage = () => {
                     </Grid>
                 </div>
 
-                <div className="buddies-container">
+                <div id="buddiesContainer" className="buddies-container">
                     <div className="key_features-text">
                         Buddies
                     </div>
@@ -60,15 +62,13 @@ const DashboardPage = () => {
                     </Grid>
                 </div>
 
-                <div className="contact-us-container">
+                <div id="contactContainer" className="contact-us-container">
                     <div className="key_features-text">
                         Contact Us
                     </div>
-                    <Grid container>
-                        <Grid style={{ width: '80vw', display: 'flex', justifyContent: 'center' }} sm={12} xs={12}>
-                            <ContactForm />
-                        </Grid>
-                    </Grid>
+                    <div className="contact-us-card">
+                        <ContactForm />
+                    </div>
                 </div>
 
                 <FeatureElements />

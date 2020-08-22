@@ -1,0 +1,25 @@
+.contact-form{
+    display: flex;
+    justify-content: center;
+}
+
+.contact_form-main{
+    width: 50%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.contact_form-main-mobile{
+    width: 90%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+}
+
+.contact_form-fields, .contact_form-button {
+    margin: 1%;
+    padding-top: 3%;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.contact_form-button{
+    padding-bottom: 4%;
+}
