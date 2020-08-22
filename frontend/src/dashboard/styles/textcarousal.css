@@ -1,0 +1,16 @@
+.carousal-main {
+    font-family: 'Raleway', sans-serif;
+    /* padding: 3em 2em; */
+    padding: 2%;
+    height: 40vh;
+  }
+  
+  .carousal-text {
+    font-weight: 200;
+    margin: 0.4em 0;
+    font-size: 3.5em;
+  }
+
+  .txt-rotate{
+      color: #008080;
+  }

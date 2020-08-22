@@ -1,20 +1,21 @@
 .dashboard-main{
     padding-top: 2vh;
     padding-left: 3vw;
-    height:100vh;
+    padding-right: 3vw;
+    min-height:100vh;
     width: 100vw;
-    background: url('../../shared/photos/background.jpg') no-repeat center center fixed;
-    background-size: cover;
+    /* background: url('../../shared/photos/background.jpg') no-repeat center center fixed; */
+    background-color: snow;
 }
 
 .dashboard-main__mobile{
     padding-top: 1vh;
     padding-left: 6vw;
-    height:100vh;
+    min-height:100vh;
     width: 95vw;
-    background: url('../../shared/photos/background.jpg') no-repeat center center fixed;
+    /* background: url('../../shared/photos/background.jpg') no-repeat center center fixed; */
     image-orientation: none;
-    background-size: cover;
+    background-color: snow;
 }
 
 .speeddial_icon-btn .MuiFab-primary{
@@ -23,4 +24,36 @@
 
 .speeddial_icon-btn:hover .MuiFab-primary{
     background-color: #004e4e;
+}
+
+.upper-container{
+    margin-right: 7%;
+}
+
+.info-container,.buddies-container{
+    margin:6%;
+    padding-top:7vh;
+    padding-right: 6vw;
+}
+
+.buddies-grid{
+    margin-left:11%;
+    margin-top:3%;
+    margin-bottom:3%;
+}
+
+.image{
+    height:300px;
+    /* width:100%; */
+}
+
+.key_features-text{
+    font-size: 3.5em;
+    margin-bottom: 4%;
+    text-align: center;
+}
+
+.key_features-card{
+    margin: 5%;
+    padding: 2%;
 }
