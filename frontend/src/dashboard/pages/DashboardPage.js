@@ -21,10 +21,15 @@ const DashboardPage = () => {
                             <TextCarousal />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <img className="image" src={require('../../shared/photos/background.jpg')} alt="photo"></img>
+                            <div className="upper-container_logo">
+                                <img className="image"
+                                    alt="photo"
+                                    src={require('../../shared/photos/Logo1.png')}
+                                />
+                            </div>
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <span style={{fontSize:'2em'}}>
+                            <span style={{ fontSize: '2em' }}>
                                 It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that
                             </span>
                         </Grid>
