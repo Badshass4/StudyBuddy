@@ -21,12 +21,10 @@ const DashboardPage = () => {
                             <TextCarousal />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <div className="upper-container_logo">
-                                <img className="image"
-                                    alt="photo"
-                                    src={require('../../shared/photos/Logo1.png')}
-                                />
-                            </div>
+                            <img className="image"
+                                alt="photo"
+                                src={require('../../shared/photos/Logo4.png')}
+                            />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <span style={{ fontSize: '2em' }}>

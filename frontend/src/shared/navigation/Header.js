@@ -27,6 +27,7 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Avatar from '@material-ui/core/Avatar';
 import '../../shared/styles/font.css';
+import '../../shared/styles/header.css';
 import axios from 'axios';
 import { setCourseId } from '../../redux/reducers/routeParamsReducer';
 import { setLogIn } from '../../redux/reducers/authReducer';
@@ -349,11 +350,22 @@ const Header = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
+
                     <IconButton color="inherit" onClick={handleLogoClick}>
-                        <MenuBookIcon style={{ paddingRight: '8px' }} />
+                        {/* <MenuBookIcon style={{ paddingRight: '8px' }} />
                         <Typography className="font" variant="h6" noWrap>
                             Study Buddy
-                    </Typography>
+                    </Typography> */}
+                        <div className="header-icon">
+                            <img className="icon_image"
+                                alt="photo"
+                                src={require('../../shared/photos/iconLogo.png')}
+                            />
+                            <img className="image"
+                                alt="photo"
+                                src={require('../../shared/photos/headerLogo.png')}
+                            />
+                        </div>
                     </IconButton>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>

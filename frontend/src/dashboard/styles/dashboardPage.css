@@ -30,12 +30,6 @@
     margin-right: 7%;
 }
 
-.upper-container_logo{
-    /* background-color: gainsboro; */
-    margin-left: 2%;
-    padding-left: 20%;
-}
-
 .info-container,.buddies-container, .contact-us-container{
     margin:6%;
     padding-top:7vh;
@@ -51,8 +45,8 @@
 }
 
 .image{
-    height:300px;
-    /* width:100%; */
+    height: 100%;
+    width: 100%;
 }
 
 .key_features-text{

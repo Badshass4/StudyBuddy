@@ -1,0 +1,16 @@
+.header-icon{
+    height: 27px;
+    width: 98px;
+    background-color: gold;
+}
+
+.icon_image{
+    height:100%;
+    width: 25%;
+    display: none;
+}
+
+.image{
+    height:100%;
+    width: 70%;
+}
