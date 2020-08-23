@@ -2,6 +2,13 @@
     font-family: 'Raleway', sans-serif;
     /* padding: 3em 2em; */
     padding: 2%;
+    height: 30vh;
+  }
+
+  .carousal-main-mobile {
+    font-family: 'Raleway', sans-serif;
+    /* padding: 3em 2em; */
+    padding: 2%;
     height: 40vh;
   }
   

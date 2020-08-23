@@ -47,6 +47,13 @@
 .image{
     height: 100%;
     width: 100%;
+    padding-left: 13%;
+}
+
+.image_other{
+    height: 100%;
+    width: 100%;
+    margin-left: 4%;
 }
 
 .key_features-text{

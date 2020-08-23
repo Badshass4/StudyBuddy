@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/textcarousal.css';
 
 const TextCarousal = () => {
+    const [innerWidth, setInnerWidth] = useState(window.innerWidth);
 
     var TxtRotate = function (el, toRotate, period) {
         this.toRotate = toRotate;
@@ -62,7 +63,7 @@ const TextCarousal = () => {
     }, []);
 
     return (
-        <div className="carousal-main">
+        <div className={innerWidth >= 500 ? "carousal-main" : "carousal-main-mobile"}>
             <h1 className="carousal-text">{"StudyBuddy is "}
                 <span
                     class="txt-rotate"

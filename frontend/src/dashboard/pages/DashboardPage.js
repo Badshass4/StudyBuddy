@@ -17,8 +17,13 @@ const DashboardPage = () => {
             <div className={innerWidth >= 500 ? "dashboard-main" : "dashboard-main__mobile"}>
                 <div class="upper-container">
                     <Grid container spacing={1}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={12}>
                             <TextCarousal />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <span style={{ fontSize: '2.5em' }}>
+                                One Stop hassle free solution to maintain course related study materials
+                            </span>
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <img className="image"
@@ -26,11 +31,40 @@ const DashboardPage = () => {
                                 src={require('../../shared/photos/Logo4.png')}
                             />
                         </Grid>
-                        <Grid item xs={12} sm={6}>
-                            <span style={{ fontSize: '2em' }}>
-                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that
-                            </span>
-                        </Grid>
+                        {innerWidth >= 500 &&
+                            <React.Fragment>
+                                <Grid item xs={12} sm={6}>
+                                    <img className="image_other"
+                                        alt="photo"
+                                        src={require('../../shared/photos/others1.png')}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <div style={{ paddingTop: '10%' }}>
+                                        <span style={{ fontSize: '2em' }}>
+                                            Store, share, and collaborate on study materials from any mobile device, tablet, or computer
+                                    </span>
+                                    </div>
+                                </Grid>
+                            </React.Fragment>
+                        }
+                        {innerWidth < 500 &&
+                            <React.Fragment>
+                                <Grid item xs={12} sm={6}>
+                                    <span style={{ fontSize: '2em' }}>
+                                        Store, share, and collaborate on study materials from any mobile device, tablet, or computer
+                                    </span>
+                                </Grid>
+                                <Grid item xs={12} sm={6}>
+                                    <div style={{ paddingTop: '10%' }}>
+                                        <img className="image_other"
+                                            alt="photo"
+                                            src={require('../../shared/photos/others1.png')}
+                                        />
+                                    </div>
+                                </Grid>
+                            </React.Fragment>
+                        }
                     </Grid>
                 </div>
 
