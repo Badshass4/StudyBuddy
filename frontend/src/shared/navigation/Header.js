@@ -130,6 +130,8 @@ const Header = (props) => {
     let [userDetails, setUserDetails] = React.useState({});
     const [modifiedImagePath, setModifiedImagePath] = React.useState("");
 
+    const [innerWidth, setInnerWidth] = React.useState(window.innerWidth);
+
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -351,22 +353,21 @@ const Header = (props) => {
                         <MenuIcon />
                     </IconButton>
 
-                    <IconButton color="inherit" onClick={handleLogoClick}>
-                        {/* <MenuBookIcon style={{ paddingRight: '8px' }} />
+                    {/* <MenuBookIcon style={{ paddingRight: '8px' }} />
                         <Typography className="font" variant="h6" noWrap>
                             Study Buddy
                     </Typography> */}
-                        <div className="header-icon">
-                            <img className="icon_image"
-                                alt="photo"
-                                src={require('../../shared/photos/iconLogo.png')}
-                            />
-                            <img className="image"
-                                alt="photo"
-                                src={require('../../shared/photos/headerLogo.png')}
-                            />
-                        </div>
-                    </IconButton>
+                    <div className="header-icon" onClick={handleLogoClick}>
+                        <img className={innerWidth >= 500 ? "icon_image" : "icon_image_mobile"}
+                            alt="photo"
+                            src={require('../../shared/photos/iconLogo.png')}
+                        />
+                        <img className="image"
+                            style={innerWidth >= 500 ? {} : { display: 'none' }}
+                            alt="photo"
+                            src={require('../../shared/photos/headerLogo.png')}
+                        />
+                    </div>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />

@@ -1,16 +1,21 @@
 .header-icon{
     height: 27px;
-    width: 98px;
-    background-color: gold;
+    width: 120px;
+    display: flex;
+    cursor: pointer;
 }
 
 .icon_image{
     height:100%;
     width: 25%;
-    display: none;
+}
+
+.icon_image_mobile{
+    height:100%;
+    width: 60%;
 }
 
 .image{
     height:100%;
-    width: 70%;
+    width: 75% !important;
 }
