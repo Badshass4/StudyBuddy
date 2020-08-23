@@ -5,11 +5,16 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import PersonIcon from '@material-ui/icons/Person';
+import GroupIcon from '@material-ui/icons/Group';
+import SchoolIcon from '@material-ui/icons/School';
+import PublicIcon from '@material-ui/icons/Public';
 
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 275,
+        // minWidth: '200px',
+        minHeight: '260px',
         margin: '5%',
     },
     bullet: {
@@ -22,29 +27,30 @@ const useStyles = makeStyles({
     },
     pos: {
         marginBottom: 12,
+    },
+    iconColor: {
+        color: '#008080'
     }
 });
 
-const InfoCard = () => {
+const InfoCard = (props) => {
     const classes = useStyles();
-    const bull = <span className={classes.bullet}>•</span>;
-
     return (
         <Card className={classes.root}>
             <CardContent>
-                <Typography className={classes.title} color="textSecondary" gutterBottom>
-                    Word of the Day
-                    </Typography>
+                {props.info.type === "Person" ?
+                    <PersonIcon className={classes.iconColor} /> :
+                    props.info.type === "Group" ?
+                        <GroupIcon className={classes.iconColor} /> :
+                        props.info.type === "Institute" ? <SchoolIcon className={classes.iconColor} /> :
+                            <PublicIcon className={classes.iconColor} />}
                 <Typography variant="h5" component="h2">
-                    be{bull}nev{bull}o{bull}lent
-                    </Typography>
-                <Typography className={classes.pos} color="textSecondary">
-                    adjective
-                    </Typography>
-                <Typography variant="body2" component="p">
-                    well meaning and kindly.
-                        <br />
-                    {'"a benevolent smile"'}
+                    {props.info.header}
+                </Typography>
+                <br />
+                <Typography style={{ color: 'grey' }} variant="body2" component="p">
+                    {props.info.message}
+                    <br />
                 </Typography>
             </CardContent>
             <CardActions>

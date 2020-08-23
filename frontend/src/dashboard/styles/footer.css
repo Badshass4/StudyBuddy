@@ -1,11 +1,11 @@
-.footer-main{
+.footer-main,.footer-main-mobile{
     background-color: #e6e3e3;
     margin: 2%;
-    margin-left: -6vw;
     margin-right: 0;
     margin-bottom: 0;
     padding: 2%;
     padding-left: 6%;
+    margin-left: -6vw;
 }
 
 .icon-bar{

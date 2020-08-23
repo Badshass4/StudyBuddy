@@ -2,17 +2,18 @@ import React from 'react';
 import '../styles/buddiescard.css';
 import Card from '@material-ui/core/Card';
 
-const BuddiesCard = () => {
+const BuddiesCard = (props) => {
     return (
         <Card className="flip-card">
             <div className="flip-card-inner">
                 <div className="flip-card-front">
-                    <img src="img_avatar.png" alt="Avatar" style={{ width: '20vw', height: '20vh' }} />
+                    <img src={props.info.image} alt="Avatar" style={{ width: '100%', height: '100%' }} />
                 </div>
                 <div className="flip-card-back">
-                    <h1>John Doe</h1>
-                    <p>Architect & Engineer</p>
-                    <p>We love that guy</p>
+                    <h2 style={{ paddingTop: '20px' }}>{props.info.name}</h2>
+                    <p>Designer</p>
+                    <p>Architect</p>
+                    <p>Developer</p>
                 </div>
             </div>
         </Card>
