@@ -115,7 +115,8 @@ const DashboardPage = () => {
                     <div className="key_features-text">
                         Buddies
                     </div>
-                    <Grid className="buddies-grid" container spacing={4}>
+                    <div className="buddies-grid-outer">
+                    <Grid className={innerWidth >= 500 ? "buddies-grid" : "buddies-grid-mobile"} container spacing={4}>
                         <Grid sm={6} xs={12}>
                             <BuddiesCard info={{ name: "Badsha Mandal", image: require("../../shared/photos/badsha_dp.jpg") }} />
                         </Grid>
@@ -123,6 +124,7 @@ const DashboardPage = () => {
                             <BuddiesCard info={{ name: "Sayantan Kundu", image: require("../../shared/photos/sayantan_dp.jpeg") }} />
                         </Grid>
                     </Grid>
+                    </div>
                 </div>
 
                 <div id="contactContainer" className="contact-us-container">
