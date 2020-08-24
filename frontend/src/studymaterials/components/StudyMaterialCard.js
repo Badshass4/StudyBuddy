@@ -20,9 +20,15 @@ import '../../shared/styles/font.css';
 
 const StudyMaterialCard = (props) => {
     const { info } = props;
+
     let isLoggedIn = useSelector(state => {
         return state.authReducer.isLoggedIn;
     })
+
+    let isAdmin = useSelector(state => {
+        return state.userReducer.isAdmin;
+    })
+
     let [deleteModalOpen, setDeleteModalOpen] = useState(false);
     let [editModalOpen, setEditModalOpen] = useState(false);
 
@@ -91,13 +97,13 @@ const StudyMaterialCard = (props) => {
                         <CloudDownloadIcon onClick={handleDownload} />
                     </IconButton>
                     {
-                        isLoggedIn &&
+                        isLoggedIn && isAdmin &&
                         <IconButton onClick={handleEdit} aria-label="edit">
                             <EditIcon />
                         </IconButton>
                     }
                     {
-                        isLoggedIn &&
+                        isLoggedIn && isAdmin &&
                         <IconButton onClick={handleDelete} aria-label="delete">
                             <DeleteIcon />
                         </IconButton>
