@@ -39,8 +39,8 @@ const ProfileImage = (props) => {
         if (userDetails.userImagePath) {
             let imagePath = userDetails.userImagePath;
             let backendApi = process.env.REACT_APP_BACKEND_API;
-            imagePath = imagePath.replace("uploads\\", "/");
-            imagePath = imagePath.replace("\\", "/");
+            imagePath = imagePath.replace("uploads\/", "/");
+            imagePath = imagePath.replace("\/", "/");
             backendApi = backendApi.replace("api", "");
             imagePath = backendApi + imagePath;
             setModifiedImagePath(imagePath);

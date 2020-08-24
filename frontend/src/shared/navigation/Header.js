@@ -163,8 +163,8 @@ const Header = (props) => {
         if (userDetails.userImagePath) {
             let imagePath = userDetails.userImagePath;
             let backendApi = process.env.REACT_APP_BACKEND_API;
-            imagePath = imagePath.replace("uploads\\", "/");
-            imagePath = imagePath.replace("\\", "/");
+            imagePath = imagePath.replace("uploads\/", "/");
+            imagePath = imagePath.replace("\/", "/");
             backendApi = backendApi.replace("api", "");
             imagePath = backendApi + imagePath;
             setModifiedImagePath(imagePath);
@@ -310,14 +310,14 @@ const Header = (props) => {
                     <p>Add Notes</p>
                 </MenuItem>
             }
-            <MenuItem>
+            <MenuItem onClick={handleContactIconClick}>
                 <IconButton color="inherit">
                     <ContactSupportIcon />
                 </IconButton>
                 <p>Need any Support ?</p>
             </MenuItem>
-            <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
+            <MenuItem onClick={handleAboutIconClick}>
+                <IconButton  color="inherit">
                     <SupervisorAccountIcon />
                 </IconButton>
                 <p>About Us !</p>
