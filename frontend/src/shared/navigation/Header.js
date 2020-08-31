@@ -27,6 +27,7 @@ import LocalLibraryIcon from '@material-ui/icons/LocalLibrary';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Avatar from '@material-ui/core/Avatar';
 import '../../shared/styles/font.css';
+import '../../shared/styles/header.css';
 import axios from 'axios';
 import { setCourseId } from '../../redux/reducers/routeParamsReducer';
 import { setLogIn } from '../../redux/reducers/authReducer';
@@ -129,6 +130,8 @@ const Header = (props) => {
     let [userDetails, setUserDetails] = React.useState({});
     const [modifiedImagePath, setModifiedImagePath] = React.useState("");
 
+    const [innerWidth, setInnerWidth] = React.useState(window.innerWidth);
+
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
@@ -160,8 +163,8 @@ const Header = (props) => {
         if (userDetails.userImagePath) {
             let imagePath = userDetails.userImagePath;
             let backendApi = process.env.REACT_APP_BACKEND_API;
-            imagePath = imagePath.replace("uploads\\", "/");
-            imagePath = imagePath.replace("\\", "/");
+            imagePath = imagePath.replace("uploads\/", "/");
+            imagePath = imagePath.replace("\/", "/");
             backendApi = backendApi.replace("api", "");
             imagePath = backendApi + imagePath;
             setModifiedImagePath(imagePath);
@@ -169,6 +172,22 @@ const Header = (props) => {
             setModifiedImagePath("");
         }
     }, [userDetails])
+
+    const handleContactIconClick = () => {
+        const currentPath = props.history.location.pathname;
+        if (currentPath === '/dashboard') {
+            let contactDiv = document.getElementById('contactContainer');
+            contactDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+
+    const handleAboutIconClick = () => {
+        const currentPath = props.history.location.pathname;
+        if (currentPath === '/dashboard') {
+            let contactDiv = document.getElementById('buddiesContainer');
+            contactDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -291,14 +310,14 @@ const Header = (props) => {
                     <p>Add Notes</p>
                 </MenuItem>
             }
-            <MenuItem>
+            <MenuItem onClick={handleContactIconClick}>
                 <IconButton color="inherit">
                     <ContactSupportIcon />
                 </IconButton>
                 <p>Need any Support ?</p>
             </MenuItem>
-            <MenuItem>
-                <IconButton aria-label="show 11 new notifications" color="inherit">
+            <MenuItem onClick={handleAboutIconClick}>
+                <IconButton  color="inherit">
                     <SupervisorAccountIcon />
                 </IconButton>
                 <p>About Us !</p>
@@ -333,12 +352,22 @@ const Header = (props) => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <IconButton color="inherit" onClick={handleLogoClick}>
-                        <MenuBookIcon style={{ paddingRight: '8px' }} />
+
+                    {/* <MenuBookIcon style={{ paddingRight: '8px' }} />
                         <Typography className="font" variant="h6" noWrap>
                             Study Buddy
-                    </Typography>
-                    </IconButton>
+                    </Typography> */}
+                    <div className="header-icon" onClick={handleLogoClick}>
+                        <img className={innerWidth >= 500 ? "icon_image" : "icon_image_mobile"}
+                            alt="photo"
+                            src={require('../../shared/photos/iconLogo.png')}
+                        />
+                        <img className="image"
+                            style={innerWidth >= 500 ? {} : { display: 'none' }}
+                            alt="photo"
+                            src={require('../../shared/photos/headerLogo.png')}
+                        />
+                    </div>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
                             <SearchIcon />
@@ -367,12 +396,12 @@ const Header = (props) => {
 
                         }
                         <Tooltip title="Need any Support ?">
-                            <IconButton color="inherit">
+                            <IconButton color="inherit" onClick={handleContactIconClick}>
                                 <ContactSupportIcon />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="About Us !">
-                            <IconButton color="inherit">
+                            <IconButton color="inherit" onClick={handleAboutIconClick}>
                                 <SupervisorAccountIcon />
                             </IconButton>
                         </Tooltip>
